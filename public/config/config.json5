@@ -1,0 +1,24 @@
+{
+  files: [
+    {
+      name: 'Test Object',
+      size: 5814984,
+      thumbnail: 'media/blumenkranz.png',
+    },
+    {
+      name: 'Round Table',
+      size: 685316,
+      thumbnail: 'media/chefhat.png',
+    },
+    {
+      name: 'Test Object 2',
+      size: 5814984,
+      thumbnail: 'media/blumenkranz.png',
+    },
+    {
+      name: 'Round Table 2',
+      size: 685316,
+      thumbnail: 'media/chefhat.png',
+    },
+  ],
+}

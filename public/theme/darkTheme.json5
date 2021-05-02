@@ -1,0 +1,45 @@
+{
+  // primary: {
+  //   main: '#212121',
+  //   light: '#484848',
+  //   dark: '#000000',
+  //   text: '#ffffff',
+  // },
+  // secondary: {
+  //   main: '#fafafa',
+  //   light: '#ffffff',
+  //   dark: '#c7c7c7',
+  //   text: '#000000',
+  // },
+  palette: {
+    text: {
+      primary: '#ffffff',
+      secondary: 'rgba(255, 255, 255, 0.7)',
+      disabled: 'rgba(255, 255, 255, 0.5)',
+      hint: 'rgba(255, 255, 255, 0.5)',
+      icon: 'rgba(255, 255, 255, 0.5)',
+    },
+    divider: 'rgba(255, 255, 255, 0.12)',
+    background: {
+      paper: '#282828',
+      default: '#202020',
+      level1: '#212121',
+      level2: '#333333',
+      level3: '#676767',
+      absolute: '#000000',
+    },
+    action: {
+      active: 'rgba(255, 255, 255, 0.2)',
+      hover: 'rgba(255, 255, 255, 0.08)',
+      hoverOpacity: 0.08,
+      selected: 'rgba(255, 255, 255, 0.16)',
+      selectedOpacity: 0.16,
+      disabled: 'rgba(255, 255, 255, 0.3)',
+      disabledBackground: 'rgba(255, 255, 255, 0.12)',
+      disabledOpacity: 0.38,
+      focus: 'rgba(255, 255, 255, 0.1)',
+      focusOpacity: 0.12,
+      activatedOpacity: 0.24,
+    },
+  },
+}

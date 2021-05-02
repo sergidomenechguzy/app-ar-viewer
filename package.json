@@ -3,17 +3,25 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
+    "clsx": "^1.1.1",
+    "deepmerge": "^4.2.2",
+    "fetch-json5": "^1.0.0",
+    "filesize": "^6.1.0",
+    "i18next": "^20.2.2",
+    "i18next-browser-languagedetector": "^6.1.0",
+    "json5": "^2.2.0",
+    "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-i18next": "^11.8.15",
+    "react-jss": "^10.6.0",
     "react-scripts": "4.0.3",
-    "web-vitals": "^1.0.1"
+    "react-select": "^4.3.0",
+    "react-transition-group": "^4.4.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "craco start",
+    "build": "craco build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -34,5 +42,19 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.16",
+    "@craco/craco": "^6.1.1",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
+    "eslint": "^7.25.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.23.2",
+    "prettier": "^2.2.1",
+    "react-refresh": "^0.8.3",
+    "webpack-hot-middleware": "^2.25.0"
   }
 }
