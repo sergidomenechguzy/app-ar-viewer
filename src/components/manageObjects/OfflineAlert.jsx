@@ -12,7 +12,7 @@ const useStyles = createUseStyles((theme) => ({
     margin: theme.spacing(4, 2, 10, 0),
   },
   typography: {
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(2),
   },
 }));
 
@@ -22,7 +22,7 @@ const OfflineAlert = () => {
 
   return (
     <div className={cls.offlineWrapper}>
-      <OfflineIcon size="h3" color="icon" />
+      <OfflineIcon size="h4" color="icon" />
       <Typography className={cls.typography}>
         {t('Go online to see all available 3D-Objects')}
       </Typography>

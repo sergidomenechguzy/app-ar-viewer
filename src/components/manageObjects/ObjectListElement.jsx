@@ -55,7 +55,7 @@ const ObjectListElement = ({ file, last }) => {
           </Typography>
         </div>
         <IconButton className={cls.action}>
-          <DeleteIcon size="h5" />
+          <DeleteIcon size="h6" />
         </IconButton>
       </li>
       {!last ? <Divider className={cls.divider} /> : null}

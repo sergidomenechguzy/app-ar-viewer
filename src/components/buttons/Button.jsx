@@ -6,9 +6,9 @@ import ButtonBase from './ButtonBase';
 
 const useStyles = createUseStyles((theme) => ({
   button: {
-    borderRadius: theme.shape.borderRadius * 6,
+    borderRadius: theme.shape.borderRadius * 3,
     color: theme.palette.text.primary,
-    padding: theme.spacing(2, 3),
+    padding: theme.spacing(1.5),
     backgroundColor: `${theme.palette.background.default}00`,
   },
   outlined: {

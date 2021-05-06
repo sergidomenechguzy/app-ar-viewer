@@ -24,10 +24,10 @@ const ManageObjectsHeader = ({ onClose }) => {
     <>
       <div className={cls.header}>
         <IconButton onClick={setOpened}>
-          <InfoIcon size={'h4'} />
+          <InfoIcon size={'h5'} />
         </IconButton>
         <IconButton onClick={onClose}>
-          <ExpandIcon size={'h4'} />
+          <ExpandIcon size={'h5'} />
         </IconButton>
       </div>
       <InfoModal open={isOpen} onClose={setClosed} />

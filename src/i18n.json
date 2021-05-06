@@ -14,7 +14,14 @@
       "Saved": "Saved",
       "3D-Objects": "3D-Objects",
       "Go online to see all available 3D-Objects": "Go online to see all available 3D-Objects",
-      "Upload": "Uploaded"
+      "Upload": "Upload",
+      "AR supported": "AR supported",
+      "Switch to 3D-Viewer": "Switch to 3D-Viewer",
+      "Start AR-Session": "Start AR-Session",
+      "Your device and browser support WebXR. That means you can place 3D-Objects around yourself using the camera.": "Your device and browser support WebXR. That means you can place 3D-Objects around yourself using the camera.",
+      "AR not supported": "AR not supported",
+      "Start 3D-Viewer": "Start 3D-Viewer",
+      "It seems like your device or browser does not support WebXR. You can still view the 3D-Objects in the 3D-Object-Viewer.": "It seems like your device or browser does not support WebXR. You can still view the 3D-Objects in the 3D-Object-Viewer."
     }
   },
   "de": {
@@ -32,7 +39,14 @@
       "Saved": "Gespeichert",
       "3D-Objects": "3D-Objekte",
       "Go online to see all available 3D-Objects": "Geh online, um alle verfügbaren 3D-Objekte zu sehen",
-      "Upload": "Hochladen"
+      "Upload": "Hochladen",
+      "AR supported": "AR unterstützt",
+      "Switch to 3D-Viewer": "Zu 3D-Viewer wechseln",
+      "Start AR-Session": "AR-Session starten",
+      "Your device and browser support WebXR. That means you can place 3D-Objects around yourself using the camera.": "Dein Gerät und Browser unterstützen WebXR. Damit kannst du 3D-Objekte über deine Kamera in deiner Umgebung platzieren.",
+      "AR not supported": "AR nicht unterstützt",
+      "Start 3D-Viewer": "3D-Viewer starten",
+      "It seems like your device or browser does not support WebXR. You can still view the 3D-Objects in the 3D-Object-Viewer.": "Dein Gerät oder Browser unterstützt leider kein WebXR. Du kannst dir die 3D-Objekte stattdessen im 3D-Objekt-Viewer anschauen."
     }
   }
 }

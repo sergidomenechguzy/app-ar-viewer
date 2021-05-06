@@ -1,16 +1,4 @@
 {
-  // primary: {
-  //   main: '#212121',
-  //   light: '#484848',
-  //   dark: '#000000',
-  //   text: '#ffffff',
-  // },
-  // secondary: {
-  //   main: '#fafafa',
-  //   light: '#ffffff',
-  //   dark: '#c7c7c7',
-  //   text: '#000000',
-  // },
   palette: {
     text: {
       primary: '#ffffff',
@@ -27,6 +15,8 @@
       level2: '#333333',
       level3: '#676767',
       absolute: '#000000',
+      viewerHighlight: '#404040',
+      float: '#383838',
     },
     action: {
       active: 'rgba(255, 255, 255, 0.2)',

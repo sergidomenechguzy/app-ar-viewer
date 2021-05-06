@@ -19,7 +19,7 @@ const UploadHeader = ({ onClose }) => {
   return (
     <div className={cls.header}>
       <IconButton onClick={onClose}>
-        <ExpandIcon size={'h4'} />
+        <ExpandIcon size={'h5'} />
       </IconButton>
     </div>
   );

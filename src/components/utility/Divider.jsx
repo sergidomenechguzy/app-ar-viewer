@@ -5,7 +5,7 @@ import { createUseStyles } from 'react-jss';
 
 const useStyles = createUseStyles((theme) => ({
   divider: {
-    backgroundColor: theme.palette.action.disabledBackground,
+    backgroundColor: theme.palette.divider,
     border: 'none',
     height: '1px',
     margin: 0,

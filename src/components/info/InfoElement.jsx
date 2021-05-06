@@ -21,7 +21,7 @@ const InfoElement = ({ info, icon, className }) => {
 
   return (
     <div className={clsx(cls.infoElement, className)}>
-      <div className={cls.iconWrapper}>{cloneElement(icon, { color: 'primary', size: 'h4' })}</div>
+      <div className={cls.iconWrapper}>{cloneElement(icon, { color: 'primary', size: 'h5' })}</div>
       <Typography>{info}</Typography>
     </div>
   );
