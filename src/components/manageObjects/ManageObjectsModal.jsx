@@ -14,7 +14,7 @@ const useStyles = createUseStyles((theme) => ({
   modal: {
     backgroundColor: theme.palette.background.default,
   },
-  content: {
+  header: {
     marginLeft: theme.spacing(2),
   },
   test: {
@@ -34,19 +34,33 @@ const ManageObjectsModal = ({ open, onClose }) => {
       className={cls.modal}
       header={<ManageObjectsHeader onClose={onClose} />}
       footer={<ManageObjectsFooter />}
-      contentStyle={cls.content}
       fullHeight
       fullSizeContent
       divideContent
     >
       <ObjectList
-        files={config.files}
-        header={<Typography variant="h5">{t('Uploaded')}</Typography>}
+        files={[]}
+        header={
+          <Typography className={cls.header} variant="h5">
+            {t('Uploaded')}
+          </Typography>
+        }
       />
-      <ObjectList files={[]} header={<Typography variant="h5">{t('Saved')}</Typography>} />
       <ObjectList
         files={[]}
-        header={<Typography variant="h5">{t('3D-Objects')}</Typography>}
+        header={
+          <Typography className={cls.header} variant="h5">
+            {t('Saved')}
+          </Typography>
+        }
+      />
+      <ObjectList
+        files={config.files}
+        header={
+          <Typography className={cls.header} variant="h5">
+            {t('3D-Objects')}
+          </Typography>
+        }
         alternative={<OfflineAlert />}
       />
     </BottomSlidingModal>

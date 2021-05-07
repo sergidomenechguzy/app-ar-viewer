@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { createUseStyles } from 'react-jss';
 import { useViewStore } from '../../stores/ViewStore';
 import { useXRSession } from '../../stores/XRSessionStore';
-import requestSession from '../../webxr/requestSession';
+import requestSession from '../../three/requestSession';
 import Button from '../buttons/Button';
 import Modal from '../utility/Modal';
 import Typography from '../utility/Typography';

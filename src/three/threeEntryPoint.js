@@ -7,17 +7,15 @@ import {
   PointLight,
   SpotLight,
 } from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 let camera;
 let scene;
 let renderer;
-const loader = new GLTFLoader();
+let controls;
 
 let hitTestSource = null;
 let hitTestSourceRequested = false;
-
-let gltf;
 
 const onWindowResize = () => {
   camera.aspect = window.innerWidth / window.innerHeight;
@@ -29,7 +27,7 @@ const onWindowResize = () => {
 const threeEntryPoint = async (sceneRef, xrSession) => {
   scene = new Scene();
 
-  camera = new PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 20);
+  camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.01, 100);
 
   const ambient = new AmbientLight();
   scene.add(ambient);
@@ -46,26 +44,50 @@ const threeEntryPoint = async (sceneRef, xrSession) => {
   renderer = new WebGLRenderer({ antialias: true, alpha: true });
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);
-  await renderer.getContext().makeXRCompatible();
-  renderer.xr.enabled = true;
-  renderer.xr.setReferenceSpaceType('local');
-  renderer.xr.setSession(xrSession);
+
+  if (xrSession) {
+    await renderer.getContext().makeXRCompatible();
+    renderer.xr.enabled = true;
+    renderer.xr.setReferenceSpaceType('local');
+    renderer.xr.setSession(xrSession);
+  } else {
+    camera.position.set(0, 0, 3);
+    controls = new OrbitControls(camera, renderer.domElement);
+    controls.maxPolarAngle = (2.3 * Math.PI) / 3;
+    controls.minPolarAngle = Math.PI / 3;
+    controls.maxDistance = 10;
+    controls.minDistance = 1;
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.rotateSpeed = 1.5;
+    controls.enablePan = false;
+    controls.update();
+  }
 
   sceneRef.appendChild(renderer.domElement);
   window.addEventListener('resize', onWindowResize, false);
 
-  animate();
-  await loadGltf();
-  // await onRequestSession();
-  // return xrSession;
+  if (xrSession) {
+    animateXR();
+  } else {
+    animate();
+  }
+  return scene;
 };
 
 const animate = () => {
-  renderer.setAnimationLoop(render);
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene, camera);
 };
 
-const render = (timestamp, frame) => {
-  if (frame && gltf?.scene.visible === false) {
+const animateXR = () => {
+  renderer.setAnimationLoop(renderWithHitTest);
+};
+
+const renderWithHitTest = (timestamp, frame) => {
+  if (frame) {
+    const selectedObject = scene.getObjectByName('current');
     const referenceSpace = renderer.xr.getReferenceSpace();
     const session = renderer.xr.getSession();
 
@@ -92,11 +114,11 @@ const render = (timestamp, frame) => {
         const mat = new Matrix4();
         mat.fromArray(hit.getPose(referenceSpace).transform.matrix);
 
-        if (mat) {
+        if (mat && selectedObject) {
           console.log(mat);
-          console.log(gltf);
-          gltf.scene.position.setFromMatrixPosition(mat);
-          gltf.scene.visible = true;
+          console.log(selectedObject);
+          selectedObject.position.setFromMatrixPosition(mat);
+          selectedObject.visible = true;
         }
       }
     }
@@ -104,24 +126,5 @@ const render = (timestamp, frame) => {
 
   renderer.render(scene, camera);
 };
-
-const loadGltf = () =>
-  new Promise((resolve, reject) => {
-    loader.load(
-      'media/wooden-chair/chair-beech.glb',
-      (asset) => {
-        gltf = asset;
-        // gltf.scene.scale.set(0.9, 0.9, 0.9);
-        gltf.scene.visible = false;
-        scene.add(gltf.scene);
-        resolve();
-      },
-      undefined,
-      (err) => {
-        console.error(err);
-        reject();
-      }
-    );
-  });
 
 export default threeEntryPoint;

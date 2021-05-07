@@ -68,10 +68,8 @@ ThemeStore.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-const useThemestore = () => useContext(Context);
-
 Context.displayName = 'ThemeStore';
 
 export default ThemeStore;
 
-export { useThemestore };
+export const useThemestore = () => useContext(Context);

@@ -5,7 +5,7 @@ import FloatingButton from './FloatingButton';
 import ThreeDViewerIcon from '../icons/ThreeDViewerIcon';
 import ArViewerIcon from '../icons/ArViewerIcon';
 import { useXRSession } from '../../stores/XRSessionStore';
-import requestSession from '../../webxr/requestSession';
+import requestSession from '../../three/requestSession';
 
 const SwitchViewButton = ({ className }) => {
   const { currentView, dispatch } = useViewStore();

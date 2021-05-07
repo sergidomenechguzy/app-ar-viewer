@@ -34,13 +34,11 @@ ViewStore.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-const useViewStore = () => {
-  const [state, dispatch] = useContext(Context);
-  return { currentView: state.currentView, dispatch };
-};
-
 Context.displayName = 'ViewStore';
 
 export default ViewStore;
 
-export { useViewStore };
+export const useViewStore = () => {
+  const [state, dispatch] = useContext(Context);
+  return { currentView: state.currentView, dispatch };
+};

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 import ObjectListElement from './ObjectListElement';
+import { useSelectionStore } from '../../stores/SelectionStore';
 
 const useStyles = createUseStyles((theme) => ({
   listWrapper: {
@@ -15,6 +16,7 @@ const useStyles = createUseStyles((theme) => ({
 
 const ObjectList = ({ files, header, alternative }) => {
   const cls = useStyles();
+  const { selected, selectAndLoad } = useSelectionStore();
 
   return files.length === 0 && !alternative ? null : (
     <div className={cls.listWrapper}>
@@ -22,7 +24,13 @@ const ObjectList = ({ files, header, alternative }) => {
       {files.length > 0 ? (
         <ul className={cls.objectList}>
           {files.map((file, index) => (
-            <ObjectListElement key={file.name} file={file} last={index === files.length - 1} />
+            <ObjectListElement
+              key={file.name}
+              file={file}
+              last={index === files.length - 1}
+              selected={selected === file.id}
+              onClick={() => selectAndLoad(file.id)}
+            />
           ))}
         </ul>
       ) : (

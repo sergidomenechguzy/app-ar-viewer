@@ -1,23 +1,24 @@
 {
   files: [
     {
-      name: 'Test Object',
+      id: 'chair-beech',
+      name: 'Chair Beech',
       size: 5814984,
-      thumbnail: 'media/blumenkranz.png',
-    },
-    {
-      name: 'Round Table',
-      size: 685316,
+      path: 'media/wooden-chair/chair-beech.glb',
       thumbnail: 'media/chefhat.png',
     },
     {
-      name: 'Test Object 2',
+      id: 'chair-black',
+      name: 'Chair Black',
       size: 5814984,
-      thumbnail: 'media/blumenkranz.png',
+      path: 'media/wooden-chair/chair-black.glb',
+      thumbnail: 'media/chefhat.png',
     },
     {
-      name: 'Round Table 2',
-      size: 685316,
+      id: 'chair-oak',
+      name: 'Chair Oak',
+      size: 5814984,
+      path: 'media/wooden-chair/chair-oak.glb',
       thumbnail: 'media/chefhat.png',
     },
   ],
