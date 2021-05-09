@@ -13,7 +13,7 @@ const useStyles = createUseStyles((theme) => ({
     left: 0,
     right: 0,
     bottom: 0,
-    zIndex: theme.zIndex.modal,
+    zIndex: ({ zOffset }) => theme.zIndex.modal + zOffset,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -56,7 +56,7 @@ const useStyles = createUseStyles((theme) => ({
     left: 0,
     right: 0,
     height: '100vh',
-    zIndex: theme.zIndex.modal - 1,
+    zIndex: ({ zOffset }) => theme.zIndex.modal - 1 + zOffset,
     backgroundColor: `${theme.palette.common.black}66`,
     transition: ({ duration }) => `opacity ${duration}ms ease-in-out`,
     opacity: 0,
@@ -110,8 +110,16 @@ const Modal = ({
   fullSizeContent,
   hasTitle,
   divideContent,
+  zOffset,
 }) => {
-  const cls = useStyles({ duration, hasTitle, fullHeight, fullSizeContent, footerPositioning });
+  const cls = useStyles({
+    duration,
+    hasTitle,
+    fullHeight,
+    fullSizeContent,
+    footerPositioning,
+    zOffset,
+  });
   const clsFade = useFadeStyles({ duration });
   const clsSlide = useSlideStyles({ duration });
   const clsAnimation = {
@@ -164,6 +172,7 @@ Modal.propTypes = {
   fullSizeContent: PropTypes.bool,
   hasTitle: PropTypes.bool,
   divideContent: PropTypes.bool,
+  zOffset: PropTypes.number,
 };
 
 Modal.defaultProps = {
@@ -174,6 +183,7 @@ Modal.defaultProps = {
   fullSizeContent: false,
   hasTitle: false,
   divideContent: false,
+  zOffset: 0,
 };
 
 export default Modal;

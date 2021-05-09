@@ -6,6 +6,8 @@ import {
   AmbientLight,
   PointLight,
   SpotLight,
+  HemisphereLight,
+  ReinhardToneMapping,
 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
@@ -16,6 +18,7 @@ let controls;
 
 let hitTestSource = null;
 let hitTestSourceRequested = false;
+let setHitTest;
 
 const onWindowResize = () => {
   camera.aspect = window.innerWidth / window.innerHeight;
@@ -24,24 +27,30 @@ const onWindowResize = () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
 };
 
-const threeEntryPoint = async (sceneRef, xrSession) => {
+const threeEntryPoint = async (sceneRef, xrSession, setHitTestProp) => {
   scene = new Scene();
 
   camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.01, 100);
 
-  const ambient = new AmbientLight();
+  const ambient = new AmbientLight(0xffffff, 1);
   scene.add(ambient);
 
-  const spotLight = new SpotLight(0xffffff, 1, 0, 0.15, 1);
-  spotLight.position.set(10, 10, 10);
+  const hemisphereLight = new HemisphereLight(0xffeeb1, 0x4b401b, 4);
+  scene.add(hemisphereLight);
+
+  const spotLight = new SpotLight(0xffdc83, 2, 0, 0.15, 1);
+  spotLight.position.set(10, 10, 50);
   spotLight.castShadow = true;
   scene.add(spotLight);
 
-  const pointLight = new PointLight();
+  const pointLight = new PointLight(0xffa95c, 1);
   pointLight.position.set(-10, -10, -10);
   scene.add(pointLight);
 
   renderer = new WebGLRenderer({ antialias: true, alpha: true });
+  renderer.toneMapping = ReinhardToneMapping;
+  renderer.toneMappingExposure = 2.3;
+  renderer.shadowMap.enabled = true;
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -50,12 +59,15 @@ const threeEntryPoint = async (sceneRef, xrSession) => {
     renderer.xr.enabled = true;
     renderer.xr.setReferenceSpaceType('local');
     renderer.xr.setSession(xrSession);
+    if (setHitTestProp) {
+      setHitTest = setHitTestProp;
+    }
   } else {
     camera.position.set(0, 0, 3);
     controls = new OrbitControls(camera, renderer.domElement);
-    controls.maxPolarAngle = (2.3 * Math.PI) / 3;
-    controls.minPolarAngle = Math.PI / 3;
-    controls.maxDistance = 10;
+    controls.maxPolarAngle = Math.PI / 1.25;
+    controls.minPolarAngle = Math.PI / 5;
+    controls.maxDistance = 5;
     controls.minDistance = 1;
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
@@ -88,37 +100,47 @@ const animateXR = () => {
 const renderWithHitTest = (timestamp, frame) => {
   if (frame) {
     const selectedObject = scene.getObjectByName('current');
-    const referenceSpace = renderer.xr.getReferenceSpace();
-    const session = renderer.xr.getSession();
+    // const hitTestTarget = scene.getObjectByName('hitTestTarget');
+    if (selectedObject && selectedObject?.userData?.placed !== true) {
+      const referenceSpace = renderer.xr.getReferenceSpace();
+      const session = renderer.xr.getSession();
 
-    if (hitTestSourceRequested === false) {
-      session.requestReferenceSpace('viewer').then((referenceSpace2) => {
-        session.requestHitTestSource({ space: referenceSpace2 }).then((source) => {
-          hitTestSource = source;
+      if (hitTestSourceRequested === false) {
+        session.requestReferenceSpace('viewer').then((referenceSpace2) => {
+          session.requestHitTestSource({ space: referenceSpace2 }).then((source) => {
+            hitTestSource = source;
+          });
         });
-      });
 
-      session.addEventListener('end', () => {
-        hitTestSourceRequested = false;
-        hitTestSource = null;
-      });
+        session.addEventListener('end', () => {
+          hitTestSourceRequested = false;
+          hitTestSource = null;
+        });
 
-      hitTestSourceRequested = true;
-    }
+        hitTestSourceRequested = true;
+      }
 
-    if (hitTestSource) {
-      const hitTestResults = frame.getHitTestResults(hitTestSource);
+      if (hitTestSource) {
+        const hitTestResults = frame.getHitTestResults(hitTestSource);
 
-      if (hitTestResults.length) {
-        const hit = hitTestResults[0];
-        const mat = new Matrix4();
-        mat.fromArray(hit.getPose(referenceSpace).transform.matrix);
+        if (hitTestResults.length) {
+          const hit = hitTestResults[0];
+          const mat = new Matrix4();
+          mat.fromArray(hit.getPose(referenceSpace).transform.matrix);
 
-        if (mat && selectedObject) {
-          console.log(mat);
-          console.log(selectedObject);
-          selectedObject.position.setFromMatrixPosition(mat);
-          selectedObject.visible = true;
+          if (mat) {
+            console.log(mat);
+            console.log(selectedObject);
+            selectedObject.position.setFromMatrixPosition(mat);
+            selectedObject.visible = true;
+            setHitTest(true);
+          }
+          // if (mat && hitTestTarget) {
+          //   console.log(mat);
+          //   console.log(hitTestTarget);
+          //   hitTestTarget.position.setFromMatrixPosition(mat);
+          //   hitTestTarget.visible = true;
+          // }
         }
       }
     }

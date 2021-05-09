@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 import useOpenState from '../../hooks/useOpenState';
 import FloatingButton from '../buttons/FloatingButton';
@@ -15,14 +16,15 @@ const useStyles = createUseStyles((theme) => ({
     justifyContent: 'flex-end',
     alignItems: 'center',
     margin: theme.spacing(2),
+    zIndex: ({ zOffset }) => theme.zIndex.modal + zOffset - 2,
   },
   settingsButton: {
     padding: theme.spacing(1),
   },
 }));
 
-const TopButtons = () => {
-  const cls = useStyles();
+const TopButtons = ({ zOffset }) => {
+  const cls = useStyles({ zOffset });
   const [isOpen, setOpened, setClosed] = useOpenState(false);
 
   return (
@@ -32,9 +34,17 @@ const TopButtons = () => {
           <SettingsIcon size="h5" />
         </FloatingButton>
       </div>
-      <SettingsModal open={isOpen} onClose={setClosed} />
+      <SettingsModal open={isOpen} onClose={setClosed} zOffset={zOffset} />
     </>
   );
+};
+
+TopButtons.propTypes = {
+  zOffset: PropTypes.number,
+};
+
+TopButtons.defaultProps = {
+  zOffset: 5,
 };
 
 export default TopButtons;

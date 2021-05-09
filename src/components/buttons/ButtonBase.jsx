@@ -10,6 +10,7 @@ const useStyles = createUseStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    ...theme.typography.button,
   },
 }));
 

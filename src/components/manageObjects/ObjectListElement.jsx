@@ -25,6 +25,7 @@ const useStyles = createUseStyles((theme) => ({
     borderColor: theme.palette.text.hint,
     width: theme.spacing(10),
     height: theme.spacing(10),
+    backgroundColor: theme.palette.action.hover,
   },
   image: {
     width: '100%',
@@ -56,7 +57,8 @@ const ObjectListElement = ({ file, last, selected, onClick }) => {
             <img src={file.thumbnail} alt="thumbnail" className={cls.image}></img>
           </div>
           <div className={cls.elementInfo}>
-            <Typography>{file.name}</Typography>
+            <Typography variant="h6">{file.name}</Typography>
+            <Typography variant="body2">{file.category}</Typography>
             <Typography variant="caption" color="hint">
               {fileSize(file.size)}
             </Typography>

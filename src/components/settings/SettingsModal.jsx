@@ -36,7 +36,7 @@ const useStyles = createUseStyles((theme) => ({
   },
 }));
 
-const SettingsModal = ({ open, onClose }) => {
+const SettingsModal = ({ open, onClose, zOffset }) => {
   const { darkMode, setDarkMode } = useThemestore();
   const cls = useStyles();
   const { t } = useTranslation();
@@ -49,6 +49,7 @@ const SettingsModal = ({ open, onClose }) => {
       header={<Typography variant="h5">{t('Settings')}</Typography>}
       fullSizeContent
       hasTitle
+      zOffset={zOffset}
     >
       <SettingsList>
         <SettingsListElement
@@ -59,7 +60,7 @@ const SettingsModal = ({ open, onClose }) => {
         <SettingsListElement
           icon={<LanguageIcon />}
           name={t('Language')}
-          action={<LanguageSelect />}
+          action={<LanguageSelect zOffset={zOffset} />}
         />
         {/* <SettingsListElement
           icon={<ThreeDObjectIcon />}
@@ -85,8 +86,13 @@ const SettingsModal = ({ open, onClose }) => {
 };
 
 SettingsModal.propTypes = {
-  open: PropTypes.bool,
-  onClick: PropTypes.func,
+  open: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
+  zOffset: PropTypes.number,
+};
+
+SettingsModal.defaultProps = {
+  zOffset: 0,
 };
 
 export default SettingsModal;

@@ -1,5 +1,5 @@
 import React from 'react';
-import Viewer from './components/arView/Viewer';
+import Viewer from './components/viewer/Viewer';
 import UiOverlay from './components/mainViewUi/UiOverlay';
 import AppWrapper from './components/utility/AppWrapper';
 import ConfigStore from './stores/ConfigStore';

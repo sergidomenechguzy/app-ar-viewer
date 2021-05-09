@@ -1,9 +1,8 @@
 import React from 'react';
 import { createUseStyles } from 'react-jss';
 import CameraButton from '../buttons/CameraButton';
-import FloatingButton from '../buttons/FloatingButton';
-import ThreeDObjectSettingsIcon from '../icons/ThreeDObjectSettingsIcon';
 import SwitchViewButton from '../buttons/SwitchViewButton';
+import ManageObjectsButton from '../buttons/ManageObjectsButton';
 
 const useStyles = createUseStyles((theme) => ({
   bottomButtons: {
@@ -40,9 +39,7 @@ const BottomButtons = ({ on3DClick }) => {
     <div className={cls.bottomButtons}>
       <SwitchViewButton className={cls.switch} />
       <CameraButton className={cls.camera} />
-      <FloatingButton className={cls.manage} onClick={on3DClick}>
-        <ThreeDObjectSettingsIcon size="h4" />
-      </FloatingButton>
+      <ManageObjectsButton className={cls.manage} onClick={on3DClick} />
     </div>
   );
 };

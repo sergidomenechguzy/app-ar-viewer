@@ -8,7 +8,6 @@ const useStyles = createUseStyles((theme) => ({
     cursor: 'pointer',
     position: 'relative',
     overflow: 'hidden',
-    ...theme.typography.button,
 
     '&:after': {
       content: '""',

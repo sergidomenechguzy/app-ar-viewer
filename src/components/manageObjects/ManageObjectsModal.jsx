@@ -37,6 +37,7 @@ const ManageObjectsModal = ({ open, onClose }) => {
       fullHeight
       fullSizeContent
       divideContent
+      zOffset={10}
     >
       <ObjectList
         files={[]}
