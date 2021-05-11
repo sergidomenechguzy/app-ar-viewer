@@ -53,8 +53,22 @@ export const useGltfStore = () => {
     [config.files, gltfsState, loadGltfToStore]
   );
 
+  const removeGltf = useCallback(
+    (gltfId) => {
+      if (gltfId in gltfsState) {
+        setGltfs((old) => {
+          // eslint-disable-next-line no-param-reassign
+          delete old[gltfId];
+          return old;
+        });
+      }
+    },
+    [gltfsState, setGltfs]
+  );
+
   return {
     gltfs: gltfsState,
     getGltf,
+    removeGltf,
   };
 };

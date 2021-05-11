@@ -5,7 +5,6 @@ import clsx from 'clsx';
 import fileSize from 'filesize';
 import Typography from '../utility/Typography';
 import IconButton from '../buttons/IconButton';
-import DeleteIcon from '../icons/DeleteIcon';
 import Divider from '../utility/Divider';
 import Clickable from '../utility/Clickable';
 
@@ -40,14 +39,20 @@ const useStyles = createUseStyles((theme) => ({
   },
   action: {
     marginRight: theme.spacing(2),
+    zIndex: 1,
   },
   divider: {
     marginLeft: theme.spacing(14),
   },
 }));
 
-const ObjectListElement = ({ file, last, selected, onClick }) => {
+const ObjectListElement = ({ file, last, selected, onClick, onAction, actionIcon }) => {
   const cls = useStyles();
+
+  const handleActionClick = (e) => {
+    e.stopPropagation();
+    onAction(file);
+  };
 
   return (
     <>
@@ -66,9 +71,11 @@ const ObjectListElement = ({ file, last, selected, onClick }) => {
               {fileSize(file.size)}
             </Typography>
           </div>
-          <IconButton className={cls.action}>
-            <DeleteIcon size="h6" />
-          </IconButton>
+          {actionIcon && onAction ? (
+            <IconButton onClick={handleActionClick} className={cls.action}>
+              {actionIcon}
+            </IconButton>
+          ) : null}
         </li>
       </Clickable>
       {!last ? <Divider className={cls.divider} /> : null}

@@ -1,13 +1,14 @@
-import React, { createContext, useCallback, useContext, useState } from 'react';
+import React, { createContext, useCallback, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useGltfStore } from './GltfStore';
+import useResettableState from '../hooks/useResettableState';
 
 const Context = createContext();
 
 const SelectionStore = ({ children }) => {
-  const [selected, setSelected] = useState(null);
+  const value = useResettableState(null);
 
-  return <Context.Provider value={{ selected, setSelected }}>{children}</Context.Provider>;
+  return <Context.Provider value={value}>{children}</Context.Provider>;
 };
 
 SelectionStore.propTypes = {
@@ -19,7 +20,7 @@ Context.displayName = 'SelectionStore';
 export default SelectionStore;
 
 export const useSelectionStore = () => {
-  const { selected, setSelected } = useContext(Context);
+  const [selected, setSelected, resetSelected] = useContext(Context);
   const { getGltf } = useGltfStore();
 
   const selectAndLoad = useCallback(
@@ -30,5 +31,5 @@ export const useSelectionStore = () => {
     [getGltf, setSelected]
   );
 
-  return { selected, selectAndLoad };
+  return { selected, selectAndLoad, resetSelected };
 };

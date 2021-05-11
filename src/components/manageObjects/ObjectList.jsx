@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 import ObjectListElement from './ObjectListElement';
 import { useSelectionStore } from '../../stores/SelectionStore';
+import { useGltfStore } from '../../stores/GltfStore';
 
 const useStyles = createUseStyles((theme) => ({
   listWrapper: {
@@ -14,13 +15,53 @@ const useStyles = createUseStyles((theme) => ({
   },
 }));
 
-const ObjectList = ({ files, onClose, header, alternative }) => {
+const ObjectList = ({ files, onClick, onClose, header, action, actionIcon, alternative }) => {
   const cls = useStyles();
-  const { selected, selectAndLoad } = useSelectionStore();
+  const { selected, selectAndLoad, resetSelected } = useSelectionStore();
+  const { getGltf, removeGltf } = useGltfStore();
 
-  const handleSelectElement = async (id) => {
-    await selectAndLoad(id);
-    onClose();
+  const handleSelect = useCallback(
+    async (id) => {
+      await selectAndLoad(id);
+      if (onClick) {
+        onClick();
+      }
+      if (onClose) {
+        onClose();
+      }
+    },
+    [onClick, onClose, selectAndLoad]
+  );
+
+  const handleDownload = useCallback(
+    async ({ id }) => {
+      await getGltf(id);
+      if (onClick) {
+        onClick();
+      }
+    },
+    [getGltf, onClick]
+  );
+
+  const handleDelete = useCallback(
+    async ({ id, path }) => {
+      const cache = await caches.open('assets');
+      const request = new Request(`${window.location.origin}/${path}`);
+      await cache.delete(request);
+      if (selected === id) {
+        resetSelected();
+      }
+      removeGltf(id);
+      if (onClick) {
+        onClick();
+      }
+    },
+    [onClick, removeGltf, resetSelected, selected]
+  );
+
+  const actionFunctions = {
+    download: handleDownload,
+    delete: handleDelete,
   };
 
   return files.length === 0 && !alternative ? null : (
@@ -34,7 +75,9 @@ const ObjectList = ({ files, onClose, header, alternative }) => {
               file={file}
               last={index === files.length - 1}
               selected={selected === file.id}
-              onClick={handleSelectElement}
+              onClick={handleSelect}
+              onAction={actionFunctions[action]}
+              actionIcon={actionIcon}
             />
           ))}
         </ul>
@@ -47,8 +90,11 @@ const ObjectList = ({ files, onClose, header, alternative }) => {
 
 ObjectList.propTypes = {
   files: PropTypes.array.isRequired,
-  onCLose: PropTypes.func,
+  onClick: PropTypes.func,
+  onClose: PropTypes.func,
   header: PropTypes.element,
+  action: PropTypes.oneOf(['download', 'delete']),
+  actionIcon: PropTypes.element,
   alternative: PropTypes.node,
 };
 

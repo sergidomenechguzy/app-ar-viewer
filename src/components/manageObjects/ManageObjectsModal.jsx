@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 import { useTranslation } from 'react-i18next';
+import { Offline, Online } from 'react-detect-offline';
 import ManageObjectsFooter from './ManageObjectsFooter';
 import ManageObjectsHeader from './ManageObjectsHeader';
 import BottomSlidingModal from '../utility/BottomSlidingModal';
@@ -9,6 +10,8 @@ import ObjectList from './ObjectList';
 import Typography from '../utility/Typography';
 import { useConfigStore } from '../../stores/ConfigStore';
 import OfflineAlert from './OfflineAlert';
+import DeleteIcon from '../icons/DeleteIcon';
+import DownloadIcon from '../icons/DownloadIcon';
 
 const useStyles = createUseStyles((theme) => ({
   modal: {
@@ -26,6 +29,32 @@ const ManageObjectsModal = ({ open, onClose }) => {
   const cls = useStyles();
   const { config } = useConfigStore();
   const { t } = useTranslation();
+  const [downloadableFiles, setDownloadableFiles] = useState();
+  const [cachedFiles, setCachedFiles] = useState();
+
+  const getCachedFiles = useCallback(async () => {
+    const cache = await caches.open('assets');
+    const promises = config.files.map(async (file) => {
+      const request = new Request(`${window.location.origin}/${file.path}`);
+      const match = await cache.match(request);
+      return match;
+    });
+    const cached = [];
+    const notCached = [];
+    (await Promise.all(promises)).forEach((match, index) => {
+      if (match !== undefined) {
+        cached.push(config.files[index]);
+      } else {
+        notCached.push(config.files[index]);
+      }
+    });
+    setCachedFiles(cached);
+    setDownloadableFiles(notCached);
+  }, [config.files]);
+
+  useEffect(() => {
+    getCachedFiles();
+  }, [getCachedFiles]);
 
   return (
     <BottomSlidingModal
@@ -41,6 +70,7 @@ const ManageObjectsModal = ({ open, onClose }) => {
     >
       <ObjectList
         files={[]}
+        onClick={getCachedFiles}
         onClose={onClose}
         header={
           <Typography className={cls.header} variant="h5">
@@ -49,24 +79,46 @@ const ManageObjectsModal = ({ open, onClose }) => {
         }
       />
       <ObjectList
-        files={[]}
+        files={cachedFiles}
+        onClick={getCachedFiles}
         onClose={onClose}
         header={
           <Typography className={cls.header} variant="h5">
-            {t('Saved')}
+            {t('Downloaded')}
           </Typography>
         }
+        action="delete"
+        actionIcon={<DeleteIcon size="h6" />}
       />
-      <ObjectList
-        files={config.files}
-        onClose={onClose}
-        header={
-          <Typography className={cls.header} variant="h5">
-            {t('3D-Objects')}
-          </Typography>
-        }
-        alternative={<OfflineAlert />}
-      />
+      <Online>
+        <ObjectList
+          files={downloadableFiles}
+          onClick={getCachedFiles}
+          onClose={onClose}
+          header={
+            <Typography className={cls.header} variant="h5">
+              {t('3D-Objects')}
+            </Typography>
+          }
+          action="download"
+          actionIcon={<DownloadIcon size="h6" />}
+        />
+      </Online>
+      <Offline>
+        <ObjectList
+          files={[]}
+          onClick={getCachedFiles}
+          onClose={onClose}
+          header={
+            <Typography className={cls.header} variant="h5">
+              {t('3D-Objects')}
+            </Typography>
+          }
+          action="download"
+          actionIcon={<DownloadIcon size="h6" />}
+          alternative={<OfflineAlert />}
+        />
+      </Offline>
     </BottomSlidingModal>
   );
 };
