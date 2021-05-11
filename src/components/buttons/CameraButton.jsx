@@ -22,12 +22,12 @@ const useStyles = createUseStyles((theme) => ({
   },
 }));
 
-const CameraButton = ({ className }) => {
+const CameraButton = ({ className, ...rest }) => {
   const cls = useStyles();
   const { currentView } = useViewStore();
 
   return currentView === 'ar' ? (
-    <ButtonBase className={clsx(cls.button, className)} disableFocus={true}>
+    <ButtonBase className={clsx(cls.button, className)} {...rest}>
       <div className={cls.inner} />
     </ButtonBase>
   ) : null;

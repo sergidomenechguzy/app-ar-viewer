@@ -47,14 +47,14 @@ const threeEntryPoint = async (sceneRef, xrSession, setHitTestProp) => {
   pointLight.position.set(-10, -10, -10);
   scene.add(pointLight);
 
-  renderer = new WebGLRenderer({ antialias: true, alpha: true });
+  renderer = new WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
   renderer.toneMapping = ReinhardToneMapping;
   renderer.toneMappingExposure = 2.3;
   renderer.shadowMap.enabled = true;
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);
 
-  if (xrSession) {
+  if (xrSession && setHitTestProp !== undefined) {
     await renderer.getContext().makeXRCompatible();
     renderer.xr.enabled = true;
     renderer.xr.setReferenceSpaceType('local');
@@ -84,7 +84,7 @@ const threeEntryPoint = async (sceneRef, xrSession, setHitTestProp) => {
   } else {
     animate();
   }
-  return scene;
+  return [scene, renderer];
 };
 
 const animate = () => {
@@ -129,8 +129,6 @@ const renderWithHitTest = (timestamp, frame) => {
           mat.fromArray(hit.getPose(referenceSpace).transform.matrix);
 
           if (mat) {
-            console.log(mat);
-            console.log(selectedObject);
             selectedObject.position.setFromMatrixPosition(mat);
             selectedObject.visible = true;
             setHitTest(true);

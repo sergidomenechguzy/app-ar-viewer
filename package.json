@@ -8,6 +8,7 @@
     "clsx": "^1.1.1",
     "deepmerge": "^4.2.2",
     "fetch-json5": "^1.0.0",
+    "file-saver": "^2.0.5",
     "filesize": "^6.1.0",
     "i18next": "^20.2.2",
     "i18next-browser-languagedetector": "^6.1.0",

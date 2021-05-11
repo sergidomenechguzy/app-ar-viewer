@@ -41,6 +41,7 @@ const ManageObjectsModal = ({ open, onClose }) => {
     >
       <ObjectList
         files={[]}
+        onClose={onClose}
         header={
           <Typography className={cls.header} variant="h5">
             {t('Uploaded')}
@@ -49,6 +50,7 @@ const ManageObjectsModal = ({ open, onClose }) => {
       />
       <ObjectList
         files={[]}
+        onClose={onClose}
         header={
           <Typography className={cls.header} variant="h5">
             {t('Saved')}
@@ -57,6 +59,7 @@ const ManageObjectsModal = ({ open, onClose }) => {
       />
       <ObjectList
         files={config.files}
+        onClose={onClose}
         header={
           <Typography className={cls.header} variant="h5">
             {t('3D-Objects')}

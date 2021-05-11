@@ -14,9 +14,14 @@ const useStyles = createUseStyles((theme) => ({
   },
 }));
 
-const ObjectList = ({ files, header, alternative }) => {
+const ObjectList = ({ files, onClose, header, alternative }) => {
   const cls = useStyles();
   const { selected, selectAndLoad } = useSelectionStore();
+
+  const handleSelectElement = async (id) => {
+    await selectAndLoad(id);
+    onClose();
+  };
 
   return files.length === 0 && !alternative ? null : (
     <div className={cls.listWrapper}>
@@ -29,7 +34,7 @@ const ObjectList = ({ files, header, alternative }) => {
               file={file}
               last={index === files.length - 1}
               selected={selected === file.id}
-              onClick={() => selectAndLoad(file.id)}
+              onClick={handleSelectElement}
             />
           ))}
         </ul>
@@ -42,6 +47,7 @@ const ObjectList = ({ files, header, alternative }) => {
 
 ObjectList.propTypes = {
   files: PropTypes.array.isRequired,
+  onCLose: PropTypes.func,
   header: PropTypes.element,
   alternative: PropTypes.node,
 };

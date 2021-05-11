@@ -1,12 +1,14 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import { useTranslation } from 'react-i18next';
+// import { saveAs } from 'file-saver';
 import threeEntryPoint from '../../three/threeEntryPoint';
 import { useXRSession } from '../../stores/XRSessionStore';
 import { useSelectionStore } from '../../stores/SelectionStore';
 import { useGltfStore } from '../../stores/GltfStore';
 import FloatingButton from '../buttons/FloatingButton';
 import ArExplainAnimation from './ArExplainAnimation';
+import CameraButton from '../buttons/CameraButton';
 
 const useStyles = createUseStyles((theme) => ({
   threeEntryPoint: {
@@ -21,12 +23,21 @@ const useStyles = createUseStyles((theme) => ({
     zIndex: 1,
     margin: 'auto',
   },
+  camera: {
+    position: 'fixed',
+    bottom: theme.spacing(5),
+    left: 0,
+    right: 0,
+    zIndex: 2,
+    margin: 'auto',
+  },
 }));
 
 const ArView = () => {
   const cls = useStyles();
   const threeWrapper = useRef(null);
   const threeScene = useRef(null);
+  const threeRenderer = useRef(null);
   const [placed, setPlaced] = useState(false);
   const [hitTest, setHitTest] = useState(false);
   const { xrSession } = useXRSession();
@@ -44,15 +55,31 @@ const ArView = () => {
     }
   }, [gltfs, placed, selected]);
 
+  // const takeScreenshot = useCallback(() => {
+  //   if (threeRenderer.current) {
+  //     const url = threeRenderer.current.domElement.toDataURL();
+  //     console.log('clicked cam', threeRenderer.current.domElement.toDataURL, url);
+  //     // saveAs(url, `ar-photo-${Date.now()}.png`);
+
+  //     const link = document.createElement('a');
+  //     link.download = `ar-photo-${Date.now()}.png`;
+  //     link.href = url;
+  //     link.target = '_blank';
+  //     link.click();
+  //   }
+  // }, []);
+
   useEffect(() => {
     const init = async () => {
       if (xrSession?.current) {
         console.log('creating three scene', xrSession.current);
-        threeScene.current = await threeEntryPoint(
+        const [scene, renderer] = await threeEntryPoint(
           threeWrapper.current,
           xrSession.current,
           setHitTest
         );
+        threeScene.current = scene;
+        threeRenderer.current = renderer;
         if (gltfs && selected) {
           gltfs[selected].scene.visible = false;
           gltfs[selected].scene.userData.placed = false;
@@ -86,6 +113,7 @@ const ArView = () => {
           {placed ? t('Grab 3D-Object') : t('Place 3D-Object')}
         </FloatingButton>
       ) : null}
+      <CameraButton className={cls.camera} /* onClick={takeScreenshot} */ />
       <div className={cls.threeEntryPoint} ref={threeWrapper} id="threeWrapper" />
     </>
   ) : null;

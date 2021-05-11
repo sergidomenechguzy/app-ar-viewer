@@ -87,7 +87,7 @@ const SettingsModal = ({ open, onClose, zOffset }) => {
 
 SettingsModal.propTypes = {
   open: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
   zOffset: PropTypes.number,
 };
 

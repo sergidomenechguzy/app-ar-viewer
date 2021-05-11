@@ -22,7 +22,8 @@ const ObjectView = () => {
   useEffect(() => {
     const init = async () => {
       console.log('creating three scene');
-      threeScene.current = await threeEntryPoint(threeWrapper.current);
+      const [scene] = await threeEntryPoint(threeWrapper.current);
+      threeScene.current = scene;
       if (gltfs && selected) {
         gltfs[selected].scene.position.set(0, -0.25, 0);
         threeScene.current.add(gltfs[selected].scene);

@@ -52,7 +52,10 @@ const ObjectListElement = ({ file, last, selected, onClick }) => {
   return (
     <>
       <Clickable>
-        <li className={clsx(cls.listElement, selected && cls.selected)} onClick={onClick}>
+        <li
+          className={clsx(cls.listElement, selected && cls.selected)}
+          onClick={() => onClick(file.id)}
+        >
           <div className={cls.imageWrapper}>
             <img src={file.thumbnail} alt="thumbnail" className={cls.image}></img>
           </div>
