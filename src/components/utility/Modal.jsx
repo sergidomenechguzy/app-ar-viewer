@@ -1,4 +1,5 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { createUseStyles } from 'react-jss';
@@ -127,33 +128,32 @@ const Modal = ({
     slide: clsSlide,
   };
 
-  return (
-    <>
-      <Transition in={open} appear={true} timeout={open ? 0 : duration} mountOnEnter unmountOnExit>
-        {(state) => (
-          <>
-            <div className={clsx(cls.backdrop, cls[`${state}Backdrop`])} onClick={onClose} />
-            <div
-              className={clsx(
-                cls.modal,
-                clsAnimation[variant].modal,
-                clsAnimation[variant][`${state}Modal`]
-              )}
-            >
-              <PaperBase className={clsx(cls.paper, className)}>
-                <div className={cls.paperInner}>
-                  {header ? <div className={cls.headerWrapper}>{header}</div> : null}
-                  {divideContent ? <Divider /> : null}
-                  <div className={clsx(cls.content, contentStyle)}>{children}</div>
-                  {divideContent ? <Divider /> : null}
-                  {footer ? <div className={cls.footerWrapper}>{footer}</div> : null}
-                </div>
-              </PaperBase>
-            </div>
-          </>
-        )}
-      </Transition>
-    </>
+  return createPortal(
+    <Transition in={open} appear={true} timeout={open ? 0 : duration} mountOnEnter unmountOnExit>
+      {(state) => (
+        <>
+          <div className={clsx(cls.backdrop, cls[`${state}Backdrop`])} onClick={onClose} />
+          <div
+            className={clsx(
+              cls.modal,
+              clsAnimation[variant].modal,
+              clsAnimation[variant][`${state}Modal`]
+            )}
+          >
+            <PaperBase className={clsx(cls.paper, className)}>
+              <div className={cls.paperInner}>
+                {header ? <div className={cls.headerWrapper}>{header}</div> : null}
+                {divideContent ? <Divider /> : null}
+                <div className={clsx(cls.content, contentStyle)}>{children}</div>
+                {divideContent ? <Divider /> : null}
+                {footer ? <div className={cls.footerWrapper}>{footer}</div> : null}
+              </div>
+            </PaperBase>
+          </div>
+        </>
+      )}
+    </Transition>,
+    document.getElementById('root')
   );
 };
 

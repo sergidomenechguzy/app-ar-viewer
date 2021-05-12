@@ -7,6 +7,8 @@ import Typography from '../utility/Typography';
 import IconButton from '../buttons/IconButton';
 import Divider from '../utility/Divider';
 import Clickable from '../utility/Clickable';
+import useOpenState from '../../hooks/useOpenState';
+import ConfirmModal from './ConfirmModal';
 
 const useStyles = createUseStyles((theme) => ({
   listElement: {
@@ -46,12 +48,25 @@ const useStyles = createUseStyles((theme) => ({
   },
 }));
 
-const ObjectListElement = ({ file, last, selected, onClick, onAction, actionIcon }) => {
+const ObjectListElement = ({
+  file,
+  last,
+  selected,
+  onClick,
+  onAction,
+  actionIcon,
+  confirmAction,
+}) => {
   const cls = useStyles();
+  const [isOpen, setOpened, setClosed] = useOpenState(false);
 
   const handleActionClick = (e) => {
     e.stopPropagation();
-    onAction(file);
+    if (confirmAction) {
+      setOpened();
+    } else {
+      onAction(file);
+    }
   };
 
   return (
@@ -79,6 +94,9 @@ const ObjectListElement = ({ file, last, selected, onClick, onAction, actionIcon
         </li>
       </Clickable>
       {!last ? <Divider className={cls.divider} /> : null}
+      {confirmAction && onAction ? (
+        <ConfirmModal open={isOpen} onClose={setClosed} onConfirm={() => onAction(file)} />
+      ) : null}
     </>
   );
 };
@@ -86,10 +104,17 @@ const ObjectListElement = ({ file, last, selected, onClick, onAction, actionIcon
 ObjectListElement.propTypes = {
   file: PropTypes.shape({}).isRequired,
   last: PropTypes.bool,
+  selected: PropTypes.bool,
+  onClick: PropTypes.func.isRequired,
+  onAction: PropTypes.func,
+  actionIcon: PropTypes.element,
+  confirmAction: PropTypes.bool,
 };
 
 ObjectListElement.defaultProps = {
   last: false,
+  selected: false,
+  confirmAction: false,
 };
 
 export default ObjectListElement;

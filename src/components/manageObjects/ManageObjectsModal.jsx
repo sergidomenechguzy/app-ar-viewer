@@ -29,8 +29,8 @@ const ManageObjectsModal = ({ open, onClose }) => {
   const cls = useStyles();
   const { config } = useConfigStore();
   const { t } = useTranslation();
-  const [downloadableFiles, setDownloadableFiles] = useState();
-  const [cachedFiles, setCachedFiles] = useState();
+  const [downloadableFiles, setDownloadableFiles] = useState([]);
+  const [cachedFiles, setCachedFiles] = useState([]);
 
   const getCachedFiles = useCallback(async () => {
     const cache = await caches.open('assets');
@@ -66,7 +66,7 @@ const ManageObjectsModal = ({ open, onClose }) => {
       fullHeight
       fullSizeContent
       divideContent
-      zOffset={10}
+      zOffset={20}
     >
       <ObjectList
         files={[]}
@@ -89,8 +89,9 @@ const ManageObjectsModal = ({ open, onClose }) => {
         }
         action="delete"
         actionIcon={<DeleteIcon size="h6" />}
+        confirmAction={true}
       />
-      <Online>
+      <Online polling={{ enabled: false }}>
         <ObjectList
           files={downloadableFiles}
           onClick={getCachedFiles}
@@ -104,7 +105,7 @@ const ManageObjectsModal = ({ open, onClose }) => {
           actionIcon={<DownloadIcon size="h6" />}
         />
       </Online>
-      <Offline>
+      <Offline polling={{ enabled: false }}>
         <ObjectList
           files={[]}
           onClick={getCachedFiles}

@@ -92,7 +92,7 @@ SettingsModal.propTypes = {
 };
 
 SettingsModal.defaultProps = {
-  zOffset: 0,
+  zOffset: 10,
 };
 
 export default SettingsModal;

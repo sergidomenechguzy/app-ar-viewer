@@ -30,7 +30,7 @@ const useStyles = createUseStyles((theme) => ({
   },
 }));
 
-const ReminderModal = () => {
+const ReminderOverlay = () => {
   const cls = useStyles();
   const { t } = useTranslation();
 
@@ -44,4 +44,4 @@ const ReminderModal = () => {
   );
 };
 
-export default ReminderModal;
+export default ReminderOverlay;

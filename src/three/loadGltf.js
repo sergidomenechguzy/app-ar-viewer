@@ -17,9 +17,27 @@ const setTransform = (object, transform, values) => {
   });
 };
 
-const customizeMetalnessRoughness = (mesh, userData) => {
+const customizeProperties = (mesh, userData) => {
+  const meshProps = {};
+  ['castShadow', 'receiveShadow'].forEach((propName) => {
+    if (propName in userData) {
+      meshProps[propName] = userData[propName];
+      meshProps.needsUpdate = true;
+    }
+  });
+  // eslint-disable-next-line no-param-reassign
+  mesh.castShadow = true;
+  // eslint-disable-next-line no-param-reassign
+  mesh.needsUpdate = true;
+  Object.entries(meshProps).forEach(([key, value]) => {
+    // eslint-disable-next-line no-param-reassign
+    mesh[key] = value;
+    // eslint-disable-next-line no-param-reassign
+    mesh.needsUpdate = true;
+  });
+
   const materialsProps = {};
-  ['metalness', 'roughness', 'castShadow', 'receiveShadow'].forEach((propName) => {
+  ['metalness', 'roughness'].forEach((propName) => {
     if (propName in userData) {
       materialsProps[propName] = userData[propName];
       materialsProps.needsUpdate = true;
@@ -43,19 +61,7 @@ const loadGltf = async (path, userData) => {
         setTransform(gltf.scene, key, gltf.userData[key]);
       }
     });
-    traverseMesh(gltf.scene.children, (child) => customizeMetalnessRoughness(child, userData));
-    if (gltf.scene.children[0]) {
-      const child = gltf.scene.children[0];
-      let changeMesh;
-      if (child.isMesh) {
-        changeMesh = child;
-      } else if (child.children && child.children[0] && child.children[0].isMesh) {
-        [changeMesh] = child.children;
-      }
-      if (changeMesh) {
-        customizeMetalnessRoughness(changeMesh, userData);
-      }
-    }
+    traverseMesh(gltf.scene.children, (child) => customizeProperties(child, userData));
     console.log(gltf);
     return gltf;
   } catch (err) {

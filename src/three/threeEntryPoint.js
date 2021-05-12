@@ -8,6 +8,11 @@ import {
   SpotLight,
   HemisphereLight,
   ReinhardToneMapping,
+  Mesh,
+  PlaneBufferGeometry,
+  DirectionalLight,
+  ShadowMaterial,
+  PCFSoftShadowMap,
 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
@@ -19,6 +24,8 @@ let controls;
 let hitTestSource = null;
 let hitTestSourceRequested = false;
 let setHitTest;
+
+let ground;
 
 const onWindowResize = () => {
   camera.aspect = window.innerWidth / window.innerHeight;
@@ -40,17 +47,33 @@ const threeEntryPoint = async (sceneRef, xrSession, setHitTestProp) => {
 
   const spotLight = new SpotLight(0xffdc83, 2, 0, 0.15, 1);
   spotLight.position.set(10, 10, 50);
-  spotLight.castShadow = true;
   scene.add(spotLight);
 
   const pointLight = new PointLight(0xffa95c, 1);
   pointLight.position.set(-10, -10, -10);
   scene.add(pointLight);
 
+  const directionalLight = new DirectionalLight(0xffa95c, 1, 250);
+  directionalLight.position.set(0, 200, 0);
+  directionalLight.castShadow = true;
+  directionalLight.shadow.mapSize.width = 1024;
+  directionalLight.shadow.mapSize.height = 1024;
+  directionalLight.shadow.bias = 0.0001;
+  scene.add(directionalLight);
+
+  const plane = new PlaneBufferGeometry(1000, 1000);
+  plane.rotateX(-Math.PI / 2);
+  const material = new ShadowMaterial();
+  material.opacity = 0.1;
+  ground = new Mesh(plane, material);
+  ground.receiveShadow = true;
+  scene.add(ground);
+
   renderer = new WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
   renderer.toneMapping = ReinhardToneMapping;
   renderer.toneMappingExposure = 2.3;
   renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = PCFSoftShadowMap;
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -63,7 +86,8 @@ const threeEntryPoint = async (sceneRef, xrSession, setHitTestProp) => {
       setHitTest = setHitTestProp;
     }
   } else {
-    camera.position.set(0, 0, 3);
+    ground.position.set(0, -0.25, 0);
+    camera.position.set(0, 1, 3);
     controls = new OrbitControls(camera, renderer.domElement);
     controls.maxPolarAngle = Math.PI / 1.25;
     controls.minPolarAngle = Math.PI / 5;
@@ -129,6 +153,7 @@ const renderWithHitTest = (timestamp, frame) => {
           mat.fromArray(hit.getPose(referenceSpace).transform.matrix);
 
           if (mat) {
+            ground.position.setFromMatrixPosition(mat);
             selectedObject.position.setFromMatrixPosition(mat);
             selectedObject.visible = true;
             setHitTest(true);

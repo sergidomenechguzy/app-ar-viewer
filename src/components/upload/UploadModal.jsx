@@ -14,7 +14,12 @@ const UploadModal = ({ open, onClose }) => {
   const cls = useStyles();
 
   return (
-    <BottomSlidingModal open={open} onClose={onClose} header={<UploadHeader onClose={onClose} />}>
+    <BottomSlidingModal
+      open={open}
+      onClose={onClose}
+      header={<UploadHeader onClose={onClose} />}
+      zOffset={30}
+    >
       <div className={cls.test}></div>
     </BottomSlidingModal>
   );

@@ -15,7 +15,16 @@ const useStyles = createUseStyles((theme) => ({
   },
 }));
 
-const ObjectList = ({ files, onClick, onClose, header, action, actionIcon, alternative }) => {
+const ObjectList = ({
+  files,
+  onClick,
+  onClose,
+  header,
+  action,
+  actionIcon,
+  confirmAction,
+  alternative,
+}) => {
   const cls = useStyles();
   const { selected, selectAndLoad, resetSelected } = useSelectionStore();
   const { getGltf, removeGltf } = useGltfStore();
@@ -78,6 +87,7 @@ const ObjectList = ({ files, onClick, onClose, header, action, actionIcon, alter
               onClick={handleSelect}
               onAction={actionFunctions[action]}
               actionIcon={actionIcon}
+              confirmAction={confirmAction}
             />
           ))}
         </ul>
@@ -95,6 +105,7 @@ ObjectList.propTypes = {
   header: PropTypes.element,
   action: PropTypes.oneOf(['download', 'delete']),
   actionIcon: PropTypes.element,
+  confirmAction: PropTypes.bool,
   alternative: PropTypes.node,
 };
 

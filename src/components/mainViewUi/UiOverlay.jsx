@@ -9,7 +9,6 @@ import WebXrModal from './WebXrModal';
 const useStyles = createUseStyles((theme) => ({
   ui: {
     position: 'relative',
-    zIndex: 2,
   },
 }));
 

@@ -47,6 +47,7 @@ const InfoModal = ({ open, onClose }) => {
       footer={<Button onClick={onClose}>{t('Got it!')}</Button>}
       hasTitle
       footerPositioning="end"
+      zOffset={30}
     >
       <InfoElement
         info={t('Select the 3D-Object you want to place around yourself.')}

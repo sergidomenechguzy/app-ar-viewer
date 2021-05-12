@@ -25,7 +25,12 @@
       "Select a 3D-Object": "Select a 3D-Object",
       "Please choose one of the 3D-Objects so you can look at it in the available viewers.": "Please choose one of the 3D-Objects so you can look at it in the available viewers.",
       "Grab 3D-Object": "Grab 3D-Object",
-      "Place 3D-Object": "Place 3D-Object"
+      "Place 3D-Object": "Place 3D-Object",
+      "Are you sure?": "Are you sure?",
+      "Cancel": "Cancel",
+      "Delete": "Delete",
+      "Deleting the 3D-Object will remove it from the local cache and it has to be downloaded again.": "Deleting the 3D-Object will remove it from the local cache and it has to be downloaded again.",
+      "You will not be able to select this 3D-Object again until you go online.": "You will not be able to select this 3D-Object again until you go online."
     }
   },
   "de": {
@@ -54,7 +59,12 @@
       "Select a 3D-Object": "3D-Objekt auswählen",
       "Please choose one of the 3D-Objects so you can look at it in the available viewers.": "Bitte wähle eins der 3D-Objekte aus, um es dir in den verfügbaren Viewern anschauen zu können.",
       "Grab 3D-Object": "3D-Objekt aufnehmen",
-      "Place 3D-Object": "3D-Objekt platzieren"
+      "Place 3D-Object": "3D-Objekt platzieren",
+      "Are you sure?": "Bist du die sicher?",
+      "Cancel": "Abbrechen",
+      "Delete": "Löschen",
+      "Deleting the 3D-Object will remove it from the local cache and it has to be downloaded again.": "Das 3D-Objekt zu löschen, wird es aus dem lokalen Cache entfernen und es muss erneut heruntergeladen werden.",
+      "You will not be able to select this 3D-Object again until you go online.": "Du wirst dieses 3D-Objekt nicht wieder auswählen können, bis du online gehst."
     }
   }
 }

@@ -44,7 +44,7 @@ TopButtons.propTypes = {
 };
 
 TopButtons.defaultProps = {
-  zOffset: 5,
+  zOffset: 10,
 };
 
 export default TopButtons;
