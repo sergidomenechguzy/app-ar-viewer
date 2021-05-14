@@ -17,6 +17,7 @@ const Viewer = () => {
       <Loader
         containerStyles={{
           backgroundColor: `${theme.palette.common.black}aa`,
+          zIndex: theme.zIndex.snackbar - 10,
         }}
         innerStyles={{
           backgroundColor: theme.palette.common.white,

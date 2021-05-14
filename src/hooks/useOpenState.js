@@ -1,17 +1,17 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 const useOpenState = (initial) => {
   const [value, set] = useState(initial);
 
-  const setTrue = () => {
+  const setTrue = useCallback(() => {
     set(true);
-  };
-  const setFalse = () => {
+  }, []);
+  const setFalse = useCallback(() => {
     set(false);
-  };
-  const toggle = () => {
+  }, []);
+  const toggle = useCallback(() => {
     set((old) => !old);
-  };
+  }, []);
 
   return [value, setTrue, setFalse, toggle];
 };

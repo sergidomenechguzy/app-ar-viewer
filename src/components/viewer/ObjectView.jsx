@@ -25,6 +25,7 @@ const ObjectView = () => {
       const [scene] = await threeEntryPoint(threeWrapper.current);
       threeScene.current = scene;
       if (gltfs && selected) {
+        gltfs[selected].scene.visible = true;
         gltfs[selected].scene.position.set(0, -0.25, 0);
         threeScene.current.add(gltfs[selected].scene);
       }
@@ -32,14 +33,17 @@ const ObjectView = () => {
 
     if (threeScene.current === null) {
       init();
-    } else if (gltfs && selected) {
+    } else {
       const selectedObject = threeScene.current.getObjectByName('current');
       if (selectedObject) {
         selectedObject.position.set(0, 0, 0);
         threeScene.current.remove(selectedObject);
       }
-      gltfs[selected].scene.position.set(0, -0.25, 0);
-      threeScene.current.add(gltfs[selected].scene);
+      if (gltfs && selected) {
+        gltfs[selected].scene.visible = true;
+        gltfs[selected].scene.position.set(0, -0.25, 0);
+        threeScene.current.add(gltfs[selected].scene);
+      }
     }
   }, [gltfs, selected]);
 

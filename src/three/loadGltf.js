@@ -52,22 +52,17 @@ const customizeProperties = (mesh, userData) => {
 };
 
 const loadGltf = async (path, userData) => {
-  try {
-    const gltf = await gltfLoader.loadAsync(path);
-    gltf.userData = userData;
-    gltf.scene.name = 'current';
-    ['position', 'rotation', 'scale'].forEach((key) => {
-      if (gltf.userData[key]) {
-        setTransform(gltf.scene, key, gltf.userData[key]);
-      }
-    });
-    traverseMesh(gltf.scene.children, (child) => customizeProperties(child, userData));
-    console.log(gltf);
-    return gltf;
-  } catch (err) {
-    console.error('failed to load gltf', userData, err);
-    return null;
-  }
+  const gltf = await gltfLoader.loadAsync(path);
+  gltf.userData = userData;
+  gltf.scene.name = 'current';
+  ['position', 'rotation', 'scale'].forEach((key) => {
+    if (gltf.userData[key]) {
+      setTransform(gltf.scene, key, gltf.userData[key]);
+    }
+  });
+  traverseMesh(gltf.scene.children, (child) => customizeProperties(child, userData));
+  console.log(gltf);
+  return gltf;
 };
 
 export default loadGltf;

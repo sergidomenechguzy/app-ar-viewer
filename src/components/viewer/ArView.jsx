@@ -91,17 +91,20 @@ const ArView = () => {
 
     if (threeScene.current === null) {
       init();
-    } else if (gltfs && selected) {
+    } else {
       const selectedObject = threeScene.current.getObjectByName('current');
       if (selectedObject) {
         setPlaced(false);
-        gltfs[selected].userData.placed = false;
+        selectedObject.visible = true;
+        selectedObject.userData.placed = false;
         threeScene.current.remove(selectedObject);
       }
-      gltfs[selected].scene.visible = false;
-      gltfs[selected].scene.userData.placed = false;
-      gltfs[selected].scene.position.set(0, 0, 0);
-      threeScene.current.add(gltfs[selected].scene);
+      if (gltfs && selected) {
+        gltfs[selected].scene.visible = false;
+        gltfs[selected].scene.userData.placed = false;
+        gltfs[selected].scene.position.set(0, 0, 0);
+        threeScene.current.add(gltfs[selected].scene);
+      }
     }
   }, [gltfs, selected, xrSession]);
 

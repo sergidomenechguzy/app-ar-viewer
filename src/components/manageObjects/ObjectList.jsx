@@ -31,12 +31,14 @@ const ObjectList = ({
 
   const handleSelect = useCallback(
     async (id) => {
-      await selectAndLoad(id);
-      if (onClick) {
-        onClick();
-      }
-      if (onClose) {
-        onClose();
+      const gltf = await selectAndLoad(id);
+      if (gltf) {
+        if (onClick) {
+          onClick();
+        }
+        if (onClose) {
+          onClose();
+        }
       }
     },
     [onClick, onClose, selectAndLoad]
@@ -44,8 +46,8 @@ const ObjectList = ({
 
   const handleDownload = useCallback(
     async ({ id }) => {
-      await getGltf(id);
-      if (onClick) {
+      const gltf = await getGltf(id);
+      if (gltf && onClick) {
         onClick();
       }
     },

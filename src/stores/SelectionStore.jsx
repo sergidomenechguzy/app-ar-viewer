@@ -25,8 +25,11 @@ export const useSelectionStore = () => {
 
   const selectAndLoad = useCallback(
     async (id) => {
-      await getGltf(id);
-      setSelected(id);
+      const gltf = await getGltf(id);
+      if (gltf) {
+        setSelected(id);
+      }
+      return gltf;
     },
     [getGltf, setSelected]
   );

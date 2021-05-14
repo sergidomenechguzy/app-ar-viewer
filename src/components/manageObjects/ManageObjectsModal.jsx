@@ -53,8 +53,10 @@ const ManageObjectsModal = ({ open, onClose }) => {
   }, [config.files]);
 
   useEffect(() => {
-    getCachedFiles();
-  }, [getCachedFiles]);
+    if (open) {
+      getCachedFiles();
+    }
+  }, [getCachedFiles, open]);
 
   return (
     <BottomSlidingModal

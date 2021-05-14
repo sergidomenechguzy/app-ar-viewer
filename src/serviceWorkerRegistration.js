@@ -72,6 +72,8 @@ function registerValidSW(swUrl, config) {
                 'New content is available and will be used when all ' +
                   'tabs for this page are closed. See https://cra.link/PWA.'
               );
+              // TODO: fix messaging
+              navigator.serviceWorker.controller.postMessage({ type: 'UPDATE_AVAILABLE' });
 
               // Execute callback
               if (config && config.onUpdate) {

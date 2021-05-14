@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
 import clsx from 'clsx';
 import fileSize from 'filesize';
+import { Offline } from 'react-detect-offline';
+import { useTranslation } from 'react-i18next';
 import Typography from '../utility/Typography';
 import IconButton from '../buttons/IconButton';
 import Divider from '../utility/Divider';
 import Clickable from '../utility/Clickable';
 import useOpenState from '../../hooks/useOpenState';
-import ConfirmModal from './ConfirmModal';
+import ConfirmModal from '../utility/ConfirmModal';
 
 const useStyles = createUseStyles((theme) => ({
   listElement: {
@@ -46,6 +48,9 @@ const useStyles = createUseStyles((theme) => ({
   divider: {
     marginLeft: theme.spacing(14),
   },
+  offline: {
+    marginTop: theme.spacing(1),
+  },
 }));
 
 const ObjectListElement = ({
@@ -59,6 +64,7 @@ const ObjectListElement = ({
 }) => {
   const cls = useStyles();
   const [isOpen, setOpened, setClosed] = useOpenState(false);
+  const { t } = useTranslation();
 
   const handleActionClick = (e) => {
     e.stopPropagation();
@@ -81,7 +87,7 @@ const ObjectListElement = ({
           </div>
           <div className={cls.elementInfo}>
             <Typography variant="h6">{file.name}</Typography>
-            <Typography variant="body2">{file.category}</Typography>
+            <Typography variant="body2">{t(file.category)}</Typography>
             <Typography variant="caption" color="hint">
               {fileSize(file.size)}
             </Typography>
@@ -95,7 +101,18 @@ const ObjectListElement = ({
       </Clickable>
       {!last ? <Divider className={cls.divider} /> : null}
       {confirmAction && onAction ? (
-        <ConfirmModal open={isOpen} onClose={setClosed} onConfirm={() => onAction(file)} />
+        <ConfirmModal open={isOpen} onClose={setClosed} onConfirm={() => onAction(file)}>
+          <Typography>
+            {t(
+              'Deleting the 3D-Object will remove it from the local cache and it has to be downloaded again.'
+            )}
+          </Typography>
+          <Offline polling={{ enabled: false }}>
+            <Typography className={cls.offline}>
+              {t('You will not be able to select this 3D-Object again until you go online.')}
+            </Typography>
+          </Offline>
+        </ConfirmModal>
       ) : null}
     </>
   );

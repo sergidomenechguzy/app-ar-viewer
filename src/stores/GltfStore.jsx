@@ -1,23 +1,20 @@
 import PropTypes from 'prop-types';
-import React, { createContext, useCallback, useContext, useState } from 'react';
+import React, { createContext, useCallback, useContext } from 'react';
+import useResettableState from '../hooks/useResettableState';
 import loadGltf from '../three/loadGltf';
 import { useConfigStore } from './ConfigStore';
+import { useSnackbarStore } from './SnackbarStore';
 
 const Context = createContext();
 
-const GltfStore = ({ children, config }) => {
-  const [gltfs, setGltfs] = useState({});
+const GltfStore = ({ children }) => {
+  const value = useResettableState({});
 
-  return <Context.Provider value={{ gltfs, setGltfs }}>{children}</Context.Provider>;
+  return <Context.Provider value={value}>{children}</Context.Provider>;
 };
 
 GltfStore.propTypes = {
   children: PropTypes.node.isRequired,
-  config: PropTypes.arrayOf(PropTypes.object),
-};
-
-GltfStore.defaultProps = {
-  config: [],
 };
 
 GltfStore.displayName = 'GltfStore';
@@ -25,37 +22,44 @@ GltfStore.displayName = 'GltfStore';
 export default GltfStore;
 
 export const useGltfStore = () => {
-  const { gltfs: gltfsState, setGltfs } = useContext(Context);
+  const [gltfs, setGltfs, resetGltfs] = useContext(Context);
   const { config } = useConfigStore();
+  const { showErrorMessage } = useSnackbarStore();
 
   const loadGltfToStore = useCallback(
     async (gltfConfig) => {
-      const gltf = await loadGltf(gltfConfig.path, gltfConfig);
+      try {
+        const gltf = await loadGltf(gltfConfig.path, gltfConfig);
 
-      setGltfs((old) => ({
-        ...old,
-        [gltfConfig.id]: gltf,
-      }));
-      return gltf;
+        setGltfs((old) => ({
+          ...old,
+          [gltfConfig.id]: gltf,
+        }));
+        return gltf;
+      } catch (err) {
+        console.warn('failed to load gltf', gltfConfig, err);
+        showErrorMessage();
+        return null;
+      }
     },
-    [setGltfs]
+    [showErrorMessage, setGltfs]
   );
 
   const getGltf = useCallback(
     async (gltfId) => {
-      if (!(gltfId in gltfsState)) {
+      if (!(gltfId in gltfs)) {
         const gltfConfig = config.files.find((currGltfConfig) => currGltfConfig.id === gltfId);
         const gltf = await loadGltfToStore(gltfConfig);
         return gltf;
       }
-      return gltfsState[gltfId];
+      return gltfs[gltfId];
     },
-    [config.files, gltfsState, loadGltfToStore]
+    [config.files, gltfs, loadGltfToStore]
   );
 
   const removeGltf = useCallback(
     (gltfId) => {
-      if (gltfId in gltfsState) {
+      if (gltfId in gltfs) {
         setGltfs((old) => {
           // eslint-disable-next-line no-param-reassign
           delete old[gltfId];
@@ -63,12 +67,13 @@ export const useGltfStore = () => {
         });
       }
     },
-    [gltfsState, setGltfs]
+    [gltfs, setGltfs]
   );
 
   return {
-    gltfs: gltfsState,
+    gltfs,
     getGltf,
     removeGltf,
+    resetGltfs,
   };
 };
