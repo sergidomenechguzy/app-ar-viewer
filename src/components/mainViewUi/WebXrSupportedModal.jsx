@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { createUseStyles } from 'react-jss';
+import { useSnackbarStore } from '../../stores/SnackbarStore';
 import { useViewStore } from '../../stores/ViewStore';
 import { useXRSession } from '../../stores/XRSessionStore';
 import requestSession from '../../three/requestSession';
@@ -23,16 +24,25 @@ const WebXrSupportedModal = ({ open, onClose }) => {
   const { t } = useTranslation();
   const { dispatch } = useViewStore();
   const { xrSession, clearSession } = useXRSession();
+  const { addSnackbarMessage } = useSnackbarStore();
 
-  const startAr = async () => {
-    xrSession.current = await requestSession(clearSession);
-    dispatch({ type: 'setAr' });
-    onClose();
-  };
-  const start3d = () => {
+  const startAr = useCallback(async () => {
+    try {
+      xrSession.current = await requestSession(clearSession);
+      dispatch({ type: 'setAr' });
+      onClose();
+    } catch (err) {
+      console.warn('something went wrong while starting the ar session', err);
+      dispatch({ type: 'set3d' });
+      addSnackbarMessage('Something went wrong while starting the AR session!', 'error');
+      onClose();
+    }
+  }, [addSnackbarMessage, clearSession, dispatch, onClose, xrSession]);
+
+  const start3d = useCallback(() => {
     dispatch({ type: 'set3d' });
     onClose();
-  };
+  }, [dispatch, onClose]);
 
   return (
     <Modal

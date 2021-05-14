@@ -4,6 +4,7 @@ import { createUseStyles } from 'react-jss';
 import ObjectListElement from './ObjectListElement';
 import { useSelectionStore } from '../../stores/SelectionStore';
 import { useGltfStore } from '../../stores/GltfStore';
+import { useSnackbarStore } from '../../stores/SnackbarStore';
 
 const useStyles = createUseStyles((theme) => ({
   listWrapper: {
@@ -28,6 +29,7 @@ const ObjectList = ({
   const cls = useStyles();
   const { selected, selectAndLoad, resetSelected } = useSelectionStore();
   const { getGltf, removeGltf } = useGltfStore();
+  const { addSnackbarMessage } = useSnackbarStore();
 
   const handleSelect = useCallback(
     async (id) => {
@@ -56,18 +58,23 @@ const ObjectList = ({
 
   const handleDelete = useCallback(
     async ({ id, path }) => {
-      const cache = await caches.open('assets');
-      const request = new Request(`${window.location.origin}/${path}`);
-      await cache.delete(request);
-      if (selected === id) {
-        resetSelected();
-      }
-      removeGltf(id);
-      if (onClick) {
-        onClick();
+      try {
+        const cache = await caches.open('assets');
+        const request = new Request(`${window.location.origin}/${path}`);
+        await cache.delete(request);
+        if (selected === id) {
+          resetSelected();
+        }
+        removeGltf(id);
+        if (onClick) {
+          onClick();
+        }
+      } catch (err) {
+        console.warn('something went wrong while accessing the cache', err);
+        addSnackbarMessage('Something went wrong while accessing the cache!', 'error');
       }
     },
-    [onClick, removeGltf, resetSelected, selected]
+    [addSnackbarMessage, onClick, removeGltf, resetSelected, selected]
   );
 
   const actionFunctions = {

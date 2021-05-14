@@ -12,6 +12,7 @@ import { useConfigStore } from '../../stores/ConfigStore';
 import OfflineAlert from './OfflineAlert';
 import DeleteIcon from '../icons/DeleteIcon';
 import DownloadIcon from '../icons/DownloadIcon';
+import { useSnackbarStore } from '../../stores/SnackbarStore';
 
 const useStyles = createUseStyles((theme) => ({
   modal: {
@@ -31,26 +32,33 @@ const ManageObjectsModal = ({ open, onClose }) => {
   const { t } = useTranslation();
   const [downloadableFiles, setDownloadableFiles] = useState([]);
   const [cachedFiles, setCachedFiles] = useState([]);
+  const { addSnackbarMessage } = useSnackbarStore();
 
   const getCachedFiles = useCallback(async () => {
-    const cache = await caches.open('assets');
-    const promises = config.files.map(async (file) => {
-      const request = new Request(`${window.location.origin}/${file.path}`);
-      const match = await cache.match(request);
-      return match;
-    });
-    const cached = [];
-    const notCached = [];
-    (await Promise.all(promises)).forEach((match, index) => {
-      if (match !== undefined) {
-        cached.push(config.files[index]);
-      } else {
-        notCached.push(config.files[index]);
-      }
-    });
-    setCachedFiles(cached);
-    setDownloadableFiles(notCached);
-  }, [config.files]);
+    try {
+      const cache = await caches.open('assets');
+      const promises = config.files.map(async (file) => {
+        const request = new Request(`${window.location.origin}/${file.path}`);
+        const match = await cache.match(request);
+        return match;
+      });
+      const cached = [];
+      const notCached = [];
+      (await Promise.all(promises)).forEach((match, index) => {
+        if (match !== undefined) {
+          cached.push(config.files[index]);
+        } else {
+          notCached.push(config.files[index]);
+        }
+      });
+      setCachedFiles(cached);
+      setDownloadableFiles(notCached);
+    } catch (err) {
+      console.warn('something went wrong while accessing the cache', err);
+      addSnackbarMessage('Something went wrong while accessing the cache!', 'error');
+      setDownloadableFiles(config.files);
+    }
+  }, [addSnackbarMessage, config.files]);
 
   useEffect(() => {
     if (open) {

@@ -3,6 +3,7 @@ import { createUseStyles } from 'react-jss';
 import threeEntryPoint from '../../three/threeEntryPoint';
 import { useSelectionStore } from '../../stores/SelectionStore';
 import { useGltfStore } from '../../stores/GltfStore';
+import { useSnackbarStore } from '../../stores/SnackbarStore';
 
 const useStyles = createUseStyles((theme) => ({
   threeEntryPoint: {
@@ -18,16 +19,22 @@ const ObjectView = () => {
   const threeScene = useRef(null);
   const { selected } = useSelectionStore();
   const { gltfs } = useGltfStore();
+  const { showErrorMessage } = useSnackbarStore();
 
   useEffect(() => {
     const init = async () => {
-      console.log('creating three scene');
-      const [scene] = await threeEntryPoint(threeWrapper.current);
-      threeScene.current = scene;
-      if (gltfs && selected) {
-        gltfs[selected].scene.visible = true;
-        gltfs[selected].scene.position.set(0, -0.25, 0);
-        threeScene.current.add(gltfs[selected].scene);
+      try {
+        console.log('creating three scene');
+        const [scene] = await threeEntryPoint(threeWrapper.current);
+        threeScene.current = scene;
+        if (gltfs && selected) {
+          gltfs[selected].scene.visible = true;
+          gltfs[selected].scene.position.set(0, -0.25, 0);
+          threeScene.current.add(gltfs[selected].scene);
+        }
+      } catch (err) {
+        console.warn('Something went wrong while initialising three scene.', err);
+        showErrorMessage();
       }
     };
 
@@ -45,7 +52,7 @@ const ObjectView = () => {
         threeScene.current.add(gltfs[selected].scene);
       }
     }
-  }, [gltfs, selected]);
+  }, [gltfs, selected, showErrorMessage]);
 
   return <div className={cls.threeEntryPoint} ref={threeWrapper} id="threeWrapper" />;
 };

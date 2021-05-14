@@ -9,6 +9,7 @@ import { useGltfStore } from '../../stores/GltfStore';
 import FloatingButton from '../buttons/FloatingButton';
 import ArExplainAnimation from './ArExplainAnimation';
 import CameraButton from '../buttons/CameraButton';
+import { useSnackbarStore } from '../../stores/SnackbarStore';
 
 const useStyles = createUseStyles((theme) => ({
   threeEntryPoint: {
@@ -44,6 +45,7 @@ const ArView = () => {
   const { selected } = useSelectionStore();
   const { gltfs } = useGltfStore();
   const { t } = useTranslation();
+  const { showErrorMessage } = useSnackbarStore();
 
   const placeObject = useCallback(() => {
     if (placed === true) {
@@ -71,21 +73,26 @@ const ArView = () => {
 
   useEffect(() => {
     const init = async () => {
-      if (xrSession?.current) {
-        console.log('creating three scene', xrSession.current);
-        const [scene, renderer] = await threeEntryPoint(
-          threeWrapper.current,
-          xrSession.current,
-          setHitTest
-        );
-        threeScene.current = scene;
-        threeRenderer.current = renderer;
-        if (gltfs && selected) {
-          gltfs[selected].scene.visible = false;
-          gltfs[selected].scene.userData.placed = false;
-          gltfs[selected].scene.position.set(0, 0, 0);
-          threeScene.current.add(gltfs[selected].scene);
+      try {
+        if (xrSession?.current) {
+          console.log('creating three scene', xrSession.current);
+          const [scene, renderer] = await threeEntryPoint(
+            threeWrapper.current,
+            xrSession.current,
+            setHitTest
+          );
+          threeScene.current = scene;
+          threeRenderer.current = renderer;
+          if (gltfs && selected) {
+            gltfs[selected].scene.visible = false;
+            gltfs[selected].scene.userData.placed = false;
+            gltfs[selected].scene.position.set(0, 0, 0);
+            threeScene.current.add(gltfs[selected].scene);
+          }
         }
+      } catch (err) {
+        console.warn('Something went wrong while initialising three scene.', err);
+        showErrorMessage();
       }
     };
 
@@ -106,7 +113,7 @@ const ArView = () => {
         threeScene.current.add(gltfs[selected].scene);
       }
     }
-  }, [gltfs, selected, xrSession]);
+  }, [gltfs, selected, showErrorMessage, xrSession]);
 
   return xrSession?.current ? (
     <>

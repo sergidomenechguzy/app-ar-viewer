@@ -67,7 +67,7 @@ const SettingsModal = ({ open, onClose, zOffset }) => {
       resetGltfs();
       addSnackbarMessage('All 3D-Objects deleted from cache.');
     } catch (err) {
-      console.warn('Something went wrong trying to delete all 3d-objects.', err);
+      console.warn('Something went wrong trying to delete all 3D-Objects.', err);
       showErrorMessage();
     }
   }, [addSnackbarMessage, resetGltfs, resetSelected, showErrorMessage]);
