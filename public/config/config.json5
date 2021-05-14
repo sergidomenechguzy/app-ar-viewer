@@ -2,7 +2,7 @@
   files: [
     {
       id: 'coffee-table',
-      name: 'Coffe Table',
+      name: 'Coffee Table',
       category: 'Table',
       size: 1223216,
       path: 'media/coffee-table/coffee-table.glb',
@@ -43,7 +43,7 @@
     {
       id: 'pouf',
       name: 'Pouf',
-      category: 'Other Furniture',
+      category: 'Furniture',
       size: 2018460,
       path: 'media/pouf/pouf.glb',
       thumbnail: 'media/pouf/pouf.png',
@@ -51,7 +51,7 @@
     {
       id: 'stool',
       name: 'Stool',
-      category: 'Other Furniture',
+      category: 'Furniture',
       size: 1169200,
       path: 'media/stool/stool.glb',
       thumbnail: 'media/stool/stool.png',
