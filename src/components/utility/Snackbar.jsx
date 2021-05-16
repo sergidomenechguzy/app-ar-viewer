@@ -7,7 +7,7 @@ import { Transition } from 'react-transition-group';
 import PaperBase from './PaperBase';
 import Typography from './Typography';
 import IconButton from '../buttons/IconButton';
-import DeleteIcon from '../icons/DeleteIcon';
+import CloseIcon from '../icons/CloseIcon';
 
 const useStyles = createUseStyles((theme) => ({
   snackbar: {
@@ -68,7 +68,7 @@ const Snackbar = ({ open, onClose, message, duration, variant }) => {
         <PaperBase className={clsx(cls.snackbar, cls[state])}>
           <Typography className={cls.message}>{t(message)}</Typography>
           <IconButton onClick={onClose}>
-            <DeleteIcon />
+            <CloseIcon />
           </IconButton>
         </PaperBase>
       )}
