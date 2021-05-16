@@ -33,16 +33,20 @@
       "Delete": "Delete",
       "Deleting the 3D-Object will remove it from the local cache and it has to be downloaded again.": "Deleting the 3D-Object will remove it from the local cache and it has to be downloaded again.",
       "You will not be able to select this 3D-Object again until you go online.": "You will not be able to select this 3D-Object again until you go online.",
+      "Deleting the 3D-Object will remove all loaded data and it has to be uploaded again.": "Deleting the 3D-Object will remove all loaded data and it has to be uploaded again.",
       "Deleting all 3D-Objects will remove them from the local cache and they have to be downloaded again.": "Deleting all 3D-Objects will remove them from the local cache and they have to be downloaded again.",
       "You will not be able to select any 3D-Object again until you go online.": "You will not be able to select any 3D-Object again until you go online.",
       "Something went wrong, please try again!": "Something went wrong, please try again!",
       "Something went wrong while starting the AR session!": "Something went wrong while starting the AR session!",
       "Something went wrong while accessing the cache!": "Something went wrong while accessing the cache!",
+      "Something went wrong while processing the uploaded file, please try again!": "Something went wrong while processing the uploaded file, please try again!",
       "All 3D-Objects deleted from cache.": "All 3D-Objects deleted from cache.",
+      "File type not supported, only .gltf / .glb files allowed!": "File type not supported, only .gltf / .glb files allowed!",
       "Table": "Table",
       "Chair": "Chair",
       "Furniture": "Furniture",
-      "Decoration": "Decoration"
+      "Decoration": "Decoration",
+      "Local 3D-Object": "Local 3D-Object"
     }
   },
   "de": {
@@ -79,16 +83,20 @@
       "Delete": "Löschen",
       "Deleting the 3D-Object will remove it from the local cache and it has to be downloaded again.": "Das 3D-Objekt zu löschen, wird es aus dem lokalen Cache entfernen und es muss erneut heruntergeladen werden.",
       "You will not be able to select this 3D-Object again until you go online.": "Du wirst dieses 3D-Objekt nicht wieder auswählen können, bis du online gehst.",
+      "Deleting the 3D-Object will remove all loaded data and it has to be uploaded again.": "Das 3D-Objekt zu löschen, wird alle geladenen Daten entfernen und es muss erneut hochgeladen werden.",
       "Deleting all 3D-Objects will remove them from the local cache and they have to be downloaded again.": "Alle 3D-Objekte zu löschen, wird sie aus dem lokalen Cache entfernen und sie müssen erneut heruntergeladen werden.",
       "You will not be able to select any 3D-Object again until you go online.": "Du wirst keine 3D-Objekte mehr auswählen können, bis du online gehst.",
       "Something went wrong, please try again!": "Es ist ein Fehler aufgetreteten, bitte versuche es erneut!",
       "Something went wrong while starting the AR session!": "Beim Starten der AR Session ist ein Fehler aufgetreten!",
       "Something went wrong while accessing the cache!": "Beim Zugreifen auf den Cache ist ein Fehler aufgetreten!",
+      "Something went wrong while processing the uploaded file, please try again!": "Beim Verarbeiten der hochgeladenen Datei ist ein Fehler aufgetreten, bitte versuche es erneut!",
       "All 3D-Objects deleted from cache.": "Alle 3D-Objekte aus dem Cache gelöscht.",
+      "File type not supported, only .gltf / .glb files allowed!": "Dateityp nicht unterstützt, nur .gltf / .glb Dateien erlaubt!",
       "Table": "Tisch",
       "Chair": "Stuhl",
       "Furniture": "Möbel",
-      "Decoration": "Dekoration"
+      "Decoration": "Dekoration",
+      "Local 3D-Object": "Lokales 3D-Objekt"
     }
   }
 }

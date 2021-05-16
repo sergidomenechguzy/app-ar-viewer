@@ -13,6 +13,7 @@ import OfflineAlert from './OfflineAlert';
 import DeleteIcon from '../icons/DeleteIcon';
 import DownloadIcon from '../icons/DownloadIcon';
 import { useSnackbarStore } from '../../stores/SnackbarStore';
+import { useUploadedFilesStore } from '../../stores/UploadedFilesStore';
 
 const useStyles = createUseStyles((theme) => ({
   modal: {
@@ -29,6 +30,7 @@ const useStyles = createUseStyles((theme) => ({
 const ManageObjectsModal = ({ open, onClose }) => {
   const cls = useStyles();
   const { config } = useConfigStore();
+  const { files } = useUploadedFilesStore();
   const { t } = useTranslation();
   const [downloadableFiles, setDownloadableFiles] = useState([]);
   const [cachedFiles, setCachedFiles] = useState([]);
@@ -79,7 +81,7 @@ const ManageObjectsModal = ({ open, onClose }) => {
       zOffset={20}
     >
       <ObjectList
-        files={[]}
+        files={files}
         onClick={getCachedFiles}
         onClose={onClose}
         header={
@@ -87,6 +89,9 @@ const ManageObjectsModal = ({ open, onClose }) => {
             {t('Uploaded')}
           </Typography>
         }
+        action="deleteLocal"
+        actionIcon={<DeleteIcon size="h6" />}
+        confirmAction={true}
       />
       <ObjectList
         files={cachedFiles}

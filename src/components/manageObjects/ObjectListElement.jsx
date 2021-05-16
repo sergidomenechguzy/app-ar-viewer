@@ -11,6 +11,7 @@ import Divider from '../utility/Divider';
 import Clickable from '../utility/Clickable';
 import useOpenState from '../../hooks/useOpenState';
 import ConfirmModal from '../utility/ConfirmModal';
+import ThreeDObjectIcon from '../icons/ThreeDObjectIcon';
 
 const useStyles = createUseStyles((theme) => ({
   listElement: {
@@ -29,6 +30,9 @@ const useStyles = createUseStyles((theme) => ({
     width: theme.spacing(10),
     height: theme.spacing(10),
     backgroundColor: theme.palette.action.hover,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   image: {
     width: '100%',
@@ -61,6 +65,8 @@ const ObjectListElement = ({
   onAction,
   actionIcon,
   confirmAction,
+  confirmText,
+  confirmTextOffline,
 }) => {
   const cls = useStyles();
   const [isOpen, setOpened, setClosed] = useOpenState(false);
@@ -83,7 +89,11 @@ const ObjectListElement = ({
           onClick={() => onClick(file.id)}
         >
           <div className={cls.imageWrapper}>
-            <img src={file.thumbnail} alt="thumbnail" className={cls.image}></img>
+            {file.thumbnail ? (
+              <img src={file.thumbnail} alt="thumbnail" className={cls.image}></img>
+            ) : (
+              <ThreeDObjectIcon size="h4" />
+            )}
           </div>
           <div className={cls.elementInfo}>
             <Typography variant="h6">{file.name}</Typography>
@@ -100,18 +110,14 @@ const ObjectListElement = ({
         </li>
       </Clickable>
       {!last ? <Divider className={cls.divider} /> : null}
-      {confirmAction && onAction ? (
+      {confirmAction && onAction && confirmText ? (
         <ConfirmModal open={isOpen} onClose={setClosed} onConfirm={() => onAction(file)}>
-          <Typography>
-            {t(
-              'Deleting the 3D-Object will remove it from the local cache and it has to be downloaded again.'
-            )}
-          </Typography>
-          <Offline polling={{ enabled: false }}>
-            <Typography className={cls.offline}>
-              {t('You will not be able to select this 3D-Object again until you go online.')}
-            </Typography>
-          </Offline>
+          <Typography>{t(confirmText)}</Typography>
+          {confirmTextOffline ? (
+            <Offline polling={{ enabled: false }}>
+              <Typography className={cls.offline}>{t(confirmTextOffline)}</Typography>
+            </Offline>
+          ) : null}
         </ConfirmModal>
       ) : null}
     </>
@@ -126,6 +132,8 @@ ObjectListElement.propTypes = {
   onAction: PropTypes.func,
   actionIcon: PropTypes.element,
   confirmAction: PropTypes.bool,
+  confirmText: PropTypes.string,
+  confirmTextOffline: PropTypes.string,
 };
 
 ObjectListElement.defaultProps = {

@@ -14,13 +14,19 @@ const useStyles = createUseStyles((theme) => ({
   },
 }));
 
-const ButtonBase = ({ children, className, onClick, disableFocus, disableActive }) => {
+const ButtonBase = ({ children, className, onClick, disableFocus, disableActive, component }) => {
   const cls = useStyles();
   return (
     <Clickable disableFocus={disableFocus} disableActive={disableActive}>
-      <button className={clsx(cls.buttonBase, className)} onClick={onClick}>
-        {children}
-      </button>
+      {component === 'span' ? (
+        <span className={clsx(cls.buttonBase, className)} onClick={onClick}>
+          {children}
+        </span>
+      ) : (
+        <button className={clsx(cls.buttonBase, className)} onClick={onClick}>
+          {children}
+        </button>
+      )}
     </Clickable>
   );
 };
@@ -31,6 +37,7 @@ ButtonBase.propTypes = {
   onClick: PropTypes.func,
   disableFocus: PropTypes.bool,
   disableActive: PropTypes.bool,
+  component: PropTypes.oneOf(['button', 'span']),
 };
 
 ButtonBase.defaultProps = {
@@ -38,6 +45,7 @@ ButtonBase.defaultProps = {
   onClick: null,
   disableFocus: false,
   disableActive: false,
+  component: 'button',
 };
 
 export default ButtonBase;

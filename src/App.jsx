@@ -9,6 +9,7 @@ import ThemeStore from './stores/ThemeStore';
 import ViewStore from './stores/ViewStore';
 import XRSessionStore from './stores/XRSessionStore';
 import SnackbarStore from './stores/SnackbarStore';
+import UploadedFilesStore from './stores/UploadedFilesStore';
 
 const App = () => (
   <ThemeStore>
@@ -16,14 +17,16 @@ const App = () => (
       <ConfigStore>
         <XRSessionStore>
           <ViewStore>
-            <GltfStore>
-              <SelectionStore>
-                <AppWrapper>
-                  <UiOverlay />
-                  <Viewer />
-                </AppWrapper>
-              </SelectionStore>
-            </GltfStore>
+            <UploadedFilesStore>
+              <GltfStore>
+                <SelectionStore>
+                  <AppWrapper>
+                    <UiOverlay />
+                    <Viewer />
+                  </AppWrapper>
+                </SelectionStore>
+              </GltfStore>
+            </UploadedFilesStore>
           </ViewStore>
         </XRSessionStore>
       </ConfigStore>

@@ -4,6 +4,7 @@ import useResettableState from '../hooks/useResettableState';
 import loadGltf from '../three/loadGltf';
 import { useConfigStore } from './ConfigStore';
 import { useSnackbarStore } from './SnackbarStore';
+import { useUploadedFilesStore } from './UploadedFilesStore';
 
 const Context = createContext();
 
@@ -25,6 +26,7 @@ export const useGltfStore = () => {
   const [gltfs, setGltfs, resetGltfs] = useContext(Context);
   const { config } = useConfigStore();
   const { showErrorMessage } = useSnackbarStore();
+  const { files: uploadedFiles } = useUploadedFilesStore();
 
   const loadGltfToStore = useCallback(
     async (gltfConfig) => {
@@ -48,13 +50,16 @@ export const useGltfStore = () => {
   const getGltf = useCallback(
     async (gltfId) => {
       if (!(gltfId in gltfs)) {
-        const gltfConfig = config.files.find((currGltfConfig) => currGltfConfig.id === gltfId);
+        let gltfConfig = config.files.find((currGltfConfig) => currGltfConfig.id === gltfId);
+        if (!gltfConfig) {
+          gltfConfig = uploadedFiles.find((currGltfConfig) => currGltfConfig.id === gltfId);
+        }
         const gltf = await loadGltfToStore(gltfConfig);
         return gltf;
       }
       return gltfs[gltfId];
     },
-    [config.files, gltfs, loadGltfToStore]
+    [config.files, gltfs, loadGltfToStore, uploadedFiles]
   );
 
   const removeGltf = useCallback(
