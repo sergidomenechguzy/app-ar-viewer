@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { createUseStyles } from 'react-jss';
 import ButtonBase from './ButtonBase';
-import { useViewStore } from '../../stores/ViewStore';
 
 const useStyles = createUseStyles((theme) => ({
   button: {
@@ -24,13 +23,12 @@ const useStyles = createUseStyles((theme) => ({
 
 const CameraButton = ({ className, ...rest }) => {
   const cls = useStyles();
-  const { currentView } = useViewStore();
 
-  return currentView === 'ar' ? (
+  return (
     <ButtonBase className={clsx(cls.button, className)} {...rest}>
       <div className={cls.inner} />
     </ButtonBase>
-  ) : null;
+  );
 };
 
 CameraButton.propTypes = {

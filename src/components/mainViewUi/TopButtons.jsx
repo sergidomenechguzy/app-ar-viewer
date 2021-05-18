@@ -5,6 +5,7 @@ import useOpenState from '../../hooks/useOpenState';
 import FloatingButton from '../buttons/FloatingButton';
 import SettingsIcon from '../icons/SettingsIcon';
 import SettingsModal from '../settings/SettingsModal';
+import HideWrapper from '../utility/HideWrapper';
 
 const useStyles = createUseStyles((theme) => ({
   topButtons: {
@@ -29,11 +30,13 @@ const TopButtons = ({ zOffset }) => {
 
   return (
     <>
-      <div className={cls.topButtons}>
-        <FloatingButton onClick={setOpened} className={cls.settingsButton}>
-          <SettingsIcon size="h5" />
-        </FloatingButton>
-      </div>
+      <HideWrapper direction="up">
+        <div className={cls.topButtons}>
+          <FloatingButton onClick={setOpened} className={cls.settingsButton}>
+            <SettingsIcon size="h5" />
+          </FloatingButton>
+        </div>
+      </HideWrapper>
       <SettingsModal open={isOpen} onClose={setClosed} zOffset={zOffset} />
     </>
   );

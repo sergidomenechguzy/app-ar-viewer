@@ -124,7 +124,6 @@ const animateXR = () => {
 const renderWithHitTest = (timestamp, frame) => {
   if (frame) {
     const selectedObject = scene.getObjectByName('current');
-    // const hitTestTarget = scene.getObjectByName('hitTestTarget');
     if (selectedObject && selectedObject?.userData?.placed !== true) {
       const referenceSpace = renderer.xr.getReferenceSpace();
       const session = renderer.xr.getSession();
@@ -158,12 +157,6 @@ const renderWithHitTest = (timestamp, frame) => {
             selectedObject.visible = true;
             setHitTest(true);
           }
-          // if (mat && hitTestTarget) {
-          //   console.log(mat);
-          //   console.log(hitTestTarget);
-          //   hitTestTarget.position.setFromMatrixPosition(mat);
-          //   hitTestTarget.visible = true;
-          // }
         }
       }
     }

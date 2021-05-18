@@ -10,24 +10,27 @@ import ViewStore from './stores/ViewStore';
 import XRSessionStore from './stores/XRSessionStore';
 import SnackbarStore from './stores/SnackbarStore';
 import UploadedFilesStore from './stores/UploadedFilesStore';
+import HideUiStore from './stores/HideUiStore';
 
 const App = () => (
   <ThemeStore>
     <SnackbarStore>
       <ConfigStore>
         <XRSessionStore>
-          <ViewStore>
-            <UploadedFilesStore>
-              <GltfStore>
-                <SelectionStore>
-                  <AppWrapper>
-                    <UiOverlay />
-                    <Viewer />
-                  </AppWrapper>
-                </SelectionStore>
-              </GltfStore>
-            </UploadedFilesStore>
-          </ViewStore>
+          <HideUiStore>
+            <ViewStore>
+              <UploadedFilesStore>
+                <GltfStore>
+                  <SelectionStore>
+                    <AppWrapper>
+                      <UiOverlay />
+                      <Viewer />
+                    </AppWrapper>
+                  </SelectionStore>
+                </GltfStore>
+              </UploadedFilesStore>
+            </ViewStore>
+          </HideUiStore>
         </XRSessionStore>
       </ConfigStore>
     </SnackbarStore>

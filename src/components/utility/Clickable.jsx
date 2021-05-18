@@ -19,6 +19,9 @@ const useStyles = createUseStyles((theme) => ({
       transition: 'background-color 0.2s',
     },
   },
+  disabled: {
+    pointerEvents: 'none',
+  },
   focus: {
     '&:focus': {
       '&::after': {
@@ -44,7 +47,7 @@ const useStyles = createUseStyles((theme) => ({
   },
 }));
 
-const Clickable = ({ children, disableFocus, disableActive }) => {
+const Clickable = ({ children, disabled, disableFocus, disableActive }) => {
   const cls = useStyles();
   return React.cloneElement(children, {
     className: clsx(
@@ -52,6 +55,7 @@ const Clickable = ({ children, disableFocus, disableActive }) => {
       cls.noSelect,
       !disableFocus && cls.focus,
       !disableActive && cls.active,
+      disabled && cls.disabled,
       children.props.className
     ),
   });
@@ -59,11 +63,13 @@ const Clickable = ({ children, disableFocus, disableActive }) => {
 
 Clickable.propTypes = {
   children: PropTypes.element.isRequired,
+  disabled: PropTypes.bool,
   disableFocus: PropTypes.bool,
   disableActive: PropTypes.bool,
 };
 
 Clickable.defaultProps = {
+  disabled: false,
   disableFocus: false,
   disableActive: false,
 };

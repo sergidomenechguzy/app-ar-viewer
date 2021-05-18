@@ -10,6 +10,7 @@ import FloatingButton from '../buttons/FloatingButton';
 import ArExplainAnimation from './ArExplainAnimation';
 import CameraButton from '../buttons/CameraButton';
 import { useSnackbarStore } from '../../stores/SnackbarStore';
+import HideWrapper from '../utility/HideWrapper';
 
 const useStyles = createUseStyles((theme) => ({
   threeEntryPoint: {
@@ -18,7 +19,7 @@ const useStyles = createUseStyles((theme) => ({
   },
   placeButton: {
     position: 'fixed',
-    bottom: theme.spacing(22),
+    bottom: theme.spacing(5.5),
     left: 0,
     right: 0,
     zIndex: 1,
@@ -56,20 +57,6 @@ const ArView = () => {
       setPlaced(true);
     }
   }, [gltfs, placed, selected]);
-
-  // const takeScreenshot = useCallback(() => {
-  //   if (threeRenderer.current) {
-  //     const url = threeRenderer.current.domElement.toDataURL();
-  //     console.log('clicked cam', threeRenderer.current.domElement.toDataURL, url);
-  //     // saveAs(url, `ar-photo-${Date.now()}.png`);
-
-  //     const link = document.createElement('a');
-  //     link.download = `ar-photo-${Date.now()}.png`;
-  //     link.href = url;
-  //     link.target = '_blank';
-  //     link.click();
-  //   }
-  // }, []);
 
   useEffect(() => {
     const init = async () => {
@@ -119,11 +106,12 @@ const ArView = () => {
     <>
       {selected && !hitTest ? <ArExplainAnimation /> : null}
       {selected && hitTest ? (
-        <FloatingButton className={cls.placeButton} onClick={placeObject}>
-          {placed ? t('Grab 3D-Object') : t('Place 3D-Object')}
-        </FloatingButton>
+        <HideWrapper direction="down">
+          <FloatingButton className={cls.placeButton} onClick={placeObject}>
+            {placed ? t('Grab 3D-Object') : t('Place 3D-Object')}
+          </FloatingButton>
+        </HideWrapper>
       ) : null}
-      <CameraButton className={cls.camera} /* onClick={takeScreenshot} */ />
       <div className={cls.threeEntryPoint} ref={threeWrapper} id="threeWrapper" />
     </>
   ) : null;

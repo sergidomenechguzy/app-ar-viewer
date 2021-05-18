@@ -13,7 +13,7 @@ const useOpenState = (initial) => {
     set((old) => !old);
   }, []);
 
-  return [value, setTrue, setFalse, toggle];
+  return [value, setTrue, setFalse, toggle, set];
 };
 
 export default useOpenState;

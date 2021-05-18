@@ -21,6 +21,8 @@ import { useSnackbarStore } from '../../stores/SnackbarStore';
 import { useSelectionStore } from '../../stores/SelectionStore';
 import ConfirmModal from '../utility/ConfirmModal';
 import useOpenState from '../../hooks/useOpenState';
+import { useHideUiStore } from '../../stores/HideUiStore';
+import { useViewStore } from '../../stores/ViewStore';
 
 const useStyles = createUseStyles((theme) => ({
   modal: {
@@ -48,9 +50,11 @@ const useStyles = createUseStyles((theme) => ({
 const SettingsModal = ({ open, onClose, zOffset }) => {
   const cls = useStyles();
   const { darkMode, setDarkMode } = useThemestore();
+  const { hidden, setVisibility } = useHideUiStore();
   const { resetGltfs } = useGltfStore();
-  const { resetSelected } = useSelectionStore();
+  const { selected, resetSelected } = useSelectionStore();
   const { addSnackbarMessage, showErrorMessage } = useSnackbarStore();
+  const { currentView } = useViewStore();
   const { t } = useTranslation();
   const [isOpenObjects, setOpenedObjects, setClosedObjects] = useOpenState(false);
 
@@ -101,6 +105,23 @@ const SettingsModal = ({ open, onClose, zOffset }) => {
               <IconButton onClick={setOpenedObjects}>
                 <DeleteIcon color="error" size="h6" />
               </IconButton>
+            }
+          />
+          <SettingsListElement
+            icon={<ThemeIcon />}
+            name={t('Hide UI')}
+            action={
+              <Switch
+                value={hidden}
+                setValue={setVisibility}
+                size="h5"
+                disabled={!(currentView !== 'none' && !!selected)}
+              />
+            }
+            info={
+              currentView !== 'none' && !!selected
+                ? null
+                : t('You have to start one of the Viewers and select a 3D-Object first.')
             }
           />
           {/* <SettingsListElement

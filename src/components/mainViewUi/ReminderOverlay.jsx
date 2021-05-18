@@ -8,7 +8,7 @@ const useStyles = createUseStyles((theme) => ({
   paper: {
     position: 'fixed',
     right: theme.spacing(2),
-    bottom: theme.spacing(18),
+    bottom: theme.spacing(15),
     maxWidth: '85%',
     backgroundColor: theme.palette.background.level2,
 
@@ -18,7 +18,7 @@ const useStyles = createUseStyles((theme) => ({
       transform: 'rotate(45deg)',
       width: theme.spacing(3),
       height: theme.spacing(3),
-      right: theme.spacing(5),
+      right: theme.spacing(4.25),
       bottom: theme.spacing(-1),
       backgroundColor: theme.palette.background.level2,
       boxShadow:
