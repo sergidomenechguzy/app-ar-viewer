@@ -110,6 +110,11 @@ const ObjectList = ({
     delete: 'You will not be able to select this 3D-Object again until you go online.',
     deleteLocal: null,
   };
+  const actionLabel = {
+    download: 'download file',
+    delete: 'delete file',
+    deleteLocal: 'delete local file',
+  };
 
   return files.length === 0 && !alternative ? null : (
     <div className={cls.listWrapper}>
@@ -126,6 +131,7 @@ const ObjectList = ({
               onAction={actionFunctions[action]}
               actionIcon={actionIcon}
               confirmAction={confirmAction}
+              actionLabel={actionLabel[action]}
               confirmText={confirmText[action]}
               confirmTextOffline={confirmTextOffline[action]}
             />

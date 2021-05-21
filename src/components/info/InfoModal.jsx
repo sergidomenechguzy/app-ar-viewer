@@ -44,7 +44,11 @@ const InfoModal = ({ open, onClose }) => {
       onClose={onClose}
       className={cls.modal}
       header={<Typography variant="h5">{t('Manage Your Assets')}</Typography>}
-      footer={<Button onClick={onClose}>{t('Got it!')}</Button>}
+      footer={
+        <Button onClick={onClose} ariaLabel={t('close info')}>
+          {t('Got it!')}
+        </Button>
+      }
       hasTitle
       footerPositioning="end"
       zOffset={30}

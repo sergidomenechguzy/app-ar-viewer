@@ -56,7 +56,7 @@ const useStyles = createUseStyles((theme) => ({
   },
 }));
 
-const Switch = ({ value, setValue, color, size, disabled }) => {
+const Switch = ({ value, setValue, color, size, disabled, ariaLabel }) => {
   const cls = useStyles({ size, color });
 
   const toggleValue = useCallback(() => {
@@ -71,6 +71,7 @@ const Switch = ({ value, setValue, color, size, disabled }) => {
         onChange={toggleValue}
         className={cls.htmlInput}
         disabled={disabled}
+        aria-label={ariaLabel}
       />
       <Clickable disabled={disabled}>
         <div className={clsx(cls.slider, value && cls.toggledOn, disabled && cls.disabled)} />
@@ -96,6 +97,7 @@ Switch.propTypes = {
     'body2',
   ]),
   disabled: PropTypes.bool,
+  ariaLabel: PropTypes.string,
 };
 
 Switch.defaultProps = {

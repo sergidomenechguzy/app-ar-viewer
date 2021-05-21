@@ -24,7 +24,11 @@ const WebXrClosedModal = ({ open, onClose }) => {
       open={open}
       onClose={onClose}
       header={<Typography variant="h5">{t('AR-Session stopped')}</Typography>}
-      footer={<Button onClick={onClose}>{t('Got it!')}</Button>}
+      footer={
+        <Button onClick={onClose} ariaLabel={t('close alert')}>
+          {t('Got it!')}
+        </Button>
+      }
       footerPositioning="end"
       className={cls.modal}
     >

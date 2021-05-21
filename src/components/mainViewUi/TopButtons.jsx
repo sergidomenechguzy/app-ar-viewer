@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
+import { useTranslation } from 'react-i18next';
 import useOpenState from '../../hooks/useOpenState';
 import FloatingButton from '../buttons/FloatingButton';
 import SettingsIcon from '../icons/SettingsIcon';
@@ -27,12 +28,17 @@ const useStyles = createUseStyles((theme) => ({
 const TopButtons = ({ zOffset }) => {
   const cls = useStyles({ zOffset });
   const [isOpen, setOpened, setClosed] = useOpenState(false);
+  const { t } = useTranslation();
 
   return (
     <>
       <HideWrapper direction="up">
         <div className={cls.topButtons}>
-          <FloatingButton onClick={setOpened} className={cls.settingsButton}>
+          <FloatingButton
+            onClick={setOpened}
+            className={cls.settingsButton}
+            ariaLabel={t('settings menu')}
+          >
             <SettingsIcon size="h5" />
           </FloatingButton>
         </div>

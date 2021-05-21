@@ -8,7 +8,6 @@ import { useSelectionStore } from '../../stores/SelectionStore';
 import { useGltfStore } from '../../stores/GltfStore';
 import FloatingButton from '../buttons/FloatingButton';
 import ArExplainAnimation from './ArExplainAnimation';
-import CameraButton from '../buttons/CameraButton';
 import { useSnackbarStore } from '../../stores/SnackbarStore';
 import HideWrapper from '../utility/HideWrapper';
 
@@ -107,7 +106,11 @@ const ArView = () => {
       {selected && !hitTest ? <ArExplainAnimation /> : null}
       {selected && hitTest ? (
         <HideWrapper direction="down">
-          <FloatingButton className={cls.placeButton} onClick={placeObject}>
+          <FloatingButton
+            className={cls.placeButton}
+            onClick={placeObject}
+            ariaLabel={placed ? t('Grab 3D-Object') : t('Place 3D-Object')}
+          >
             {placed ? t('Grab 3D-Object') : t('Place 3D-Object')}
           </FloatingButton>
         </HideWrapper>

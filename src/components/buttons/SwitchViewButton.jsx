@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import { useViewStore } from '../../stores/ViewStore';
 import FloatingButton from './FloatingButton';
 import ThreeDViewerIcon from '../icons/ThreeDViewerIcon';
@@ -12,6 +13,7 @@ const SwitchViewButton = ({ className }) => {
   const { currentView, dispatch } = useViewStore();
   const { xrSession, endSession, clearSession, supportsWebXR } = useXRSession();
   const { addSnackbarMessage } = useSnackbarStore();
+  const { t } = useTranslation();
 
   const changeView = async () => {
     if (currentView === 'ar') {
@@ -29,7 +31,7 @@ const SwitchViewButton = ({ className }) => {
   };
 
   return supportsWebXR ? (
-    <FloatingButton className={className} onClick={changeView}>
+    <FloatingButton className={className} onClick={changeView} ariaLabel={t('switch view')}>
       {currentView === '3d' ? <ArViewerIcon size="h4" /> : <ThreeDViewerIcon size="h4" />}
     </FloatingButton>
   ) : null;

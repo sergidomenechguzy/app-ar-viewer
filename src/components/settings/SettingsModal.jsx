@@ -92,7 +92,9 @@ const SettingsModal = ({ open, onClose, zOffset }) => {
           <SettingsListElement
             icon={<ThemeIcon />}
             name={t('Darkmode')}
-            action={<Switch value={darkMode} setValue={setDarkMode} size="h5" />}
+            action={
+              <Switch value={darkMode} setValue={setDarkMode} size="h5" ariaLabel={t('Darkmode')} />
+            }
           />
           <SettingsListElement
             icon={<LanguageIcon />}
@@ -103,7 +105,7 @@ const SettingsModal = ({ open, onClose, zOffset }) => {
             icon={<ThreeDObjectIcon />}
             name={t('Delete 3D-Objects')}
             action={
-              <IconButton onClick={setOpenedObjects}>
+              <IconButton onClick={setOpenedObjects} ariaLabel={t('delete 3D-objects')}>
                 <DeleteIcon color="error" size="h6" />
               </IconButton>
             }
@@ -117,6 +119,7 @@ const SettingsModal = ({ open, onClose, zOffset }) => {
                 setValue={setVisibility}
                 size="h5"
                 disabled={!(currentView !== 'none' && !!selected)}
+                ariaLabel={t('Hide UI')}
               />
             }
             info={

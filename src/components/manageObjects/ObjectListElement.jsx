@@ -65,6 +65,7 @@ const ObjectListElement = ({
   onAction,
   actionIcon,
   confirmAction,
+  actionLabel,
   confirmText,
   confirmTextOffline,
 }) => {
@@ -103,7 +104,11 @@ const ObjectListElement = ({
             </Typography>
           </div>
           {actionIcon && onAction ? (
-            <IconButton onClick={handleActionClick} className={cls.action}>
+            <IconButton
+              onClick={handleActionClick}
+              className={cls.action}
+              ariaLabel={t(actionLabel || 'file action')}
+            >
               {actionIcon}
             </IconButton>
           ) : null}
@@ -132,6 +137,7 @@ ObjectListElement.propTypes = {
   onAction: PropTypes.func,
   actionIcon: PropTypes.element,
   confirmAction: PropTypes.bool,
+  actionLabel: PropTypes.string,
   confirmText: PropTypes.string,
   confirmTextOffline: PropTypes.string,
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import { createUseStyles } from 'react-jss';
+import { useTranslation } from 'react-i18next';
 import HideWrapper from '../utility/HideWrapper';
 import IconButton from './IconButton';
 import ExpandIcon from '../icons/ExpandIcon';
@@ -23,11 +24,12 @@ const useStyles = createUseStyles((theme) => ({
 const ShowUIButton = () => {
   const cls = useStyles();
   const { setVisible } = useHideUiStore();
+  const { t } = useTranslation();
 
   return (
     <HideWrapper direction="down" inverted>
       <div className={cls.showUi}>
-        <IconButton className={cls.button} onClick={setVisible}>
+        <IconButton className={cls.button} onClick={setVisible} ariaLabel={t('show UI')}>
           <ExpandIcon size="h5" />
         </IconButton>
       </div>

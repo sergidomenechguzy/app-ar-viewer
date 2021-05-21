@@ -6,7 +6,7 @@ import Select from 'react-select';
 
 const LanguageSelect = ({ zOffset }) => {
   const theme = useTheme();
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const changeLanguage = (selected) => {
     i18n.changeLanguage(selected.value);
@@ -72,6 +72,7 @@ const LanguageSelect = ({ zOffset }) => {
           primary50: theme.palette.action.disabled,
         },
       })}
+      aria-label={t('language selection')}
     />
   );
 };

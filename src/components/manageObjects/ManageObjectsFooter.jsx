@@ -33,6 +33,7 @@ const ManageObjectsFooter = () => {
         accept=".gltf, .glb"
         style={{ display: 'none' }}
         onChange={onUpload}
+        aria-label={t('Upload')}
       />
       {inputRef?.current && (
         <label htmlFor="fileUpload">

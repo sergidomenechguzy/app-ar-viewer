@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { Loader } from '@react-three/drei';
 import { useTheme } from 'react-jss';
 import { useViewStore } from '../../stores/ViewStore';
-import ObjectView from './ObjectView';
-import ArView from './ArView';
+import LazyLoad from '../utility/LazyLoad';
+
+const ArView = lazy(() => import('./ArView'));
+const ObjectView = lazy(() => import('./ObjectView'));
 
 const Viewer = () => {
   const { currentView } = useViewStore();
@@ -13,7 +15,7 @@ const Viewer = () => {
 
   return currentView !== 'none' ? (
     <>
-      {viewComponent}
+      <LazyLoad>{viewComponent}</LazyLoad>
       <Loader
         containerStyles={{
           backgroundColor: `${theme.palette.common.black}aa`,

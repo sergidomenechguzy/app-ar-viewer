@@ -42,8 +42,10 @@
     "start": "HTTPS=true SSL_CRT_FILE=./.cert/cert.pem SSL_KEY_FILE=./.cert/key.pem react-scripts start",
     "start:http": "craco start",
     "serve": "http-server ./build --cors -S -C ./.cert/cert.pem -K ./.cert/key.pem",
+    "serve:http": "http-server ./build",
     "fresh": "rm -rf ./build && craco build && http-server ./build --cors -S -C ./.cert/cert.pem -K ./.cert/key.pem",
-    "build": "craco build",
+    "fresh:http": "rm -rf ./build && craco build && http-server ./build",
+    "build": "rm -rf ./build && craco build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

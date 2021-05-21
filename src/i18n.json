@@ -50,7 +50,22 @@
       "Chair": "Chair",
       "Furniture": "Furniture",
       "Decoration": "Decoration",
-      "Local 3D-Object": "Local 3D-Object"
+      "Local 3D-Object": "Local 3D-Object",
+      "switch view": "switch view",
+      "manage objects": "manage objects",
+      "show UI": "show UI",
+      "close info": "close info",
+      "close alert": "close alert",
+      "close notification": "close notification",
+      "close menu": "close menu",
+      "info": "info",
+      "settings menu": "settings menu",
+      "download file": "download file",
+      "delete file": "delete file",
+      "delete local file": "delete local file",
+      "file action": "file action",
+      "delete 3D-objects": "delete 3D-objects",
+      "language selection": "language selection"
     }
   },
   "de": {
@@ -104,7 +119,22 @@
       "Chair": "Stuhl",
       "Furniture": "Möbel",
       "Decoration": "Dekoration",
-      "Local 3D-Object": "Lokales 3D-Objekt"
+      "Local 3D-Object": "Lokales 3D-Objekt",
+      "switch view": "View wechseln",
+      "manage objects": "Objekte verwalten",
+      "show UI": "UI anzeigen",
+      "close info": "Info schließen",
+      "close alert": "Mitteilung schließen",
+      "close notification": "Benachrichtigung schließen",
+      "close menu": "Menü schließen",
+      "info": "info",
+      "settings menu": "Einstellungsmenü",
+      "download file": "Datei herunterladen",
+      "delete file": "Datei löschen",
+      "delete local file": "lokale Datei löschen",
+      "file action": "Datei-Aktion",
+      "delete 3D-objects": "3D-Objekte löschen",
+      "language selection": "Sprachauswahl"
     }
   }
 }

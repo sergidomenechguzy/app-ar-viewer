@@ -67,7 +67,7 @@ const Snackbar = ({ open, onClose, message, duration, variant }) => {
       {(state) => (
         <PaperBase className={clsx(cls.snackbar, cls[state])}>
           <Typography className={cls.message}>{t(message)}</Typography>
-          <IconButton onClick={onClose}>
+          <IconButton onClick={onClose} ariaLabel={t('close notification')}>
             <CloseIcon />
           </IconButton>
         </PaperBase>
