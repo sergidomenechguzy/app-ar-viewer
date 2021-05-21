@@ -23,6 +23,7 @@ import ConfirmModal from '../utility/ConfirmModal';
 import useOpenState from '../../hooks/useOpenState';
 import { useHideUiStore } from '../../stores/HideUiStore';
 import { useViewStore } from '../../stores/ViewStore';
+import HideIcon from '../icons/HideIcon';
 
 const useStyles = createUseStyles((theme) => ({
   modal: {
@@ -108,7 +109,7 @@ const SettingsModal = ({ open, onClose, zOffset }) => {
             }
           />
           <SettingsListElement
-            icon={<ThemeIcon />}
+            icon={<HideIcon />}
             name={t('Hide UI')}
             action={
               <Switch
