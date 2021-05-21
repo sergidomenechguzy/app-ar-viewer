@@ -61,7 +61,6 @@ const loadGltf = async (path, userData) => {
     }
   });
   traverseMesh(gltf.scene.children, (child) => customizeProperties(child, userData));
-  console.log(gltf);
   return gltf;
 };
 

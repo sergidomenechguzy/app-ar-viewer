@@ -24,6 +24,7 @@ const SwitchViewButton = ({ className }) => {
         xrSession.current = await requestSession(clearSession);
         dispatch({ type: 'setAr' });
       } catch (err) {
+        // eslint-disable-next-line no-console
         console.warn('something went wrong while starting the ar session', err);
         addSnackbarMessage('Something went wrong while starting the AR session!', 'error');
       }

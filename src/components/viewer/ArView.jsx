@@ -61,7 +61,6 @@ const ArView = () => {
     const init = async () => {
       try {
         if (xrSession?.current) {
-          console.log('creating three scene', xrSession.current);
           const [scene, renderer] = await threeEntryPoint(
             threeWrapper.current,
             xrSession.current,
@@ -77,6 +76,7 @@ const ArView = () => {
           }
         }
       } catch (err) {
+        // eslint-disable-next-line no-console
         console.warn('Something went wrong while initialising three scene.', err);
         showErrorMessage();
       }

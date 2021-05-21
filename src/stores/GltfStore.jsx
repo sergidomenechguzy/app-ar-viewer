@@ -39,6 +39,7 @@ export const useGltfStore = () => {
         }));
         return gltf;
       } catch (err) {
+        // eslint-disable-next-line no-console
         console.warn('failed to load gltf', gltfConfig, err);
         showErrorMessage();
         return null;

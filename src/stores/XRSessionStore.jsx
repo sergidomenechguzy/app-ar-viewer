@@ -11,6 +11,7 @@ const XRSessionStore = ({ children }) => {
   useEffect(() => {
     if (!('xr' in navigator)) {
       const polyfill = new WebXRPolyfill();
+      // eslint-disable-next-line no-console
       console.log('Used polyfill for WebXR', polyfill);
     }
     if ('xr' in navigator) {
@@ -35,7 +36,6 @@ export const useXRSession = () => {
   const { xrSession, ...rest } = useContext(Context);
 
   const onSessionEnded = useCallback(() => {
-    console.log('end', xrSession);
     if (xrSession?.current) {
       xrSession.current.end();
     }

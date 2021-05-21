@@ -72,6 +72,7 @@ const ObjectList = ({
           onClick();
         }
       } catch (err) {
+        // eslint-disable-next-line no-console
         console.warn('something went wrong while accessing the cache', err);
         addSnackbarMessage('Something went wrong while accessing the cache!', 'error');
       }

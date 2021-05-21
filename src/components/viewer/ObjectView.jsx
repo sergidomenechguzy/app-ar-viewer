@@ -24,7 +24,6 @@ const ObjectView = () => {
   useEffect(() => {
     const init = async () => {
       try {
-        console.log('creating three scene');
         const [scene] = await threeEntryPoint(threeWrapper.current);
         threeScene.current = scene;
         if (gltfs && selected) {
@@ -33,6 +32,7 @@ const ObjectView = () => {
           threeScene.current.add(gltfs[selected].scene);
         }
       } catch (err) {
+        // eslint-disable-next-line no-console
         console.warn('Something went wrong while initialising three scene.', err);
         showErrorMessage();
       }

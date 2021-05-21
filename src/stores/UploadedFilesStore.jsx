@@ -36,7 +36,6 @@ export const useUploadedFilesStore = () => {
           return;
         }
 
-        console.log(file, supportedType);
         setFiles((old) => [
           ...old,
           {
@@ -49,6 +48,7 @@ export const useUploadedFilesStore = () => {
           },
         ]);
       } catch (err) {
+        // eslint-disable-next-line no-console
         console.warn('something went wrong while processing uploaded file', err);
         addSnackbarMessage(
           'Something went wrong while processing the uploaded file, please try again!',

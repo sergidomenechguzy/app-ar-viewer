@@ -72,6 +72,7 @@ const SettingsModal = ({ open, onClose, zOffset }) => {
       resetGltfs();
       addSnackbarMessage('All 3D-Objects deleted from cache.');
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.warn('Something went wrong trying to delete all 3D-Objects.', err);
       showErrorMessage();
     }

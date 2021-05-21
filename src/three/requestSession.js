@@ -20,6 +20,7 @@ const requestSession = (clearSession) =>
         resolve(xrSession);
       })
       .catch((err) => {
+        // eslint-disable-next-line no-console
         console.error(err);
         reject();
       });

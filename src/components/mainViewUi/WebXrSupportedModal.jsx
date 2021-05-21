@@ -32,6 +32,7 @@ const WebXrSupportedModal = ({ open, onClose }) => {
       dispatch({ type: 'setAr' });
       onClose();
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.warn('something went wrong while starting the ar session', err);
       dispatch({ type: 'set3d' });
       addSnackbarMessage('Something went wrong while starting the AR session!', 'error');
