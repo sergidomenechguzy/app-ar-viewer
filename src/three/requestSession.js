@@ -3,7 +3,7 @@ let xrSession;
 const requestSession = (clearSession) =>
   new Promise((resolve, reject) => {
     const options = {
-      requiredFeatures: ['hit-test', 'dom-overlay'],
+      requiredFeatures: ['hit-test', 'light-estimation', 'dom-overlay'],
       domOverlay: { root: document.documentElement },
     };
     navigator.xr
