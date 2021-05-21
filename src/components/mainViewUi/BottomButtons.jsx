@@ -1,9 +1,8 @@
 import React from 'react';
 import { createUseStyles } from 'react-jss';
-import CameraButton from '../buttons/CameraButton';
-import FloatingButton from '../buttons/FloatingButton';
-import ThreeDViewerIcon from '../icons/ThreeDViewerIcon';
-import ThreeDObjectSettingsIcon from '../icons/ThreeDObjectSettingsIcon';
+import SwitchViewButton from '../buttons/SwitchViewButton';
+import ManageObjectsButton from '../buttons/ManageObjectsButton';
+import HideWrapper from '../utility/HideWrapper';
 
 const useStyles = createUseStyles((theme) => ({
   bottomButtons: {
@@ -11,11 +10,19 @@ const useStyles = createUseStyles((theme) => ({
     bottom: 0,
     left: 0,
     right: 0,
-    display: 'flex',
-    justifyContent: 'space-between',
+    display: 'grid',
     alignItems: 'center',
-    margin: theme.spacing(0, 4),
-    marginBottom: theme.spacing(9),
+    gridTemplateColumns: 'auto auto',
+    gridTemplateAreas: '"switch manage"',
+    margin: theme.spacing(0, 3, 5, 3),
+  },
+  switch: {
+    gridArea: 'switch',
+    justifySelf: 'start',
+  },
+  manage: {
+    gridArea: 'manage',
+    justifySelf: 'end',
   },
 }));
 
@@ -23,15 +30,12 @@ const BottomButtons = ({ on3DClick }) => {
   const cls = useStyles();
 
   return (
-    <div className={cls.bottomButtons}>
-      <FloatingButton>
-        <ThreeDViewerIcon size="h4" />
-      </FloatingButton>
-      <CameraButton />
-      <FloatingButton onClick={on3DClick}>
-        <ThreeDObjectSettingsIcon size="h4" />
-      </FloatingButton>
-    </div>
+    <HideWrapper direction="down">
+      <div className={cls.bottomButtons}>
+        <SwitchViewButton className={cls.switch} />
+        <ManageObjectsButton className={cls.manage} onClick={on3DClick} />
+      </div>
+    </HideWrapper>
   );
 };
 

@@ -48,9 +48,15 @@ const useStyles = createUseStyles((theme) => ({
       transform: 'translateX(-100%)',
     },
   },
+  disabled: {
+    backgroundColor: theme.palette.background.level4,
+    '&:before': {
+      backgroundColor: theme.palette.background.level5,
+    },
+  },
 }));
 
-const Switch = ({ value, setValue, color, size }) => {
+const Switch = ({ value, setValue, color, size, disabled, ariaLabel }) => {
   const cls = useStyles({ size, color });
 
   const toggleValue = useCallback(() => {
@@ -59,9 +65,16 @@ const Switch = ({ value, setValue, color, size }) => {
 
   return (
     <label className={cls.switch}>
-      <input type="checkbox" checked={value} onChange={toggleValue} className={cls.htmlInput} />
-      <Clickable>
-        <div className={clsx(cls.slider, value && cls.toggledOn)} />
+      <input
+        type="checkbox"
+        checked={value}
+        onChange={toggleValue}
+        className={cls.htmlInput}
+        disabled={disabled}
+        aria-label={ariaLabel}
+      />
+      <Clickable disabled={disabled}>
+        <div className={clsx(cls.slider, value && cls.toggledOn, disabled && cls.disabled)} />
       </Clickable>
     </label>
   );
@@ -83,11 +96,14 @@ Switch.propTypes = {
     'body1',
     'body2',
   ]),
+  disabled: PropTypes.bool,
+  ariaLabel: PropTypes.string,
 };
 
 Switch.defaultProps = {
   color: 'primary',
   size: 'body1',
+  disabled: false,
 };
 
 export default Switch;

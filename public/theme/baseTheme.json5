@@ -16,14 +16,14 @@
     },
     type: 'light',
     primary: {
-      main: '#00b8d4',
       light: '#62ebff',
+      main: '#00b8d4',
       dark: '#0088a3',
       contrastText: '#000000',
     },
     secondary: {
-      main: '#d81b60',
       light: '#ff5c8d',
+      main: '#d81b60',
       dark: '#a00037',
       contrastText: '#ffffff',
     },

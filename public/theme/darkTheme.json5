@@ -1,16 +1,4 @@
 {
-  // primary: {
-  //   main: '#212121',
-  //   light: '#484848',
-  //   dark: '#000000',
-  //   text: '#ffffff',
-  // },
-  // secondary: {
-  //   main: '#fafafa',
-  //   light: '#ffffff',
-  //   dark: '#c7c7c7',
-  //   text: '#000000',
-  // },
   palette: {
     text: {
       primary: '#ffffff',
@@ -25,8 +13,12 @@
       default: '#202020',
       level1: '#212121',
       level2: '#333333',
-      level3: '#676767',
+      level3: '#404040',
+      level4: '#565656',
+      level5: '#383838',
       absolute: '#000000',
+      viewerHighlight: '#404040',
+      float: '#383838',
     },
     action: {
       active: 'rgba(255, 255, 255, 0.2)',

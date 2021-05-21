@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 // import { createUseStyles } from 'react-jss';
-import useOpenState from '../../hooks/useOpenState';
+import { useUploadedFilesStore } from '../../stores/UploadedFilesStore';
 import Button from '../buttons/Button';
-import UploadModal from '../upload/UploadModal';
 
 // const useStyles = createUseStyles((theme) => ({
 //   button: {
@@ -14,14 +13,35 @@ import UploadModal from '../upload/UploadModal';
 const ManageObjectsFooter = () => {
   // const cls = useStyles();
   const { t } = useTranslation();
-  const [isOpen, setOpened, setClosed] = useOpenState(false);
+  const inputRef = useRef(null);
+  const { addFile } = useUploadedFilesStore();
+
+  const onUpload = useCallback(
+    (event) => {
+      const file = event.target.files[0];
+      addFile(file);
+    },
+    [addFile]
+  );
 
   return (
     <>
-      <Button variant="outlined" onClick={setOpened}>
-        {t('Upload')}
-      </Button>
-      <UploadModal open={isOpen} onClose={setClosed} />
+      <input
+        id="fileUpload"
+        ref={inputRef}
+        type="file"
+        accept=".gltf, .glb"
+        style={{ display: 'none' }}
+        onChange={onUpload}
+        aria-label={t('Upload')}
+      />
+      {inputRef?.current && (
+        <label htmlFor="fileUpload">
+          <Button variant="outlined" component="span">
+            {t('Upload')}
+          </Button>
+        </label>
+      )}
     </>
   );
 };

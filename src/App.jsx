@@ -1,36 +1,44 @@
-import React from 'react';
-import { createUseStyles } from 'react-jss';
-import UiOverlay from './components/mainViewUi/UiOverlay';
+import React, { lazy } from 'react';
+import Viewer from './components/viewer/Viewer';
+import AppWrapper from './components/utility/AppWrapper';
 import ConfigStore from './stores/ConfigStore';
+import GltfStore from './stores/GltfStore';
+import SelectionStore from './stores/SelectionStore';
 import ThemeStore from './stores/ThemeStore';
+import ViewStore from './stores/ViewStore';
+import XRSessionStore from './stores/XRSessionStore';
+import SnackbarStore from './stores/SnackbarStore';
+import UploadedFilesStore from './stores/UploadedFilesStore';
+import HideUiStore from './stores/HideUiStore';
+import LazyLoad from './components/utility/LazyLoad';
 
-const useStyles = createUseStyles({
-  app: {
-    width: '100vw',
-    height: '100vh',
-    overflow: 'hidden',
-  },
-  image: {
-    height: '100vh',
-    position: 'fixed',
-    top: 0,
-    zIndex: 0,
-  },
-});
+const UiOverlay = lazy(() => import('./components/mainViewUi/UiOverlay'));
 
-const App = () => {
-  const cls = useStyles();
-
-  return (
-    <ThemeStore>
+const App = () => (
+  <ThemeStore>
+    <SnackbarStore>
       <ConfigStore>
-        <div className={cls.app}>
-          <UiOverlay />
-          <img className={cls.image} src="https://picsum.photos/1920/1080" alt="background" />
-        </div>
+        <XRSessionStore>
+          <HideUiStore>
+            <ViewStore>
+              <UploadedFilesStore>
+                <GltfStore>
+                  <SelectionStore>
+                    <AppWrapper>
+                      <LazyLoad>
+                        <UiOverlay />
+                      </LazyLoad>
+                      <Viewer />
+                    </AppWrapper>
+                  </SelectionStore>
+                </GltfStore>
+              </UploadedFilesStore>
+            </ViewStore>
+          </HideUiStore>
+        </XRSessionStore>
       </ConfigStore>
-    </ThemeStore>
-  );
-};
+    </SnackbarStore>
+  </ThemeStore>
+);
 
 export default App;

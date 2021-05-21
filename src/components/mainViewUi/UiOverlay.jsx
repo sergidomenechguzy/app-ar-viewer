@@ -4,11 +4,12 @@ import useOpenState from '../../hooks/useOpenState';
 import TopButtons from './TopButtons';
 import ManageObjectsModal from '../manageObjects/ManageObjectsModal';
 import BottomButtons from './BottomButtons';
+import WebXrModal from './WebXrModal';
+import ShowUIButton from '../buttons/ShowUIButton';
 
 const useStyles = createUseStyles((theme) => ({
   ui: {
     position: 'relative',
-    zIndex: 1,
   },
 }));
 
@@ -18,9 +19,11 @@ const UiOverlay = () => {
 
   return (
     <div className={cls.ui}>
+      <WebXrModal />
       <TopButtons />
       <ManageObjectsModal open={isOpen} onClose={setClosed} />
       <BottomButtons on3DClick={setOpened} />
+      <ShowUIButton />
     </div>
   );
 };

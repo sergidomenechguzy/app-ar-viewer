@@ -1,4 +1,5 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { createUseStyles } from 'react-jss';
@@ -13,7 +14,7 @@ const useStyles = createUseStyles((theme) => ({
     left: 0,
     right: 0,
     bottom: 0,
-    zIndex: theme.zIndex.modal,
+    zIndex: ({ zOffset }) => theme.zIndex.modal + zOffset,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -56,7 +57,7 @@ const useStyles = createUseStyles((theme) => ({
     left: 0,
     right: 0,
     height: '100vh',
-    zIndex: theme.zIndex.modal - 1,
+    zIndex: ({ zOffset }) => theme.zIndex.modal - 1 + zOffset,
     backgroundColor: `${theme.palette.common.black}66`,
     transition: ({ duration }) => `opacity ${duration}ms ease-in-out`,
     opacity: 0,
@@ -110,8 +111,16 @@ const Modal = ({
   fullSizeContent,
   hasTitle,
   divideContent,
+  zOffset,
 }) => {
-  const cls = useStyles({ duration, hasTitle, fullHeight, fullSizeContent, footerPositioning });
+  const cls = useStyles({
+    duration,
+    hasTitle,
+    fullHeight,
+    fullSizeContent,
+    footerPositioning,
+    zOffset,
+  });
   const clsFade = useFadeStyles({ duration });
   const clsSlide = useSlideStyles({ duration });
   const clsAnimation = {
@@ -119,33 +128,32 @@ const Modal = ({
     slide: clsSlide,
   };
 
-  return (
-    <>
-      <Transition in={open} appear={true} timeout={open ? 0 : duration} mountOnEnter unmountOnExit>
-        {(state) => (
-          <>
-            <div className={clsx(cls.backdrop, cls[`${state}Backdrop`])} onClick={onClose} />
-            <div
-              className={clsx(
-                cls.modal,
-                clsAnimation[variant].modal,
-                clsAnimation[variant][`${state}Modal`]
-              )}
-            >
-              <PaperBase className={clsx(cls.paper, className)}>
-                <div className={cls.paperInner}>
-                  {header ? <div className={cls.headerWrapper}>{header}</div> : null}
-                  {divideContent ? <Divider /> : null}
-                  <div className={clsx(cls.content, contentStyle)}>{children}</div>
-                  {divideContent ? <Divider /> : null}
-                  {footer ? <div className={cls.footerWrapper}>{footer}</div> : null}
-                </div>
-              </PaperBase>
-            </div>
-          </>
-        )}
-      </Transition>
-    </>
+  return createPortal(
+    <Transition in={open} appear={true} timeout={open ? 0 : duration} mountOnEnter unmountOnExit>
+      {(state) => (
+        <>
+          <div className={clsx(cls.backdrop, cls[`${state}Backdrop`])} onClick={onClose} />
+          <div
+            className={clsx(
+              cls.modal,
+              clsAnimation[variant].modal,
+              clsAnimation[variant][`${state}Modal`]
+            )}
+          >
+            <PaperBase className={clsx(cls.paper, className)}>
+              <div className={cls.paperInner}>
+                {header ? <div className={cls.headerWrapper}>{header}</div> : null}
+                {divideContent ? <Divider /> : null}
+                <div className={clsx(cls.content, contentStyle)}>{children}</div>
+                {divideContent ? <Divider /> : null}
+                {footer ? <div className={cls.footerWrapper}>{footer}</div> : null}
+              </div>
+            </PaperBase>
+          </div>
+        </>
+      )}
+    </Transition>,
+    document.getElementById('root')
   );
 };
 
@@ -164,6 +172,7 @@ Modal.propTypes = {
   fullSizeContent: PropTypes.bool,
   hasTitle: PropTypes.bool,
   divideContent: PropTypes.bool,
+  zOffset: PropTypes.number,
 };
 
 Modal.defaultProps = {
@@ -174,6 +183,7 @@ Modal.defaultProps = {
   fullSizeContent: false,
   hasTitle: false,
   divideContent: false,
+  zOffset: 0,
 };
 
 export default Modal;

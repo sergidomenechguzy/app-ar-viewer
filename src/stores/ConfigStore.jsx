@@ -26,10 +26,8 @@ ConfigStore.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-const useConfigStore = () => useContext(Context);
-
 Context.displayName = 'ConfigStore';
 
 export default ConfigStore;
 
-export { useConfigStore };
+export const useConfigStore = () => useContext(Context);

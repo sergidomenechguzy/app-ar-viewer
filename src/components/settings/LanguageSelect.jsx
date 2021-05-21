@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from 'react-jss';
 import Select from 'react-select';
 
-const LanguageSelect = () => {
+const LanguageSelect = ({ zOffset }) => {
   const theme = useTheme();
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const changeLanguage = (selected) => {
     i18n.changeLanguage(selected.value);
@@ -38,6 +39,10 @@ const LanguageSelect = () => {
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
     }),
+    menuPortal: (provided) => ({
+      ...provided,
+      zIndex: theme.zIndex.modal + zOffset + 1,
+    }),
     menu: (provided) => ({
       ...provided,
       backgroundColor: theme.palette.background.level2,
@@ -67,8 +72,17 @@ const LanguageSelect = () => {
           primary50: theme.palette.action.disabled,
         },
       })}
+      aria-label={t('language selection')}
     />
   );
+};
+
+LanguageSelect.propTypes = {
+  zOffset: PropTypes.number,
+};
+
+LanguageSelect.defaultProps = {
+  zOffset: 0,
 };
 
 export default LanguageSelect;
