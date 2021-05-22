@@ -54,6 +54,7 @@ export const useUploadedFilesStore = () => {
           'Something went wrong while processing the uploaded file, please try again!',
           'error'
         );
+        throw err;
       }
     },
     [addSnackbarMessage, setFiles]

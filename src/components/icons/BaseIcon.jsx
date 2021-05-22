@@ -1,6 +1,6 @@
-import clsx from 'clsx';
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+import clsx from 'clsx';
 import { createUseStyles } from 'react-jss';
 
 const useStyles = createUseStyles((theme) => ({
@@ -30,11 +30,11 @@ const useStyles = createUseStyles((theme) => ({
   },
 }));
 
-const BaseIcon = ({ children, color, size, viewBox }) => {
+const BaseIcon = ({ children, color, size, viewBox, className }) => {
   const cls = useStyles({ color, size });
 
   return (
-    <svg className={clsx(cls.root, cls.color, cls.fontSize)} viewBox={viewBox}>
+    <svg className={clsx(cls.root, cls.color, cls.fontSize, className)} viewBox={viewBox}>
       {children}
     </svg>
   );
@@ -65,6 +65,7 @@ BaseIcon.propTypes = {
     'body2',
   ]),
   viewBox: PropTypes.string,
+  className: PropTypes.string,
 };
 
 BaseIcon.defaultProps = {

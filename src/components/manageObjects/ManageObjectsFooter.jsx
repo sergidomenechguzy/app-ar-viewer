@@ -1,25 +1,34 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-// import { createUseStyles } from 'react-jss';
+import { createUseStyles } from 'react-jss';
 import { useUploadedFilesStore } from '../../stores/UploadedFilesStore';
 import Button from '../buttons/Button';
+import Spinner from '../icons/Spinner';
 
-// const useStyles = createUseStyles((theme) => ({
-//   button: {
-//     margin: theme.spacing(2),
-//   },
-// }));
+const useStyles = createUseStyles((theme) => ({
+  button: {
+    width: theme.spacing(9),
+    height: theme.spacing(3),
+  },
+}));
 
 const ManageObjectsFooter = () => {
-  // const cls = useStyles();
+  const cls = useStyles();
   const { t } = useTranslation();
   const inputRef = useRef(null);
   const { addFile } = useUploadedFilesStore();
+  const [loading, setLoading] = useState(false);
 
   const onUpload = useCallback(
-    (event) => {
-      const file = event.target.files[0];
-      addFile(file);
+    async (event) => {
+      try {
+        setLoading(true);
+        const file = event.target.files[0];
+        await addFile(file);
+        setLoading(false);
+      } catch (err) {
+        setLoading(false);
+      }
     },
     [addFile]
   );
@@ -34,11 +43,12 @@ const ManageObjectsFooter = () => {
         style={{ display: 'none' }}
         onChange={onUpload}
         aria-label={t('Upload')}
+        disabled={loading}
       />
       {inputRef?.current && (
         <label htmlFor="fileUpload">
-          <Button variant="outlined" component="span">
-            {t('Upload')}
+          <Button variant="outlined" component="span" disabled={loading} className={cls.button}>
+            {loading ? <Spinner variant="big" size="h5" /> : t('Upload')}
           </Button>
         </label>
       )}
