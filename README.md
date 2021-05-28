@@ -1,70 +1,80 @@
-# Getting Started with Create React App
+# AR-Viewer
+<p align="center">
+  <img src="./docs/logo.png" alt="AR-Viewer dark"/>
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Augmented-Reality web-app build with PWA functionality using [React](https://reactjs.org/), [three.js](https://threejs.org/) and [WebXR](https://immersiveweb.dev/). It is downloadable through the used browser and offers extensive offline functionality.
 
-## Available Scripts
+A live demo is available [here](https://app-ar-viewer.vercel.app/).
 
-In the project directory, you can run:
+<p>
+  <img src="./docs/ar-viewer-dark.jpg" alt="AR-Viewer dark" width="24%"/>
+  <img src="./docs/3d-viewer-dark.jpg" alt="3D-Viewer dark" width="24%"/>
+  <img src="./docs/settings-dark.jpg" alt="Settings dark" width="24%"/>
+  <img src="./docs/object-selection-dark.jpg" alt="Object Selection dark" width="24%"/>
+</p>
 
-### `yarn start`
+More screenshots available [here](https://github.com/sergidomenechguzy/app-ar-viewer/tree/development/docs).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Uses an AR-Viewer to place 3D-Objects around yourself through your device's camera and a regular 3D-Viewer as an alternative and fallback if your device doesn't support WebXR. Includes a selection of free 3D-Objects but also offers the functionality to upload your own local files (for now only in the .gltf/.glb file format). Supports light mode and dark mode as well as english and german as UI languages.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Currently support for WebXR and the included immersive-ar mode is pretty [limited](https://caniuse.com/webxr). So at the moment the only platform this app reliably works on with all features is Chrome for Android. When the WebXR API will be included into more browsers, compatibility for this app's AR-Viewer will also increase.
 
-### `yarn test`
+## Local Setup
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+As this app is intended as a downloadable PWA with offline functionality the default scripts use https since a secure connection is required for all PWA features.
 
-### `yarn build`
+### Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+To run this app locally first clone the repository then install the dependencies:
+```
+git clone https://github.com/sergidomenechguzy/app-ar-viewer.git
+cd app-ar-viewer
+npm install
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Local Development
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+npm run start
+```
 
-### `yarn eject`
+### Build
+```
+npm run build
+```
+This creates your own production build into the `build` folder that can be served locally.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Serve
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+npm run serve
+```
+This serves your current build locally over https. Works only after running `npm run build`.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+To create a new build and instantly serve it:
+```
+npm run fresh
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Note that for these commands to work you need to create your own `cert.pem` and `key.pem` files and add them in a `.cert` folder to the project root. This certificate is used to create the local https server. An easy way to create these files is to use [mkcert](https://github.com/FiloSottile/mkcert). Alternatively you can also use the [http scripts](#http).
 
-## Learn More
+### http
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+As an alternative to the https start, serve and fresh scripts, regular http versions exist as well:
+```
+npm run start:http
+npm run serve:http
+npm run fresh:http
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Included Assets
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[Coaster](https://www.cgtrader.com/free-3d-models/furniture/tableware/cork-coaster-for-coffee-and-tea-cups), 
+[Coffee Table](https://www.cgtrader.com/free-3d-models/furniture/table/round-wooden-coffee-table-2ce88b2c-9f04-465b-ae3c-adf51fec082d), 
+[Pepper Grinder](https://www.cgtrader.com/free-3d-models/furniture/kitchen/pepper-grinder-3), 
+[Pouf](https://www.cgtrader.com/free-3d-models/furniture/chair/single-pouf-moderno), 
+[Scale](https://www.cgtrader.com/free-3d-models/interior/kitchen/scales-black), 
+[Stool](https://www.cgtrader.com/free-3d-models/furniture/other/stool-3db388ec-3503-40a2-a695-42cb48a2ac31), 
+[Wooden Chair 1](https://www.cgtrader.com/free-3d-models/furniture/chair/n01-chair), 
+[Wooden Chair 2](https://www.cgtrader.com/free-3d-models/furniture/chair/simple-wooden-chair-ee79988c-bcb1-42c6-9ceb-2348bd3cb8fd)
