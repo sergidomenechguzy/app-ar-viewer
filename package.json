@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@react-three/drei": "^4.3.3",
+    "@react-three/fiber": "^6.2.2",
     "clsx": "^1.1.1",
     "deepmerge": "^4.2.2",
     "fetch-json5": "^1.0.0",
