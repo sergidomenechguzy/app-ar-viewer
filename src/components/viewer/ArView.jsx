@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import { useTranslation } from 'react-i18next';
-// import { saveAs } from 'file-saver';
+import { useGesture } from 'react-use-gesture';
 import threeEntryPoint from '../../three/threeEntryPoint';
 import { useXRSession } from '../../stores/XRSessionStore';
 import { useSelectionStore } from '../../stores/SelectionStore';
@@ -47,6 +47,67 @@ const ArView = () => {
   const { t } = useTranslation();
   const { showErrorMessage } = useSnackbarStore();
 
+  useEffect(() => {
+    const element = threeWrapper.current || null;
+    let touchCoordinate;
+
+    const handleTouchStart = (event) => {
+      touchCoordinate = event.targetTouches[0].screenX;
+    };
+    const handleTouchMove = (event) => {
+      if (event.targetTouches.length === 1) {
+        const currentTouchCoordinate = event.targetTouches[0].screenX;
+        const delta = currentTouchCoordinate - touchCoordinate;
+        if (gltfs[selected]) {
+          gltfs[selected].scene.userData.rotate = delta / 40;
+        }
+        touchCoordinate = currentTouchCoordinate;
+      }
+    };
+    const handleTouchEnd = (event) => {
+      touchCoordinate = null;
+      if (gltfs[selected]) {
+        delete gltfs[selected].scene.userData.rotate;
+      }
+    };
+
+    if (element) {
+      element.addEventListener('touchstart', handleTouchStart);
+      element.addEventListener('touchmove', handleTouchMove);
+      element.addEventListener('touchend', handleTouchEnd);
+      element.addEventListener('touchcancel', handleTouchEnd);
+    }
+
+    return () => {
+      if (element) {
+        element.removeEventListener('touchstart', handleTouchStart);
+        element.removeEventListener('touchmove', handleTouchMove);
+        element.removeEventListener('touchend', handleTouchEnd);
+        element.removeEventListener('touchcancel', handleTouchEnd);
+      }
+    };
+  }, [gltfs, selected]);
+
+  const handlePinch = useCallback(
+    ({ offset: [scale] }) => {
+      if (gltfs[selected]) {
+        gltfs[selected].scene.userData.scale = scale / 200;
+      }
+    },
+    [gltfs, selected]
+  );
+
+  const handlePinchEnd = useCallback(() => {
+    if (gltfs[selected]) {
+      delete gltfs[selected].scene.userData.scale;
+    }
+  }, [gltfs, selected]);
+
+  const bind = useGesture({
+    onPinch: handlePinch,
+    onPinchEnd: handlePinchEnd,
+  });
+
   const placeObject = useCallback(() => {
     if (placed === true) {
       gltfs[selected].scene.userData.placed = false;
@@ -90,6 +151,8 @@ const ArView = () => {
         setPlaced(false);
         selectedObject.visible = true;
         selectedObject.userData.placed = false;
+        selectedObject.rotation.set(0, 0, 0);
+        selectedObject.scale.set(1, 1, 1);
         threeScene.current.remove(selectedObject);
       }
       if (gltfs && selected) {
@@ -115,7 +178,7 @@ const ArView = () => {
           </FloatingButton>
         </HideWrapper>
       ) : null}
-      <div className={cls.threeEntryPoint} ref={threeWrapper} id="threeWrapper" />
+      <div className={cls.threeEntryPoint} ref={threeWrapper} id="threeWrapper" {...bind()} />
     </>
   ) : null;
 };

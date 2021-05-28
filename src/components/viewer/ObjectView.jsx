@@ -29,6 +29,8 @@ const ObjectView = () => {
         if (gltfs && selected) {
           gltfs[selected].scene.visible = true;
           gltfs[selected].scene.position.set(0, -0.25, 0);
+          gltfs[selected].scene.rotation.set(0, 0, 0);
+          gltfs[selected].scene.scale.set(1, 1, 1);
           threeScene.current.add(gltfs[selected].scene);
         }
       } catch (err) {
@@ -49,6 +51,8 @@ const ObjectView = () => {
       if (gltfs && selected) {
         gltfs[selected].scene.visible = true;
         gltfs[selected].scene.position.set(0, -0.25, 0);
+        gltfs[selected].scene.rotation.set(0, 0, 0);
+        gltfs[selected].scene.scale.set(1, 1, 1);
         threeScene.current.add(gltfs[selected].scene);
       }
     }
