@@ -22,12 +22,13 @@ const ButtonBase = ({
   disableActive,
   component,
   ariaLabel,
+  disabled,
 }) => {
   const cls = useStyles();
   return (
-    <Clickable disableFocus={disableFocus} disableActive={disableActive}>
+    <Clickable disabled={disabled} disableFocus={disableFocus} disableActive={disableActive}>
       {component === 'span' ? (
-        <span className={clsx(cls.buttonBase, className)} onClick={onClick}>
+        <span className={clsx(cls.buttonBase, className)} onClick={disabled ? null : onClick}>
           {children}
         </span>
       ) : (
@@ -35,6 +36,7 @@ const ButtonBase = ({
           className={clsx(cls.buttonBase, className)}
           onClick={onClick}
           aria-label={typeof children === 'string' ? children : ariaLabel}
+          disabled={disabled}
         >
           {children}
         </button>
@@ -51,6 +53,7 @@ ButtonBase.propTypes = {
   disableActive: PropTypes.bool,
   component: PropTypes.oneOf(['button', 'span']),
   ariaLabel: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
 ButtonBase.defaultProps = {
@@ -59,6 +62,7 @@ ButtonBase.defaultProps = {
   disableFocus: false,
   disableActive: false,
   component: 'button',
+  disabled: false,
 };
 
 export default ButtonBase;

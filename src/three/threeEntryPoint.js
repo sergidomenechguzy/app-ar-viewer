@@ -65,6 +65,16 @@ const initThree = () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
 };
 
+const addShadowLight = () => {
+  const directionalLight = new DirectionalLight(0xffffff, 1, 250);
+  directionalLight.position.set(0, 200, 0);
+  directionalLight.castShadow = true;
+  directionalLight.shadow.mapSize.width = 1024;
+  directionalLight.shadow.mapSize.height = 1024;
+  directionalLight.shadow.bias = 0.0001;
+  scene.add(directionalLight);
+};
+
 const initArViewer = async (xrSession, setHitTestProp) => {
   // Setup renderer for AR
   await renderer.getContext().makeXRCompatible();
@@ -76,15 +86,19 @@ const initArViewer = async (xrSession, setHitTestProp) => {
   }
 
   // Add lighting for estimation
-  estimatedDirectionalLight = new DirectionalLight();
-  estimatedDirectionalLight.castShadow = true;
-  estimatedDirectionalLight.shadow.mapSize.width = 256;
-  estimatedDirectionalLight.shadow.mapSize.height = 256;
-  estimatedDirectionalLight.shadow.bias = 0.0001;
-  scene.add(estimatedDirectionalLight);
-  estimatedLightProbe = new LightProbe();
-  scene.add(estimatedLightProbe);
-  xrLightProbe = await xrSession.requestLightProbe();
+  try {
+    xrLightProbe = await xrSession.requestLightProbe();
+    estimatedDirectionalLight = new DirectionalLight();
+    estimatedDirectionalLight.castShadow = true;
+    estimatedDirectionalLight.shadow.mapSize.width = 256;
+    estimatedDirectionalLight.shadow.mapSize.height = 256;
+    estimatedDirectionalLight.shadow.bias = 0.0001;
+    scene.add(estimatedDirectionalLight);
+    estimatedLightProbe = new LightProbe();
+    scene.add(estimatedLightProbe);
+  } catch (err) {
+    addShadowLight();
+  }
 };
 
 const init3dViewer = () => {
@@ -96,13 +110,7 @@ const init3dViewer = () => {
   pointLight.position.set(10, 10, 50);
   scene.add(pointLight);
 
-  const directionalLight = new DirectionalLight(0xffffff, 1, 250);
-  directionalLight.position.set(0, 200, 0);
-  directionalLight.castShadow = true;
-  directionalLight.shadow.mapSize.width = 1024;
-  directionalLight.shadow.mapSize.height = 1024;
-  directionalLight.shadow.bias = 0.0001;
-  scene.add(directionalLight);
+  addShadowLight();
 
   // Position ground plane and camera
   ground.position.set(0, -0.25, 0);
@@ -186,10 +194,24 @@ const applyHitTest = (frame) => {
   }
 };
 
+const applyGestureTransformation = () => {
+  const selectedObject = scene.getObjectByName('current');
+  if (selectedObject?.userData?.rotate) {
+    selectedObject.rotateY(selectedObject.userData.rotate);
+  }
+  if (selectedObject?.userData?.scale) {
+    const scale = Math.min(5, Math.max(0.1, 1 + selectedObject.userData.scale));
+    selectedObject.scale.set(scale, scale, scale);
+  }
+};
+
 const onXrFrame = (timestamp, frame) => {
   if (frame) {
-    applyLightEstimation(frame);
+    if (xrLightProbe) {
+      applyLightEstimation(frame);
+    }
     applyHitTest(frame);
+    applyGestureTransformation();
   }
 
   renderer.render(scene, camera);
