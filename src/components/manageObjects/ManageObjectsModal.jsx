@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Offline, Online } from 'react-detect-offline';
 import ManageObjectsFooter from './ManageObjectsFooter';
 import ManageObjectsHeader from './ManageObjectsHeader';
-import BottomSlidingModal from '../utility/BottomSlidingModal';
+import SlidingModal from '../utility/SlidingModal';
 import ObjectList from './ObjectList';
 import Typography from '../utility/Typography';
 import { useConfigStore } from '../../stores/ConfigStore';
@@ -21,9 +21,6 @@ const useStyles = createUseStyles((theme) => ({
   },
   header: {
     marginLeft: theme.spacing(2),
-  },
-  test: {
-    height: '2000px',
   },
 }));
 
@@ -70,7 +67,7 @@ const ManageObjectsModal = ({ open, onClose }) => {
   }, [getCachedFiles, open]);
 
   return (
-    <BottomSlidingModal
+    <SlidingModal
       open={open}
       onClose={onClose}
       className={cls.modal}
@@ -93,6 +90,7 @@ const ManageObjectsModal = ({ open, onClose }) => {
         action="deleteLocal"
         actionIcon={<DeleteIcon size="h6" />}
         confirmAction={true}
+        translateName={false}
       />
       <ObjectList
         files={cachedFiles}
@@ -136,13 +134,17 @@ const ManageObjectsModal = ({ open, onClose }) => {
           alternative={<OfflineAlert />}
         />
       </Offline>
-    </BottomSlidingModal>
+    </SlidingModal>
   );
 };
+
+ManageObjectsModal.displayName = 'ManageObjectsModal';
 
 ManageObjectsModal.propTypes = {
   open: PropTypes.bool,
   onClick: PropTypes.func,
 };
+
+ManageObjectsModal.defaultProps = {};
 
 export default ManageObjectsModal;

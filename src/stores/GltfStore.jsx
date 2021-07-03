@@ -14,11 +14,13 @@ const GltfStore = ({ children }) => {
   return <Context.Provider value={value}>{children}</Context.Provider>;
 };
 
+GltfStore.displayName = 'GltfStore';
+
 GltfStore.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-GltfStore.displayName = 'GltfStore';
+GltfStore.defaultProps = {};
 
 export default GltfStore;
 

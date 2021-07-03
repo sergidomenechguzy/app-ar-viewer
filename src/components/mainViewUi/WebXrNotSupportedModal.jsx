@@ -41,4 +41,10 @@ const WebXrNotSupportedModal = ({ open, onClose }) => {
   );
 };
 
+WebXrNotSupportedModal.displayName = 'WebXrNotSupportedModal';
+
+WebXrNotSupportedModal.propTypes = {};
+
+WebXrNotSupportedModal.defaultProps = {};
+
 export default WebXrNotSupportedModal;

@@ -1,10 +1,16 @@
 import React from 'react';
 import BaseIcon from './BaseIcon';
 
-const DownloadIcon = ({ color, size }) => (
-  <BaseIcon color={color} size={size}>
+const DownloadIcon = (props) => (
+  <BaseIcon {...props}>
     <path d="M13.088,71.342L58.912,71.342C60.154,71.342 61.162,70.334 61.162,69.092C61.162,67.85 60.154,66.842 58.912,66.842L13.088,66.842C11.846,66.842 10.838,67.85 10.838,69.092C10.838,70.334 11.846,71.342 13.088,71.342ZM33.75,54.033L14.555,37.523C13.613,36.713 12.192,36.82 11.382,37.762C10.572,38.703 10.679,40.125 11.621,40.935L34.533,60.641C35.376,61.367 36.624,61.367 37.467,60.641L60.379,40.935C61.321,40.125 61.428,38.703 60.618,37.762C59.808,36.82 58.387,36.713 57.445,37.523L38.25,54.033L38.25,2.888C38.25,1.646 37.242,0.638 36,0.638C34.758,0.638 33.75,1.646 33.75,2.888L33.75,54.033Z" />
   </BaseIcon>
 );
+
+DownloadIcon.displayName = 'DownloadIcon';
+
+DownloadIcon.propTypes = {};
+
+DownloadIcon.defaultProps = {};
 
 export default DownloadIcon;

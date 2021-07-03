@@ -1,8 +1,8 @@
 import React, { lazy } from 'react';
 import { Loader } from '@react-three/drei';
 import { useTheme } from 'react-jss';
-import { useViewStore } from '../../stores/ViewStore';
-import LazyLoad from '../utility/LazyLoad';
+import { useViewStore } from '../stores/ViewStore';
+import LazyLoad from '../components/utility/LazyLoad';
 
 const ArView = lazy(() => import('./ArView'));
 const ObjectView = lazy(() => import('./ObjectView'));
@@ -38,5 +38,11 @@ const Viewer = () => {
     </>
   ) : null;
 };
+
+Viewer.displayName = 'Viewer';
+
+Viewer.propTypes = {};
+
+Viewer.defaultProps = {};
 
 export default Viewer;

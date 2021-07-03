@@ -1,12 +1,12 @@
 import React, { lazy } from 'react';
-import Viewer from './components/viewer/Viewer';
+import Viewer from './views/Viewer';
 import AppWrapper from './components/utility/AppWrapper';
 import ConfigStore from './stores/ConfigStore';
 import GltfStore from './stores/GltfStore';
 import SelectionStore from './stores/SelectionStore';
 import ThemeStore from './stores/ThemeStore';
 import ViewStore from './stores/ViewStore';
-import XRSessionStore from './stores/XRSessionStore';
+import XrSessionStore from './stores/XrSessionStore';
 import SnackbarStore from './stores/SnackbarStore';
 import UploadedFilesStore from './stores/UploadedFilesStore';
 import HideUiStore from './stores/HideUiStore';
@@ -18,7 +18,7 @@ const App = () => (
   <ThemeStore>
     <SnackbarStore>
       <ConfigStore>
-        <XRSessionStore>
+        <XrSessionStore>
           <HideUiStore>
             <ViewStore>
               <UploadedFilesStore>
@@ -35,10 +35,16 @@ const App = () => (
               </UploadedFilesStore>
             </ViewStore>
           </HideUiStore>
-        </XRSessionStore>
+        </XrSessionStore>
       </ConfigStore>
     </SnackbarStore>
   </ThemeStore>
 );
+
+App.displayName = 'App';
+
+App.propTypes = {};
+
+App.defaultProps = {};
 
 export default App;

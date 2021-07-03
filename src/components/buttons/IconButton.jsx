@@ -22,9 +22,13 @@ const IconButton = ({ children, className, ...rest }) => {
   );
 };
 
+IconButton.displayName = 'IconButton';
+
 IconButton.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
 };
+
+IconButton.defaultProps = {};
 
 export default IconButton;

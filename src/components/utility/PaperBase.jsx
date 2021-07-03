@@ -19,9 +19,13 @@ const PaperBase = ({ children, className }) => {
   return <div className={clsx(cls.paper, className)}>{children}</div>;
 };
 
+PaperBase.displayName = 'PaperBase';
+
 PaperBase.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
 };
+
+PaperBase.defaultProps = {};
 
 export default PaperBase;

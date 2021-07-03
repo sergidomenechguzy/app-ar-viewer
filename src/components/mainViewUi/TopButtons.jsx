@@ -48,6 +48,8 @@ const TopButtons = ({ zOffset }) => {
   );
 };
 
+TopButtons.displayName = 'TopButtons';
+
 TopButtons.propTypes = {
   zOffset: PropTypes.number,
 };

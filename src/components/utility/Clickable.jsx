@@ -61,6 +61,8 @@ const Clickable = ({ children, disabled, disableFocus, disableActive }) => {
   });
 };
 
+Clickable.displayName = 'Clickable';
+
 Clickable.propTypes = {
   children: PropTypes.element.isRequired,
   disabled: PropTypes.bool,

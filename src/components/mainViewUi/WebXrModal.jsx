@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import useOpenState from '../../hooks/useOpenState';
 import { useViewStore } from '../../stores/ViewStore';
-import { useXRSession } from '../../stores/XRSessionStore';
+import { useXrSession } from '../../stores/XrSessionStore';
 import WebXrClosedModal from './WebXrClosedModal';
 import WebXrNotSupportedModal from './WebXrNotSupportedModal';
 import WebXrSupportedModal from './WebXrSupportedModal';
 
 const WebXrModal = () => {
   const { currentView } = useViewStore();
-  const { xrSession, supportsWebXR, endSession } = useXRSession();
+  const { xrSession, supportsWebXR, endSession } = useXrSession();
   const { dispatch } = useViewStore();
   const [isOpen, setOpened, setClosed] = useOpenState(false);
 
@@ -38,5 +38,11 @@ const WebXrModal = () => {
 
   return currentView === 'none' ? modal : <WebXrClosedModal open={isOpen} onClose={setClosed} />;
 };
+
+WebXrModal.displayName = 'WebXrModal';
+
+WebXrModal.propTypes = {};
+
+WebXrModal.defaultProps = {};
 
 export default WebXrModal;

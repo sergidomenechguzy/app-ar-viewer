@@ -30,4 +30,10 @@ const OfflineAlert = () => {
   );
 };
 
+OfflineAlert.displayName = 'OfflineAlert';
+
+OfflineAlert.propTypes = {};
+
+OfflineAlert.defaultProps = {};
+
 export default OfflineAlert;

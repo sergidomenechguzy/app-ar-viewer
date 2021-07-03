@@ -39,6 +39,8 @@ const HideWrapper = ({ children, duration, direction, inverted }) => {
   });
 };
 
+HideWrapper.displayName = 'HideWrapper';
+
 HideWrapper.propTypes = {
   children: PropTypes.node.isRequired,
   duration: PropTypes.number,

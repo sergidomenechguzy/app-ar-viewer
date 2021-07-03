@@ -40,8 +40,12 @@ const LazyLoad = ({ children }) => {
   );
 };
 
+LazyLoad.displayName = 'LazyLoad';
+
 LazyLoad.propTypes = {
   children: PropTypes.node.isRequired,
 };
+
+LazyLoad.defaultProps = {};
 
 export default LazyLoad;

@@ -22,8 +22,12 @@ const ManageObjectsButton = ({ className, onClick }) => {
   );
 };
 
+ManageObjectsButton.displayName = 'ManageObjectsButton';
+
 ManageObjectsButton.propTypes = {
   className: PropTypes.string,
 };
+
+ManageObjectsButton.defaultProps = {};
 
 export default ManageObjectsButton;

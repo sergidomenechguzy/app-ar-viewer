@@ -39,4 +39,10 @@ const BottomButtons = ({ on3DClick }) => {
   );
 };
 
+BottomButtons.displayName = 'BottomButtons';
+
+BottomButtons.propTypes = {};
+
+BottomButtons.defaultProps = {};
+
 export default BottomButtons;

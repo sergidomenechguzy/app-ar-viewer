@@ -65,7 +65,18 @@
       "delete local file": "delete local file",
       "file action": "file action",
       "delete 3D-objects": "delete 3D-objects",
-      "language selection": "language selection"
+      "language selection": "language selection",
+      "currently offline": "currently offline",
+      "Coffee Table": "Coffee Table",
+      "Chair Beech": "Chair Beech",
+      "Chair Black": "Chair Black",
+      "Chair Oak": "Chair Oak",
+      "Dining Chair": "Dining Chair",
+      "Pouf": "Pouf",
+      "Stool": "Stool",
+      "Coaster": "Coaster",
+      "Pepper Grinder": "Pepper Grinder",
+      "Scale": "Scale"
     }
   },
   "de": {
@@ -134,7 +145,18 @@
       "delete local file": "lokale Datei löschen",
       "file action": "Datei-Aktion",
       "delete 3D-objects": "3D-Objekte löschen",
-      "language selection": "Sprachauswahl"
+      "language selection": "Sprachauswahl",
+      "currently offline": "aktuell offline",
+      "Coffee Table": "Couchtisch",
+      "Chair Beech": "Stuhl - Buche",
+      "Chair Black": "Stuhl - Schwarz",
+      "Chair Oak": "Stuhl - Eiche",
+      "Dining Chair": "Esszimmerstuhl",
+      "Pouf": "Sitzpuff",
+      "Stool": "Hocker",
+      "Coaster": "Untersetzer",
+      "Pepper Grinder": "Pfeffermühle",
+      "Scale": "Waage"
     }
   }
 }

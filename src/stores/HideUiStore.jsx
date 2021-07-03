@@ -10,11 +10,13 @@ const HideUiStore = ({ children }) => {
   return <Context.Provider value={value}>{children}</Context.Provider>;
 };
 
+HideUiStore.displayName = 'HideUiStore';
+
 HideUiStore.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-Context.displayName = 'HideUiStore';
+HideUiStore.defaultProps = {};
 
 export default HideUiStore;
 

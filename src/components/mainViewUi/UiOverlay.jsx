@@ -5,7 +5,7 @@ import TopButtons from './TopButtons';
 import ManageObjectsModal from '../manageObjects/ManageObjectsModal';
 import BottomButtons from './BottomButtons';
 import WebXrModal from './WebXrModal';
-import ShowUIButton from '../buttons/ShowUIButton';
+import ShowUiButton from '../buttons/ShowUiButton';
 
 const useStyles = createUseStyles((theme) => ({
   ui: {
@@ -23,9 +23,15 @@ const UiOverlay = () => {
       <TopButtons />
       <ManageObjectsModal open={isOpen} onClose={setClosed} />
       <BottomButtons on3DClick={setOpened} />
-      <ShowUIButton />
+      <ShowUiButton />
     </div>
   );
 };
+
+UiOverlay.displayName = 'UiOverlay';
+
+UiOverlay.propTypes = {};
+
+UiOverlay.defaultProps = {};
 
 export default UiOverlay;

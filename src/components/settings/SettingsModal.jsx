@@ -9,7 +9,6 @@ import SettingsList from './SettingsList';
 import SettingsListElement from './SettingsListElement';
 import ThemeIcon from '../icons/ThemeIcon';
 import DeleteIcon from '../icons/DeleteIcon';
-// import CacheIcon from '../icons/CacheIcon';
 import LanguageIcon from '../icons/LanguageIcon';
 import ThreeDObjectIcon from '../icons/ThreeDObjectIcon';
 import IconButton from '../buttons/IconButton';
@@ -24,13 +23,14 @@ import useOpenState from '../../hooks/useOpenState';
 import { useHideUiStore } from '../../stores/HideUiStore';
 import { useViewStore } from '../../stores/ViewStore';
 import HideIcon from '../icons/HideIcon';
+import OfflineIcon from '../icons/OfflineIcon';
 
 const useStyles = createUseStyles((theme) => ({
   modal: {
     position: 'fixed',
     right: theme.spacing(1),
     top: theme.spacing(10),
-    maxWidth: '85%',
+    maxWidth: '95%',
 
     '&:before': {
       content: '""',
@@ -42,6 +42,15 @@ const useStyles = createUseStyles((theme) => ({
       top: theme.spacing(-1),
       backgroundColor: theme.palette.background.paper,
     },
+  },
+  offlineWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: theme.spacing(1.5),
+  },
+  offlineIcon: {
+    marginRight: theme.spacing(1),
   },
   offline: {
     marginTop: theme.spacing(1),
@@ -129,16 +138,15 @@ const SettingsModal = ({ open, onClose, zOffset }) => {
                 : t('You have to start one of the Viewers and select a 3D-Object first.')
             }
           />
-          {/* <SettingsListElement
-          icon={<CacheIcon />}
-          name={t('Clear Cache')}
-          action={
-            <IconButton>
-              <DeleteIcon color="error" size="h5" />
-            </IconButton>
-          }
-        /> */}
         </SettingsList>
+        <Offline polling={{ enabled: false }}>
+          <div className={cls.offlineWrapper}>
+            <OfflineIcon size="h6" color="text" className={cls.offlineIcon} />
+            <Typography variant="body2" color="primary">
+              {t('currently offline')}
+            </Typography>
+          </div>
+        </Offline>
       </Modal>
       <ConfirmModal open={isOpenObjects} onClose={setClosedObjects} onConfirm={deleteObjects}>
         <Typography>
@@ -155,6 +163,8 @@ const SettingsModal = ({ open, onClose, zOffset }) => {
     </>
   );
 };
+
+SettingsModal.displayName = 'SettingsModal';
 
 SettingsModal.propTypes = {
   open: PropTypes.bool.isRequired,

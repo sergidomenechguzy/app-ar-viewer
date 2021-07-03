@@ -77,6 +77,8 @@ const LanguageSelect = ({ zOffset }) => {
   );
 };
 
+LanguageSelect.displayName = 'LanguageSelect';
+
 LanguageSelect.propTypes = {
   zOffset: PropTypes.number,
 };

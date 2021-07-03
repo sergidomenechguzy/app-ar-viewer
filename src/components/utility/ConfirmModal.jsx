@@ -47,11 +47,15 @@ const ConfirmModal = ({ children, open, onClose, onConfirm }) => {
   );
 };
 
+ConfirmModal.displayName = 'ConfirmModal';
+
 ConfirmModal.propTypes = {
   children: PropTypes.node.isRequired,
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   onConfirm: PropTypes.func.isRequired,
 };
+
+ConfirmModal.defaultProps = {};
 
 export default ConfirmModal;

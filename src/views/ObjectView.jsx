@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import { createUseStyles } from 'react-jss';
-import threeEntryPoint from '../../three/threeEntryPoint';
-import { useSelectionStore } from '../../stores/SelectionStore';
-import { useGltfStore } from '../../stores/GltfStore';
-import { useSnackbarStore } from '../../stores/SnackbarStore';
+import threeEntryPoint from '../three/threeEntryPoint';
+import { useSelectionStore } from '../stores/SelectionStore';
+import { useGltfStore } from '../stores/GltfStore';
+import { useSnackbarStore } from '../stores/SnackbarStore';
 
 const useStyles = createUseStyles((theme) => ({
   threeEntryPoint: {
@@ -60,5 +60,11 @@ const ObjectView = () => {
 
   return <div className={cls.threeEntryPoint} ref={threeWrapper} id="threeWrapper" />;
 };
+
+ObjectView.displayName = 'ObjectView';
+
+ObjectView.propTypes = {};
+
+ObjectView.defaultProps = {};
 
 export default ObjectView;

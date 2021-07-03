@@ -30,11 +30,13 @@ const ViewStore = ({ children }) => {
   return <Context.Provider value={reducer}>{children}</Context.Provider>;
 };
 
+ViewStore.displayName = 'ViewStore';
+
 ViewStore.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-Context.displayName = 'ViewStore';
+ViewStore.defaultProps = {};
 
 export default ViewStore;
 
