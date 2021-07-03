@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import { createUseStyles } from 'react-jss';
-import threeEntryPoint from '../../three/threeEntryPoint';
-import { useSelectionStore } from '../../stores/SelectionStore';
-import { useGltfStore } from '../../stores/GltfStore';
-import { useSnackbarStore } from '../../stores/SnackbarStore';
+import threeEntryPoint from '../three/threeEntryPoint';
+import { useSelectionStore } from '../stores/SelectionStore';
+import { useGltfStore } from '../stores/GltfStore';
+import { useSnackbarStore } from '../stores/SnackbarStore';
 
 const useStyles = createUseStyles((theme) => ({
   threeEntryPoint: {
@@ -12,6 +12,11 @@ const useStyles = createUseStyles((theme) => ({
     background: `linear-gradient(180deg, ${theme.palette.background.absolute} 0%, ${theme.palette.background.viewerHighlight} 45%, ${theme.palette.background.viewerHighlight} 60%, ${theme.palette.background.absolute} 100%)`,
   },
 }));
+
+const getDefaultScale = (gltf) =>
+  gltf.userData.scale
+    ? [gltf.userData.scale.x, gltf.userData.scale.y, gltf.userData.scale.z]
+    : [1, 1, 1];
 
 const ObjectView = () => {
   const cls = useStyles();
@@ -30,7 +35,8 @@ const ObjectView = () => {
           gltfs[selected].scene.visible = true;
           gltfs[selected].scene.position.set(0, -0.25, 0);
           gltfs[selected].scene.rotation.set(0, 0, 0);
-          gltfs[selected].scene.scale.set(1, 1, 1);
+          const defaultScale = getDefaultScale(gltfs[selected]);
+          gltfs[selected].scene.scale.set(...defaultScale);
           threeScene.current.add(gltfs[selected].scene);
         }
       } catch (err) {
@@ -52,7 +58,8 @@ const ObjectView = () => {
         gltfs[selected].scene.visible = true;
         gltfs[selected].scene.position.set(0, -0.25, 0);
         gltfs[selected].scene.rotation.set(0, 0, 0);
-        gltfs[selected].scene.scale.set(1, 1, 1);
+        const defaultScale = getDefaultScale(gltfs[selected]);
+        gltfs[selected].scene.scale.set(...defaultScale);
         threeScene.current.add(gltfs[selected].scene);
       }
     }
@@ -60,5 +67,11 @@ const ObjectView = () => {
 
   return <div className={cls.threeEntryPoint} ref={threeWrapper} id="threeWrapper" />;
 };
+
+ObjectView.displayName = 'ObjectView';
+
+ObjectView.propTypes = {};
+
+ObjectView.defaultProps = {};
 
 export default ObjectView;

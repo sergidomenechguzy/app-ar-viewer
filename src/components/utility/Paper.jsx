@@ -21,9 +21,13 @@ const Paper = ({ children, className }) => {
   );
 };
 
+Paper.displayName = 'Paper';
+
 Paper.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
 };
+
+Paper.defaultProps = {};
 
 export default Paper;

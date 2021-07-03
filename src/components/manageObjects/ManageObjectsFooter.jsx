@@ -56,4 +56,10 @@ const ManageObjectsFooter = () => {
   );
 };
 
+ManageObjectsFooter.displayName = 'ManageObjectsFooter';
+
+ManageObjectsFooter.propTypes = {};
+
+ManageObjectsFooter.defaultProps = {};
+
 export default ManageObjectsFooter;

@@ -40,6 +40,8 @@ const BaseIcon = ({ children, color, size, viewBox, className }) => {
   );
 };
 
+BaseIcon.displayName = 'BaseIcon';
+
 BaseIcon.propTypes = {
   children: PropTypes.node.isRequired,
   color: PropTypes.oneOf([

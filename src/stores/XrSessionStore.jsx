@@ -4,7 +4,7 @@ import WebXRPolyfill from 'webxr-polyfill';
 
 const Context = createContext();
 
-const XRSessionStore = ({ children }) => {
+const XrSessionStore = ({ children }) => {
   const xrSession = useRef(null);
   const [supportsWebXR, setSupportsWebXR] = useState(false);
 
@@ -26,13 +26,17 @@ const XRSessionStore = ({ children }) => {
   return <Context.Provider value={{ xrSession, supportsWebXR }}>{children}</Context.Provider>;
 };
 
-XRSessionStore.propTypes = {
+XrSessionStore.displayName = 'XrSessionStore';
+
+XrSessionStore.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default XRSessionStore;
+XrSessionStore.defaultProps = {};
 
-export const useXRSession = () => {
+export default XrSessionStore;
+
+export const useXrSession = () => {
   const { xrSession, ...rest } = useContext(Context);
 
   const onSessionEnded = useCallback(() => {

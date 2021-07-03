@@ -83,18 +83,26 @@ const useFadeStyles = createUseStyles({
   },
 });
 
-const useSlideStyles = createUseStyles({
+const useSlideStyles = createUseStyles((theme) => ({
   modal: {
     transition: ({ duration }) => `transform ${duration}ms ease-in-out`,
     transform: 'translate3d(0, 100vh, 0)',
+
+    [theme.breakpoints.up('md')]: {
+      transform: 'translate3d(100vw, 0, 0)',
+    },
   },
   enteredModal: {
-    transform: 'translate3d(0, 0, 0)',
+    transform: 'translate3d(0, 0, 0) !important',
   },
   exitingModal: {
     transform: 'translate3d(0, 100vh, 0)',
+
+    [theme.breakpoints.up('md')]: {
+      transform: 'translate3d(100vw, 0, 0)',
+    },
   },
-});
+}));
 
 const Modal = ({
   children,
@@ -156,6 +164,8 @@ const Modal = ({
     document.getElementById('root')
   );
 };
+
+Modal.displayName = 'Modal';
 
 Modal.propTypes = {
   children: PropTypes.node.isRequired,

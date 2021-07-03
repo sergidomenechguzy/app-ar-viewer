@@ -45,6 +45,8 @@ const ButtonBase = ({
   );
 };
 
+ButtonBase.displayName = 'ButtonBase';
+
 ButtonBase.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,

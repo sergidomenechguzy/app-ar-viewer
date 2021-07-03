@@ -80,6 +80,8 @@ const Switch = ({ value, setValue, color, size, disabled, ariaLabel }) => {
   );
 };
 
+Switch.displayName = 'Switch';
+
 Switch.propTypes = {
   value: PropTypes.bool.isRequired,
   setValue: PropTypes.func.isRequired,

@@ -14,9 +14,19 @@ import Button from '../buttons/Button';
 const useStyles = createUseStyles((theme) => ({
   modal: {
     position: 'fixed',
-    left: theme.spacing(1),
-    top: theme.spacing(13),
-    maxWidth: '85%',
+    maxWidth: '95%',
+
+    [theme.breakpoints.down('sm')]: {
+      left: theme.spacing(1),
+      top: theme.spacing(12),
+    },
+
+    [theme.breakpoints.up('md')]: {
+      top: theme.spacing(9),
+      width: '400px',
+      right: 0,
+      marginRight: theme.spacing(5),
+    },
 
     '&:before': {
       content: '""',
@@ -24,9 +34,13 @@ const useStyles = createUseStyles((theme) => ({
       transform: 'rotate(45deg)',
       width: theme.spacing(3),
       height: theme.spacing(3),
-      left: theme.spacing(2.5),
+      left: theme.spacing(2.25),
       top: theme.spacing(-1),
       backgroundColor: theme.palette.background.paper,
+
+      [theme.breakpoints.up('md')]: {
+        left: theme.spacing(2),
+      },
     },
   },
   info: {
@@ -76,9 +90,13 @@ const InfoModal = ({ open, onClose }) => {
   );
 };
 
+InfoModal.displayName = 'InfoModal';
+
 InfoModal.propTypes = {
   open: PropTypes.bool,
   onClick: PropTypes.func,
 };
+
+InfoModal.defaultProps = {};
 
 export default InfoModal;

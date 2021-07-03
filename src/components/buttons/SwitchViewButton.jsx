@@ -5,13 +5,13 @@ import { useViewStore } from '../../stores/ViewStore';
 import FloatingButton from './FloatingButton';
 import ThreeDViewerIcon from '../icons/ThreeDViewerIcon';
 import ArViewerIcon from '../icons/ArViewerIcon';
-import { useXRSession } from '../../stores/XRSessionStore';
+import { useXrSession } from '../../stores/XrSessionStore';
 import requestSession from '../../three/requestSession';
 import { useSnackbarStore } from '../../stores/SnackbarStore';
 
 const SwitchViewButton = ({ className }) => {
   const { currentView, dispatch } = useViewStore();
-  const { xrSession, endSession, clearSession, supportsWebXR } = useXRSession();
+  const { xrSession, endSession, clearSession, supportsWebXR } = useXrSession();
   const { addSnackbarMessage } = useSnackbarStore();
   const { t } = useTranslation();
 
@@ -38,8 +38,12 @@ const SwitchViewButton = ({ className }) => {
   ) : null;
 };
 
+SwitchViewButton.displayName = 'SwitchViewButton';
+
 SwitchViewButton.propTypes = {
   className: PropTypes.string,
 };
+
+SwitchViewButton.defaultProps = {};
 
 export default SwitchViewButton;

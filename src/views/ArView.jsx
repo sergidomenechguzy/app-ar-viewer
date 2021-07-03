@@ -2,14 +2,14 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import { useTranslation } from 'react-i18next';
 import { useGesture } from 'react-use-gesture';
-import threeEntryPoint from '../../three/threeEntryPoint';
-import { useXRSession } from '../../stores/XRSessionStore';
-import { useSelectionStore } from '../../stores/SelectionStore';
-import { useGltfStore } from '../../stores/GltfStore';
-import FloatingButton from '../buttons/FloatingButton';
-import ArExplainAnimation from './ArExplainAnimation';
-import { useSnackbarStore } from '../../stores/SnackbarStore';
-import HideWrapper from '../utility/HideWrapper';
+import threeEntryPoint from '../three/threeEntryPoint';
+import { useXrSession } from '../stores/XrSessionStore';
+import { useSelectionStore } from '../stores/SelectionStore';
+import { useGltfStore } from '../stores/GltfStore';
+import FloatingButton from '../components/buttons/FloatingButton';
+import ArExplainAnimation from '../components/icons/ArExplainAnimation';
+import { useSnackbarStore } from '../stores/SnackbarStore';
+import HideWrapper from '../components/utility/HideWrapper';
 
 const useStyles = createUseStyles((theme) => ({
   threeEntryPoint: {
@@ -41,7 +41,7 @@ const ArView = () => {
   const threeRenderer = useRef(null);
   const [placed, setPlaced] = useState(false);
   const [hitTest, setHitTest] = useState(false);
-  const { xrSession } = useXRSession();
+  const { xrSession } = useXrSession();
   const { selected } = useSelectionStore();
   const { gltfs } = useGltfStore();
   const { t } = useTranslation();
@@ -91,7 +91,7 @@ const ArView = () => {
   const handlePinch = useCallback(
     ({ offset: [scale] }) => {
       if (gltfs[selected]) {
-        gltfs[selected].scene.userData.scale = scale / 200;
+        gltfs[selected].scene.userData.pinchScale = scale / 200;
       }
     },
     [gltfs, selected]
@@ -99,7 +99,7 @@ const ArView = () => {
 
   const handlePinchEnd = useCallback(() => {
     if (gltfs[selected]) {
-      delete gltfs[selected].scene.userData.scale;
+      delete gltfs[selected].scene.userData.pinchScale;
     }
   }, [gltfs, selected]);
 
@@ -131,6 +131,7 @@ const ArView = () => {
           threeRenderer.current = renderer;
           if (gltfs && selected) {
             gltfs[selected].scene.visible = false;
+            gltfs[selected].scene.userData = gltfs[selected].userData;
             gltfs[selected].scene.userData.placed = false;
             gltfs[selected].scene.position.set(0, 0, 0);
             threeScene.current.add(gltfs[selected].scene);
@@ -157,6 +158,7 @@ const ArView = () => {
       }
       if (gltfs && selected) {
         gltfs[selected].scene.visible = false;
+        gltfs[selected].scene.userData = gltfs[selected].userData;
         gltfs[selected].scene.userData.placed = false;
         gltfs[selected].scene.position.set(0, 0, 0);
         threeScene.current.add(gltfs[selected].scene);
@@ -182,5 +184,11 @@ const ArView = () => {
     </>
   ) : null;
 };
+
+ArView.displayName = 'ArView';
+
+ArView.propTypes = {};
+
+ArView.defaultProps = {};
 
 export default ArView;

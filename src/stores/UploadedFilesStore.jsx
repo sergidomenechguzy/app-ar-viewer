@@ -13,11 +13,13 @@ const UploadedFilesStore = ({ children }) => {
   return <Context.Provider value={value}>{children}</Context.Provider>;
 };
 
+UploadedFilesStore.displayName = 'UploadedFilesStore';
+
 UploadedFilesStore.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-UploadedFilesStore.displayName = 'UploadedFilesStore';
+UploadedFilesStore.defaultProps = {};
 
 export default UploadedFilesStore;
 

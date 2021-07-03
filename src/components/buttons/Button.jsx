@@ -65,6 +65,8 @@ const Button = ({ children, variant, color, disabled, className, ...rest }) => {
   );
 };
 
+Button.displayName = 'Button';
+
 Button.propTypes = {
   children: PropTypes.node.isRequired,
   variant: PropTypes.oneOf(['default', 'outlined', 'filled']),

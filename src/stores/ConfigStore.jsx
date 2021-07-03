@@ -22,11 +22,13 @@ const ConfigStore = ({ children }) => {
   ) : null;
 };
 
+ConfigStore.displayName = 'ConfigStore';
+
 ConfigStore.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-Context.displayName = 'ConfigStore';
+ConfigStore.defaultProps = {};
 
 export default ConfigStore;
 

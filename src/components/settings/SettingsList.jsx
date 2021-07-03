@@ -29,9 +29,13 @@ const SettingsList = ({ children, className, ...rest }) => {
   );
 };
 
+SettingsList.displayName = 'SettingsList';
+
 SettingsList.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
 };
+
+SettingsList.defaultProps = {};
 
 export default SettingsList;

@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import { tryFetchJson5 } from 'fetch-json5/src';
 import { ThemeProvider } from 'react-jss';
 import deepmerge from 'deepmerge';
+import { createBreakpointDown, createBreakpointUp, createSpacing } from '../utils';
 
 const Context = createContext();
-
-// https://blog.bitsrc.io/how-to-sync-your-react-app-with-the-system-color-scheme-78c0ad00074b
 
 const ThemeStore = ({ children }) => {
   const [baseTheme, setBaseTheme] = useState(null);
@@ -21,19 +20,10 @@ const ThemeStore = ({ children }) => {
   };
 
   const fetchAndBuildBaseTheme = async () => {
-    const createSpacing = (theme) => {
-      const themeSpacing = theme.spacingUnit || 8;
-
-      return (...args) =>
-        args.reduce(
-          (acc, curr, index) =>
-            index !== 0 ? `${acc} ${curr * themeSpacing}px` : `${curr * themeSpacing}px`,
-          ['']
-        );
-    };
-
     const fetchedTheme = await tryFetchJson5('theme/baseTheme.json5');
     fetchedTheme.spacing = createSpacing(fetchedTheme);
+    fetchedTheme.breakpoints.up = createBreakpointUp(fetchedTheme);
+    fetchedTheme.breakpoints.down = createBreakpointDown(fetchedTheme);
     setBaseTheme(fetchedTheme);
     return fetchedTheme;
   };
@@ -64,11 +54,13 @@ const ThemeStore = ({ children }) => {
   ) : null;
 };
 
+ThemeStore.displayName = 'ThemeStore';
+
 ThemeStore.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-Context.displayName = 'ThemeStore';
+ThemeStore.defaultProps = {};
 
 export default ThemeStore;
 

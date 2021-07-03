@@ -50,11 +50,13 @@ const SnackbarStore = ({ children }) => {
   );
 };
 
+SnackbarStore.displayName = 'SnackbarStore';
+
 SnackbarStore.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-Context.displayName = 'SnackbarStore';
+SnackbarStore.defaultProps = {};
 
 export default SnackbarStore;
 

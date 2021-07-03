@@ -23,9 +23,13 @@ const FloatingButton = ({ children, className, ...rest }) => {
   );
 };
 
+FloatingButton.displayName = 'FloatingButton';
+
 FloatingButton.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
 };
+
+FloatingButton.defaultProps = {};
 
 export default FloatingButton;

@@ -44,4 +44,10 @@ const ReminderOverlay = () => {
   );
 };
 
+ReminderOverlay.displayName = 'ReminderOverlay';
+
+ReminderOverlay.propTypes = {};
+
+ReminderOverlay.defaultProps = {};
+
 export default ReminderOverlay;

@@ -27,10 +27,14 @@ const InfoElement = ({ info, icon, className }) => {
   );
 };
 
+InfoElement.displayName = 'InfoElement';
+
 InfoElement.propTypes = {
   info: PropTypes.string.isRequired,
   icon: PropTypes.element.isRequired,
   className: PropTypes.string,
 };
+
+InfoElement.defaultProps = {};
 
 export default InfoElement;

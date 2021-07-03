@@ -51,6 +51,8 @@ const Typography = ({ children, className, variant, color }) => {
   return <div className={clsx(cls[variant], cls.typography, className)}>{children}</div>;
 };
 
+Typography.displayName = 'Typography';
+
 Typography.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,

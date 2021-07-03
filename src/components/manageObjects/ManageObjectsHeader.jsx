@@ -15,6 +15,11 @@ const useStyles = createUseStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+  expand: {
+    [theme.breakpoints.up('md')]: {
+      transform: 'rotate(-90deg)',
+    },
+  },
 }));
 
 const ManageObjectsHeader = ({ onClose }) => {
@@ -29,7 +34,7 @@ const ManageObjectsHeader = ({ onClose }) => {
           <InfoIcon size={'h5'} />
         </IconButton>
         <IconButton onClick={onClose} ariaLabel={t('close menu')}>
-          <ExpandIcon size={'h5'} />
+          <ExpandIcon size={'h5'} className={cls.expand} />
         </IconButton>
       </div>
       <InfoModal open={isOpen} onClose={setClosed} />
@@ -37,8 +42,12 @@ const ManageObjectsHeader = ({ onClose }) => {
   );
 };
 
+ManageObjectsHeader.displayName = 'ManageObjectsHeader';
+
 ManageObjectsHeader.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
+
+ManageObjectsHeader.defaultProps = {};
 
 export default ManageObjectsHeader;

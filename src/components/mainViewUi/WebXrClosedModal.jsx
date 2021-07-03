@@ -41,4 +41,10 @@ const WebXrClosedModal = ({ open, onClose }) => {
   );
 };
 
+WebXrClosedModal.displayName = 'WebXrClosedModal';
+
+WebXrClosedModal.propTypes = {};
+
+WebXrClosedModal.defaultProps = {};
+
 export default WebXrClosedModal;

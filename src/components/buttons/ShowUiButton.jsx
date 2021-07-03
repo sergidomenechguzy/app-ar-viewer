@@ -21,7 +21,7 @@ const useStyles = createUseStyles((theme) => ({
   },
 }));
 
-const ShowUIButton = () => {
+const ShowUiButton = () => {
   const cls = useStyles();
   const { setVisible } = useHideUiStore();
   const { t } = useTranslation();
@@ -37,4 +37,10 @@ const ShowUIButton = () => {
   );
 };
 
-export default ShowUIButton;
+ShowUiButton.displayName = 'ShowUiButton';
+
+ShowUiButton.propTypes = {};
+
+ShowUiButton.defaultProps = {};
+
+export default ShowUiButton;

@@ -18,8 +18,12 @@ const Divider = ({ className }) => {
   return <hr className={clsx(cls.divider, className)} />;
 };
 
+Divider.displayName = 'Divider';
+
 Divider.propTypes = {
   className: PropTypes.string,
 };
+
+Divider.defaultProps = {};
 
 export default Divider;

@@ -68,6 +68,7 @@ const ObjectListElement = ({
   actionLabel,
   confirmText,
   confirmTextOffline,
+  translateName,
 }) => {
   const cls = useStyles();
   const [isOpen, setOpened, setClosed] = useOpenState(false);
@@ -97,7 +98,7 @@ const ObjectListElement = ({
             )}
           </div>
           <div className={cls.elementInfo}>
-            <Typography variant="h6">{file.name}</Typography>
+            <Typography variant="h6">{translateName ? t(file.name) : file.name}</Typography>
             <Typography variant="body2">{t(file.category)}</Typography>
             <Typography variant="caption" color="hint">
               {fileSize(file.size)}
@@ -129,6 +130,8 @@ const ObjectListElement = ({
   );
 };
 
+ObjectListElement.displayName = 'ObjectListElement';
+
 ObjectListElement.propTypes = {
   file: PropTypes.shape({}).isRequired,
   last: PropTypes.bool,
@@ -140,12 +143,14 @@ ObjectListElement.propTypes = {
   actionLabel: PropTypes.string,
   confirmText: PropTypes.string,
   confirmTextOffline: PropTypes.string,
+  translateName: PropTypes.bool,
 };
 
 ObjectListElement.defaultProps = {
   last: false,
   selected: false,
   confirmAction: false,
+  translateName: true,
 };
 
 export default ObjectListElement;

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { createUseStyles } from 'react-jss';
 import { useSnackbarStore } from '../../stores/SnackbarStore';
 import { useViewStore } from '../../stores/ViewStore';
-import { useXRSession } from '../../stores/XRSessionStore';
+import { useXrSession } from '../../stores/XrSessionStore';
 import requestSession from '../../three/requestSession';
 import Button from '../buttons/Button';
 import Modal from '../utility/Modal';
@@ -23,7 +23,7 @@ const WebXrSupportedModal = ({ open, onClose }) => {
   const cls = useStyles();
   const { t } = useTranslation();
   const { dispatch } = useViewStore();
-  const { xrSession, clearSession } = useXRSession();
+  const { xrSession, clearSession } = useXrSession();
   const { addSnackbarMessage } = useSnackbarStore();
 
   const startAr = useCallback(async () => {
@@ -69,5 +69,11 @@ const WebXrSupportedModal = ({ open, onClose }) => {
     </Modal>
   );
 };
+
+WebXrSupportedModal.displayName = 'WebXrSupportedModal';
+
+WebXrSupportedModal.propTypes = {};
+
+WebXrSupportedModal.defaultProps = {};
 
 export default WebXrSupportedModal;

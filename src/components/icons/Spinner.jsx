@@ -68,6 +68,8 @@ const Spinner = ({ variant, color, size, viewBox, className }) => {
   );
 };
 
+Spinner.displayName = 'Spinner';
+
 Spinner.propTypes = {
   variant: PropTypes.oneOf(['small', 'medium', 'big', 'biggest']),
   color: PropTypes.oneOf([

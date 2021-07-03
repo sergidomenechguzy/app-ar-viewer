@@ -62,4 +62,10 @@ const ArExplainAnimation = () => {
   );
 };
 
+ArExplainAnimation.displayName = 'ArExplainAnimation';
+
+ArExplainAnimation.propTypes = {};
+
+ArExplainAnimation.defaultProps = {};
+
 export default ArExplainAnimation;

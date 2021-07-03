@@ -26,6 +26,7 @@ const ObjectList = ({
   actionIcon,
   confirmAction,
   alternative,
+  translateName,
 }) => {
   const cls = useStyles();
   const { selected, selectAndLoad, resetSelected } = useSelectionStore();
@@ -135,6 +136,7 @@ const ObjectList = ({
               actionLabel={actionLabel[action]}
               confirmText={confirmText[action]}
               confirmTextOffline={confirmTextOffline[action]}
+              translateName={translateName}
             />
           ))}
         </ul>
@@ -145,6 +147,8 @@ const ObjectList = ({
   );
 };
 
+ObjectList.displayName = 'ObjectList';
+
 ObjectList.propTypes = {
   files: PropTypes.array.isRequired,
   onClick: PropTypes.func,
@@ -154,6 +158,9 @@ ObjectList.propTypes = {
   actionIcon: PropTypes.element,
   confirmAction: PropTypes.bool,
   alternative: PropTypes.node,
+  translateName: PropTypes.bool,
 };
+
+ObjectList.defaultProps = {};
 
 export default ObjectList;

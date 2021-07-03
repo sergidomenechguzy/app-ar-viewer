@@ -47,11 +47,15 @@ const SettingsListElement = ({ className, icon, name, action, info }) => {
   );
 };
 
+SettingsListElement.displayName = 'SettingsListElement';
+
 SettingsListElement.propTypes = {
   className: PropTypes.string,
   icon: PropTypes.element,
   name: PropTypes.string.isRequired,
   action: PropTypes.element,
 };
+
+SettingsListElement.defaultProps = {};
 
 export default SettingsListElement;

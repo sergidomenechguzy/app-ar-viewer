@@ -11,11 +11,13 @@ const SelectionStore = ({ children }) => {
   return <Context.Provider value={value}>{children}</Context.Provider>;
 };
 
+SelectionStore.displayName = 'SelectionStore';
+
 SelectionStore.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-Context.displayName = 'SelectionStore';
+SelectionStore.defaultProps = {};
 
 export default SelectionStore;
 

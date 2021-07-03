@@ -76,6 +76,8 @@ const Snackbar = ({ open, onClose, message, duration, variant }) => {
   );
 };
 
+Snackbar.displayName = 'Snackbar';
+
 Snackbar.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
