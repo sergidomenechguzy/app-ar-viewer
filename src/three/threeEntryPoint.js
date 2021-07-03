@@ -199,8 +199,10 @@ const applyGestureTransformation = () => {
   if (selectedObject?.userData?.rotate) {
     selectedObject.rotateY(selectedObject.userData.rotate);
   }
-  if (selectedObject?.userData?.scale) {
-    const scale = Math.min(5, Math.max(0.1, 1 + selectedObject.userData.scale));
+  if (selectedObject?.userData?.pinchScale) {
+    const originalScale = selectedObject.userData.scale?.x || 1;
+    const scale =
+      Math.min(5, Math.max(0.1, 1 + selectedObject.userData.pinchScale)) * originalScale;
     selectedObject.scale.set(scale, scale, scale);
   }
 };

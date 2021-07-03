@@ -92,9 +92,9 @@
       thumbnail: 'media/scale/scale.png',
       metalness: 0.5,
       scale: {
-        x: 0.1,
-        y: 0.1,
-        z: 0.1,
+        x: 0.08,
+        y: 0.08,
+        z: 0.08,
       },
     },
   ],

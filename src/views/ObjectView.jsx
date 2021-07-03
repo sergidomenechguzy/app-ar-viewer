@@ -13,6 +13,11 @@ const useStyles = createUseStyles((theme) => ({
   },
 }));
 
+const getDefaultScale = (gltf) =>
+  gltf.userData.scale
+    ? [gltf.userData.scale.x, gltf.userData.scale.y, gltf.userData.scale.z]
+    : [1, 1, 1];
+
 const ObjectView = () => {
   const cls = useStyles();
   const threeWrapper = useRef(null);
@@ -30,7 +35,8 @@ const ObjectView = () => {
           gltfs[selected].scene.visible = true;
           gltfs[selected].scene.position.set(0, -0.25, 0);
           gltfs[selected].scene.rotation.set(0, 0, 0);
-          gltfs[selected].scene.scale.set(1, 1, 1);
+          const defaultScale = getDefaultScale(gltfs[selected]);
+          gltfs[selected].scene.scale.set(...defaultScale);
           threeScene.current.add(gltfs[selected].scene);
         }
       } catch (err) {
@@ -52,7 +58,8 @@ const ObjectView = () => {
         gltfs[selected].scene.visible = true;
         gltfs[selected].scene.position.set(0, -0.25, 0);
         gltfs[selected].scene.rotation.set(0, 0, 0);
-        gltfs[selected].scene.scale.set(1, 1, 1);
+        const defaultScale = getDefaultScale(gltfs[selected]);
+        gltfs[selected].scene.scale.set(...defaultScale);
         threeScene.current.add(gltfs[selected].scene);
       }
     }

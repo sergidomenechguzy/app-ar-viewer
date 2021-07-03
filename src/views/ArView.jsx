@@ -91,7 +91,7 @@ const ArView = () => {
   const handlePinch = useCallback(
     ({ offset: [scale] }) => {
       if (gltfs[selected]) {
-        gltfs[selected].scene.userData.scale = scale / 200;
+        gltfs[selected].scene.userData.pinchScale = scale / 200;
       }
     },
     [gltfs, selected]
@@ -99,7 +99,7 @@ const ArView = () => {
 
   const handlePinchEnd = useCallback(() => {
     if (gltfs[selected]) {
-      delete gltfs[selected].scene.userData.scale;
+      delete gltfs[selected].scene.userData.pinchScale;
     }
   }, [gltfs, selected]);
 
@@ -131,6 +131,7 @@ const ArView = () => {
           threeRenderer.current = renderer;
           if (gltfs && selected) {
             gltfs[selected].scene.visible = false;
+            gltfs[selected].scene.userData = gltfs[selected].userData;
             gltfs[selected].scene.userData.placed = false;
             gltfs[selected].scene.position.set(0, 0, 0);
             threeScene.current.add(gltfs[selected].scene);
@@ -157,6 +158,7 @@ const ArView = () => {
       }
       if (gltfs && selected) {
         gltfs[selected].scene.visible = false;
+        gltfs[selected].scene.userData = gltfs[selected].userData;
         gltfs[selected].scene.userData.placed = false;
         gltfs[selected].scene.position.set(0, 0, 0);
         threeScene.current.add(gltfs[selected].scene);
