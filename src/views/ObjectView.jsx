@@ -4,6 +4,7 @@ import threeEntryPoint from '../three/threeEntryPoint';
 import { useSelectionStore } from '../stores/SelectionStore';
 import { useGltfStore } from '../stores/GltfStore';
 import { useSnackbarStore } from '../stores/SnackbarStore';
+import { getDefaultRotation, getDefaultScale } from '../utils';
 
 const useStyles = createUseStyles((theme) => ({
   threeEntryPoint: {
@@ -12,11 +13,6 @@ const useStyles = createUseStyles((theme) => ({
     background: `linear-gradient(180deg, ${theme.palette.background.absolute} 0%, ${theme.palette.background.viewerHighlight} 45%, ${theme.palette.background.viewerHighlight} 60%, ${theme.palette.background.absolute} 100%)`,
   },
 }));
-
-const getDefaultScale = (gltf) =>
-  gltf.userData.scale
-    ? [gltf.userData.scale.x, gltf.userData.scale.y, gltf.userData.scale.z]
-    : [1, 1, 1];
 
 const ObjectView = () => {
   const cls = useStyles();
@@ -33,8 +29,9 @@ const ObjectView = () => {
         threeScene.current = scene;
         if (gltfs && selected) {
           gltfs[selected].scene.visible = true;
-          gltfs[selected].scene.position.set(0, -0.25, 0);
-          gltfs[selected].scene.rotation.set(0, 0, 0);
+          gltfs[selected].scene.position.set(0, -0.5, 0);
+          const defaultRotarion = getDefaultRotation(gltfs[selected]);
+          gltfs[selected].scene.rotation.set(...defaultRotarion);
           const defaultScale = getDefaultScale(gltfs[selected]);
           gltfs[selected].scene.scale.set(...defaultScale);
           threeScene.current.add(gltfs[selected].scene);
@@ -56,8 +53,9 @@ const ObjectView = () => {
       }
       if (gltfs && selected) {
         gltfs[selected].scene.visible = true;
-        gltfs[selected].scene.position.set(0, -0.25, 0);
-        gltfs[selected].scene.rotation.set(0, 0, 0);
+        gltfs[selected].scene.position.set(0, -0.5, 0);
+        const defaultRotarion = getDefaultRotation(gltfs[selected]);
+        gltfs[selected].scene.rotation.set(...defaultRotarion);
         const defaultScale = getDefaultScale(gltfs[selected]);
         gltfs[selected].scene.scale.set(...defaultScale);
         threeScene.current.add(gltfs[selected].scene);

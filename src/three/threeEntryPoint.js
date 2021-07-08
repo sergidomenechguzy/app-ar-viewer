@@ -113,8 +113,8 @@ const init3dViewer = () => {
   addShadowLight();
 
   // Position ground plane and camera
-  ground.position.set(0, -0.25, 0);
-  camera.position.set(0, 1, 3);
+  ground.position.set(0, -0.5, 0);
+  camera.position.set(0, 1, 2);
 
   // Add controls for camera movement
   controls = new OrbitControls(camera, renderer.domElement);
