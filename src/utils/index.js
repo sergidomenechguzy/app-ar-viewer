@@ -69,3 +69,15 @@ export const createSpacing = (theme) => {
       ['']
     );
 };
+
+export const getDefaultScale = (gltf) => [
+  gltf?.userData?.scale?.x || 1,
+  gltf?.userData?.scale?.y || 1,
+  gltf?.userData?.scale?.z || 1,
+];
+
+export const getDefaultRotation = (gltf) => [
+  gltf?.userData?.rotation?.x || 0,
+  gltf?.userData?.rotation?.y || 0,
+  gltf?.userData?.rotation?.z || 0,
+];

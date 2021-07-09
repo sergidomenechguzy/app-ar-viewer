@@ -6,11 +6,8 @@ const gltfLoader = new GLTFLoader();
 
 const setTransform = (object, transform, values) => {
   ['x', 'y', 'z'].forEach((key) => {
-    let transformValue = values[key];
+    const transformValue = values[key];
     if (transformValue && object[transform]) {
-      if (transform === 'rotation') {
-        transformValue = Math3.degToRad(transformValue);
-      }
       // eslint-disable-next-line no-param-reassign
       object[transform][key] = transformValue;
     }
@@ -55,6 +52,14 @@ const loadGltf = async (path, userData) => {
   const gltf = await gltfLoader.loadAsync(path);
   gltf.userData = userData;
   gltf.scene.name = 'current';
+  if (gltf.userData.rotation) {
+    const rotationRad = {};
+    Object.keys(gltf.userData.rotation).forEach((key) => {
+      rotationRad[key] = Math3.degToRad(gltf.userData.rotation[key]);
+    });
+    // eslint-disable-next-line no-param-reassign
+    gltf.userData.rotation = rotationRad;
+  }
   ['position', 'rotation', 'scale'].forEach((key) => {
     if (gltf.userData[key]) {
       setTransform(gltf.scene, key, gltf.userData[key]);
